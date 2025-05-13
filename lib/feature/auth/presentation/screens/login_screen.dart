@@ -45,7 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      
+      resizeToAvoidBottomInset: false, // Changed to false
       body: SafeArea(
         child: SizedBox(
           width: screenWidth,
@@ -185,3 +185,4 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
+
