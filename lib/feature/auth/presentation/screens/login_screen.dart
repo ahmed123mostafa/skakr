@@ -5,6 +5,7 @@ import 'package:settings_app/core/constant/app_assets.dart';
 import 'package:settings_app/core/constant/app_colors.dart';
 import 'package:settings_app/core/constant/custom_bottom.dart';
 import 'package:settings_app/core/constant/custom_text_field.dart';
+import 'package:settings_app/feature/auth/presentation/screens/register_screen.dart';
 import 'package:settings_app/feature/auth/presentation/widget/wave_background_painter.dart';
 import 'package:settings_app/feature/main/home/presentation/home_view.dart';
 
@@ -45,15 +46,15 @@ class _LoginScreenState extends State<LoginScreen> {
     final screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      resizeToAvoidBottomInset: false, // Changed to false
+      
       body: SafeArea(
+
         child: SizedBox(
           width: screenWidth,
           height: screenHeight,
           child: CustomPaint(
             painter: WaveBackgroundPainter(),
             child: SingleChildScrollView(
-              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -170,8 +171,50 @@ class _LoginScreenState extends State<LoginScreen> {
                             },
                             width: 227,
                             height: 38,
-                            fontSize: 16,
+                            fontSize: 14,
                           ),
+                          SizedBox(height: 20.h,),
+                          Image.asset(AppAssets.or),
+                          SizedBox(height:20.h),
+                          CustomButton(
+                            text: "no_account".tr(),
+                            borderRadius: 20,
+                            onPressed: () {
+
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const RegisterScreen(),
+                                  ),
+                                );
+
+                            },
+                            width: 227,
+                            height: 38,
+                            fontSize: 14,
+                          ),
+                          SizedBox(height: 20.h,),
+                          Image.asset(AppAssets.or),
+                          SizedBox(height:20.h),
+                  
+                          CustomButton(
+                            text: "follow_a_guest".tr(),
+                            borderRadius: 20,
+                            onPressed: () {
+
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const HomeView(),
+                                  ),
+                                );
+                              },
+
+                            width: 227,
+                            height: 38,
+                            fontSize: 14,
+                          ),
+                  
                         ],
                       ),
                     ),
