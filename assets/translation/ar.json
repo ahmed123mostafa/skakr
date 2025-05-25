@@ -71,7 +71,15 @@
    "my_personal_account":"حسابي الشخصي",
    "(main_title)":"(عنوان أساسي)",
    "edit_address":"تعديل العنوان",
-   "current_address":"العنوان الحالي"
+   "current_address":"العنوان الحالي",
+   "name/number_of_the_building_(apartment-tower-villa)":"اسم/رقم المبني (عماره-برج-فيلا)",
+   "apartment/villa_number":"رقم الشقة/الفيلا",
+   "name_the_title_(House-Apartment-Office)":"قم بتسمية العنوان(منزل - شقة - مكتب)",
+   "choose_governorate":"اختر المحافظه",
+   "cairo":"القاهره",
+   "mansoura":"المنصوره"
+   
+   
 
   
   }

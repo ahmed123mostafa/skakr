@@ -45,4 +45,7 @@ class AppAssets {
      
       static const String favouretes = "assets/images/Vector 112 (1).png";
  static const String edite = "assets/images/Group (7).png";
+ static const String deleate = "assets/images/Group 231.png";
+ static const String forgetpassword = "assets/images/Forgot password-rafiki (2) 1.png";
+
 }

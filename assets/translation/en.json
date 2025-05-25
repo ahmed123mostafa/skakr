@@ -73,7 +73,13 @@
   "my_personal_account":"My Personal Account",
   "(main_title)":"(Main Title)",
   "edit_address":"Edit Address",
-  "current_address":"Current Address"
+  "current_address":"Current Address",
+  "name/number_of_the_building_(apartment-tower-villa)":"Name/number of the building (Apartment-tower-villa)",
+  "apartment/villa_number":"Apartment/villa number",
+  "name_the_title_(House-Apartment-Office)":"Name the title (House-Apartment-Office)",
+  "choose_governorate":"Choose Governorate",
+  "cairo":"Cairo",
+  "mansoura":"Mansoura"
   
 }
 

@@ -17,7 +17,7 @@ class CustomTextFormField extends StatefulWidget {
   final double hintFontSize;
   final TextInputAction? textInputAction;
   final ValueChanged<String>? onFieldSubmitted;
-  final FocusNode? focusNode;  // Added focusNode parameter
+  final FocusNode? focusNode;  
 
   const CustomTextFormField({
     super.key,
@@ -36,7 +36,7 @@ class CustomTextFormField extends StatefulWidget {
     this.hintFontSize = 12,
     this.textInputAction,
     this.onFieldSubmitted,
-    this.focusNode,  // Added focusNode parameter
+    this.focusNode,  
   });
 
   @override

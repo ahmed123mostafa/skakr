@@ -25,11 +25,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
   late TextEditingController phonenumbercontrroler;
   late TextEditingController governoratecontrrler;
   late TextEditingController regioncontrrler;
+  late TextEditingController cityController;
+  late TextEditingController streetController;
+  late TextEditingController floorController;
+  late TextEditingController flooridController;
+  late TextEditingController homeController;
+  late TextEditingController regionController;
 
   final formkey = GlobalKey<FormState>();
-  
+  bool isCairoSelected = false;
+  bool isMansouraSelected = false;
+  bool isCairoRegionSelected = false;
+  bool isMansouraRegionSelected = false;
+
   @override
   void initState() {
+    regionController = TextEditingController();
+    homeController = TextEditingController();
     regioncontrrler = TextEditingController();
     addressdetailscontrroler = TextEditingController();
     governoratecontrrler = TextEditingController();
@@ -39,6 +51,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
     confermpasswordcontrroler = TextEditingController();
     emailcontrroler = TextEditingController();
     passwordcontrroler = TextEditingController();
+    cityController = TextEditingController();
+    streetController = TextEditingController();
+    floorController = TextEditingController();
+    flooridController = TextEditingController();
+
     super.initState();
   }
 
@@ -50,7 +67,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     final screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       body: SafeArea(
         child: SizedBox(
           width: screenWidth,
@@ -104,6 +121,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               if (value!.isEmpty) {
                                 return " please Enter your first name";
                               }
+                              return null;
                             },
                             textInputType: TextInputType.text,
                             hintText: "first_name".tr(),
@@ -121,6 +139,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               if (value!.isEmpty) {
                                 return " please Enter your last name";
                               }
+                              return null;
                             },
                             textInputType: TextInputType.text,
                             hintText: "last_name".tr(),
@@ -138,6 +157,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               if (value!.isEmpty) {
                                 return " please Enter your phone number";
                               }
+                              return null;
                             },
                             textInputType: TextInputType.phone,
                             hintText:
@@ -156,6 +176,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               if (value!.isEmpty) {
                                 return " please Enter your email";
                               }
+                              return null;
                             },
                             textInputType: TextInputType.emailAddress,
                             hintText: "email_(optional)".tr(),
@@ -174,13 +195,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               if (value!.isEmpty) {
                                 return "Please enter your password";
                               }
-
                               if (value.length < 7) {
                                 return "password must be at least 7 digits";
                               }
+                              return null;
                             },
-                            hintText:
-                                "password_(not_less_than_8_letters)".tr(),
+                            hintText: "password_(not_less_than_8_letters)".tr(),
                             obscureText: ispassword,
                             subfix: IconButton(
                               onPressed: () {
@@ -209,10 +229,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               if (value!.isEmpty) {
                                 return "Please enter your confirm password";
                               }
-
-                              if (value.length < 7) {
-                                return "password must be at least 7 digits";
+                              if (value != passwordcontrroler.text) {
+                                return "Passwords do not match";
                               }
+                              return null;
                             },
                             hintText: "confirm_password".tr(),
                             obscureText: ispassword,
@@ -256,22 +276,100 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             Expanded(
                               child: Padding(
                                 padding: const EdgeInsets.only(right: 8),
-                                child: CustomTextFormField(
-                                  controller: governoratecontrrler,
-                                  validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return "Please enter your governorate";
-                                    }
-                                    return null;
-                                  },
-                                  hintText: "governorate".tr(),
-                                  obscureText: ispassword,
-                                  subfix: IconButton(
-                                    onPressed: () {},
-                                    icon: const Icon(Icons.arrow_drop_down,
-                                        size: 30),
-                                    color: const Color(0xff231F20),
-                                  ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      width: 145,
+                                      height: 50,
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 12, vertical: 8),
+                                      decoration: BoxDecoration(
+                                        color: const Color(0xffEEEEEE),
+                                        borderRadius: BorderRadius.circular(4),
+                                      ),
+                                      child: Row(
+                                        children: [
+                                          Expanded(
+                                            child: Text(
+                                              governoratecontrrler.text.isEmpty
+                                                  ? "governorate".tr()
+                                                  : governoratecontrrler.text,
+                                              style: TextStyle(
+                                                fontSize: 12.sp,
+                                                color: const Color(0xff231F20),
+                                              ),
+                                            ),
+                                          ),
+                                          IconButton(
+                                            onPressed: () {
+                                              showDialog(
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return AlertDialog(
+                                                    title: Text(
+                                                        "choose_governorate"
+                                                            .tr()),
+                                                    content: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      children: [
+                                                        CheckboxListTile(
+                                                          title: Text(
+                                                              "cairo".tr()),
+                                                          value:
+                                                              isCairoSelected,
+                                                          onChanged:
+                                                              (bool? value) {
+                                                            setState(() {
+                                                              isCairoSelected =
+                                                                  value!;
+                                                              governoratecontrrler
+                                                                      .text =
+                                                                  "cairo".tr();
+                                                            });
+                                                          },
+                                                        ),
+                                                        CheckboxListTile(
+                                                          title: Text(
+                                                              "mansoura".tr()),
+                                                          value:
+                                                              isMansouraSelected,
+                                                          onChanged:
+                                                              (bool? value) {
+                                                            setState(() {
+                                                              isMansouraSelected =
+                                                                  value!;
+                                                              governoratecontrrler
+                                                                      .text =
+                                                                  "mansoura"
+                                                                      .tr(); // Update text in governorate
+                                                            });
+                                                          },
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    actions: [
+                                                      TextButton(
+                                                        child: Text("ok".tr()),
+                                                        onPressed: () {
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                        },
+                                                      ),
+                                                    ],
+                                                  );
+                                                },
+                                              );
+                                            },
+                                            icon: Image.asset(
+                                                "assets/images/Polygon 11.png"),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
@@ -279,22 +377,99 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             Expanded(
                               child: Padding(
                                 padding: const EdgeInsets.only(left: 8),
-                                child: CustomTextFormField(
-                                  controller: regioncontrrler,
-                                  validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return "Please enter your region";
-                                    }
-                                    return null;
-                                  },
-                                  hintText: "region".tr(),
-                                  obscureText: ispassword,
-                                  subfix: IconButton(
-                                    onPressed: () {},
-                                    icon: const Icon(Icons.arrow_drop_down,
-                                        size: 30),
-                                    color: const Color(0xff231F20),
-                                  ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      width: 145,
+                                      height: 50,
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 12, vertical: 8),
+                                      decoration: BoxDecoration(
+                                        color: const Color(0xffEEEEEE),
+                                        borderRadius: BorderRadius.circular(4),
+                                      ),
+                                      child: Row(
+                                        children: [
+                                          Expanded(
+                                            child: Text(
+                                              regioncontrrler.text.isEmpty
+                                                  ? "region".tr()
+                                                  : regioncontrrler.text,
+                                              style: TextStyle(
+                                                fontSize: 12.sp,
+                                                color: const Color(0xff231F20),
+                                              ),
+                                            ),
+                                          ),
+                                          IconButton(
+                                            onPressed: () {
+                                              showDialog(
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return AlertDialog(
+                                                    title: Text(
+                                                        "choose_region".tr()),
+                                                    content: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      children: [
+                                                        CheckboxListTile(
+                                                          title: Text(
+                                                              "cairo".tr()),
+                                                          value:
+                                                              isCairoRegionSelected,
+                                                          onChanged:
+                                                              (bool? value) {
+                                                            setState(() {
+                                                              isCairoRegionSelected =
+                                                                  value!;
+                                                              regioncontrrler
+                                                                      .text =
+                                                                  "cairo".tr();
+                                                            });
+                                                          },
+                                                        ),
+                                                        CheckboxListTile(
+                                                          title: Text(
+                                                              "mansoura".tr()),
+                                                          value:
+                                                              isMansouraRegionSelected,
+                                                          onChanged:
+                                                              (bool? value) {
+                                                            setState(() {
+                                                              isMansouraRegionSelected =
+                                                                  value!;
+                                                              regioncontrrler
+                                                                      .text =
+                                                                  "mansoura"
+                                                                      .tr();
+                                                            });
+                                                          },
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    actions: [
+                                                      TextButton(
+                                                        child: Text("ok".tr()),
+                                                        onPressed: () {
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                        },
+                                                      ),
+                                                    ],
+                                                  );
+                                                },
+                                              );
+                                            },
+                                            icon: Image.asset(
+                                                "assets/images/Polygon 11.png"),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
@@ -303,11 +478,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         Padding(
                           padding: const EdgeInsets.only(right: 16, left: 16),
                           child: CustomTextFormField(
-                            controller: confermpasswordcontrroler,
+                            controller: cityController,
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return "Please enter your city";
                               }
+                              return null;
                             },
                             hintText: "city".tr(),
                           ),
@@ -315,13 +491,85 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         Padding(
                           padding: const EdgeInsets.only(right: 16, left: 16),
                           child: CustomTextFormField(
+                            controller: streetController,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Please enter your city";
+                              }
+                              return null;
+                            },
+                            hintText: "street".tr(),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 16, left: 16),
+                          child: CustomTextFormField(
+                            controller: floorController,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Please enter your city";
+                              }
+                              return null;
+                            },
+                            hintText:
+                                "name/number_of_the_building_(apartment-tower-villa)"
+                                    .tr(),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 16, left: 16),
+                          child: CustomTextFormField(
+                            controller: flooridController,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Please enter your governorate";
+                              }
+                              return null;
+                            },
+                            hintText: "floor".tr(),
+                            obscureText: false,
+                            textInputType: TextInputType.number,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 16, left: 16),
+                          child: CustomTextFormField(
+                            textInputType: TextInputType.number,
+                            controller: homeController,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Please enter your region";
+                              }
+                              return null;
+                            },
+                            hintText: "apartment/villa_number".tr(),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 16, left: 16),
+                          child: CustomTextFormField(
+                            controller: regionController,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Please enter your region";
+                              }
+                              return null;
+                            },
+                            hintText:
+                                "name_the_title_(House-Apartment-Office)".tr(),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 16, left: 16),
+                          child: CustomTextFormField(
+                            maxLines: 5,
                             controller: confermpasswordcontrroler,
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return "Please enter your address details";
                               }
                             },
-                            hintText: "address_details".tr(),
+                            hintText: "delivery_instructions".tr(),
                           ),
                         ),
                         40.verticalSpace,
@@ -330,14 +578,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             width: 227.w,
                             height: 38.h,
                             text: "check_in".tr(),
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const LoginScreen(),
-                                ),
-                              );
-                            },
+                            onPressed: () {},
                           ),
                         ),
                         20.verticalSpace,
@@ -352,7 +593,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               );
                             },
                             child: Text(
-                              "already_have_account".tr(),
+                              "have_account".tr(),
                               style: TextStyle(
                                 color: AppColors.mainAppColor,
                                 fontSize: 14.sp,
@@ -372,4 +613,3 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 }
-

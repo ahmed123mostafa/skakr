@@ -16,37 +16,25 @@ class _ContentGridState extends State<ContentGrid> {
   final ScrollController _scrollController = ScrollController();
   final List<Map<String, String>> _allItems = [
     {'title': 'offers'.tr(), 'image': AppAssets.offers},
-    {
-      'title': 'fruits_and_vegetables'.tr(),
-      'image': AppAssets.fruitsandvegetables
-    },
+    {'title': 'fruits_and_vegetables'.tr(), 'image': AppAssets.fruitsandvegetables},
     {'title': 'fresh_food'.tr(), 'image': AppAssets.freshfood},
     {'title': 'baked'.tr(), 'image': AppAssets.baked},
     {'title': 'poultry_meat_seafood'.tr(), 'image': AppAssets.meat},
     {'title': 'ready_to_eat'.tr(), 'image': AppAssets.readytoeat},
     {'title': 'offers'.tr(), 'image': AppAssets.offers},
-    {
-      'title': 'fruits_and_vegetables'.tr(),
-      'image': AppAssets.fruitsandvegetables
-    },
+    {'title': 'fruits_and_vegetables'.tr(), 'image': AppAssets.fruitsandvegetables},
     {'title': 'fresh_food'.tr(), 'image': AppAssets.freshfood},
     {'title': 'baked'.tr(), 'image': AppAssets.baked},
     {'title': 'poultry_meat_seafood'.tr(), 'image': AppAssets.meat},
     {'title': 'ready_to_eat'.tr(), 'image': AppAssets.readytoeat},
     {'title': 'offers'.tr(), 'image': AppAssets.offers},
-    {
-      'title': 'fruits_and_vegetables'.tr(),
-      'image': AppAssets.fruitsandvegetables
-    },
+    {'title': 'fruits_and_vegetables'.tr(), 'image': AppAssets.fruitsandvegetables},
     {'title': 'fresh_food'.tr(), 'image': AppAssets.freshfood},
     {'title': 'baked'.tr(), 'image': AppAssets.baked},
     {'title': 'poultry_meat_seafood'.tr(), 'image': AppAssets.meat},
     {'title': 'ready_to_eat'.tr(), 'image': AppAssets.readytoeat},
     {'title': 'offers'.tr(), 'image': AppAssets.offers},
-    {
-      'title': 'fruits_and_vegetables'.tr(),
-      'image': AppAssets.fruitsandvegetables
-    },
+    {'title': 'fruits_and_vegetables'.tr(), 'image': AppAssets.fruitsandvegetables},
     {'title': 'fresh_food'.tr(), 'image': AppAssets.freshfood},
     {'title': 'baked'.tr(), 'image': AppAssets.baked},
     {'title': 'poultry_meat_seafood'.tr(), 'image': AppAssets.meat},
@@ -67,12 +55,10 @@ class _ContentGridState extends State<ContentGrid> {
 
   void _loadInitialItems() {
     final endIndex = _initialItems.clamp(0, _allItems.length);
-
     setState(() {
       _visibleItems = _allItems.sublist(0, endIndex);
       _showAll = false;
     });
-
     if (_allItems.isNotEmpty && _scrollController.hasClients) {
       _scrollToTop();
     }
@@ -80,7 +66,6 @@ class _ContentGridState extends State<ContentGrid> {
 
   void _loadAllItems() {
     if (_allItems.isEmpty) return;
-
     setState(() {
       _visibleItems = _allItems;
       _showAll = true;
@@ -88,16 +73,14 @@ class _ContentGridState extends State<ContentGrid> {
   }
 
   void _scrollToTop() {
-    _scrollController.animateTo(
-      0,
-      duration: const Duration(milliseconds: 500),
-      curve: Curves.easeInOut,
-    );
+    _scrollController.animateTo(0, duration: const Duration(milliseconds: 500), curve: Curves.easeInOut);
   }
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, designSize: const Size(360, 690));
+    final screenWidth = MediaQuery.of(context).size.width;
+    final crossAxisCount = screenWidth >= 600 ? 4 : 3;
+    final childAspectRatio = screenWidth >= 600 ? 0.9 : 0.8;
 
     return Padding(
       padding: EdgeInsets.all(16.w),
@@ -106,10 +89,10 @@ class _ContentGridState extends State<ContentGrid> {
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
+          crossAxisCount: crossAxisCount,
           crossAxisSpacing: 16.w,
           mainAxisSpacing: 16.h,
-          childAspectRatio: 0.8,
+          childAspectRatio: childAspectRatio,
         ),
         itemCount: _visibleItems.length + 1,
         itemBuilder: (context, index) {
@@ -153,9 +136,7 @@ class _ContentGridState extends State<ContentGrid> {
                 'view_more'.tr(),
                 style: TextStyle(
                   fontSize: 9.sp,
-                  color: _allItems.isNotEmpty
-                      ? AppColors.mainAppColor
-                      : Colors.grey,
+                  color: _allItems.isNotEmpty ? AppColors.mainAppColor : Colors.grey,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -196,7 +177,7 @@ class _ContentGridState extends State<ContentGrid> {
       borderRadius: BorderRadius.circular(15.r),
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) =>const ContentProduct()));
+            context, MaterialPageRoute(builder: (context) => const ContentProduct()));
       },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -208,7 +189,7 @@ class _ContentGridState extends State<ContentGrid> {
             fit: BoxFit.contain,
           ),
           Container(
-            width: 170,
+            width: double.infinity,
             height: 30,
             decoration: BoxDecoration(
               color: Colors.white,

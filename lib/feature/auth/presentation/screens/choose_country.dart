@@ -11,8 +11,6 @@ class ChooseBranchScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   
-
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
 
@@ -36,7 +34,6 @@ class ChooseBranchScreen extends StatelessWidget {
                     ),
                     child: Image.asset(AppAssets.logo, width: screenWidth),
                   ),
-                 
                   Container(
                     width: MediaQuery.sizeOf(context).width * .8,
                     padding: const EdgeInsets.symmetric(vertical: 20),
@@ -63,18 +60,19 @@ class ChooseBranchScreen extends StatelessWidget {
                             fontFamily: "Alexandria",
                             fontSize: 25.sp,
                             fontWeight: FontWeight.w700,
-                            color:const  Color(0xff5B173E),
+                            color: const Color(0xff5B173E),
                           ),
                         ),
                         SizedBox(height: 10.h),
                         CustomButton(
                           text: "cairo_branch".tr(),
                           onPressed: () {
-                            Navigator.push(
+                            Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
-                                builder: (context) =>const LoginScreen(),
+                                builder: (context) => const LoginScreen(),
                               ),
+                              (route) => false,
                             );
                           },
                           width: 260,
@@ -87,12 +85,12 @@ class ChooseBranchScreen extends StatelessWidget {
                           text: "mansoura_Branch".tr(),
                           borderRadius: 20,
                           onPressed: () {
-                             Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>const LoginScreen(),
-                              ),
-                            );
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const LoginScreen(),
+                                ),
+                            (route) => false);
                           },
                           width: 260,
                           height: 43,

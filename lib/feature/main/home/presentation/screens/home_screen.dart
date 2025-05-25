@@ -9,13 +9,14 @@ import 'package:settings_app/core/constant/app_colors.dart';
 
 import 'package:settings_app/core/constant/custom_text_field.dart';
 import 'package:settings_app/feature/main/home/presentation/screens/order_again.dart';
+import 'package:settings_app/feature/main/home/presentation/widget/custom_caesoudal_slidar.dart';
 import 'package:settings_app/feature/main/home/presentation/widget/custom_grid_view.dart';
+import 'package:settings_app/feature/main/home/presentation/widget/custom_marque.dart';
 import 'package:settings_app/feature/main/home/presentation/widget/custom_product_cart.dart';
 
 import '../widget/custom_best_seller.dart';
 import '../widget/custom_most_discount.dart';
 import '../widget/custom_new_arrival.dart';
-
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
@@ -60,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Expanded(
                       flex: 3,
                       child: Container(
-                        padding: const EdgeInsets.only(right: 20),
+                        padding: const EdgeInsets.only(right: 20, left: 20),
                         width: 107,
                         height: 43,
                         decoration: BoxDecoration(
@@ -114,8 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           borderRadius: BorderRadius.circular(16),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.grey.withOpacity(
-                                  0.3), // updated for visible shadow
+                              color: Colors.grey.withOpacity(0.3),
                               spreadRadius: 2,
                               blurRadius: 5,
                               offset: const Offset(0, 3),
@@ -151,57 +151,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   hintText: "type_here_the_one_you_want_to_search_for".tr(),
                 ),
               ),
-              CarouselSlider(
-                items: List.generate(
-                  4,
-                  (index) => Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 5),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
-                      child: Image.asset(
-                        AppAssets.banner,
-                        fit: BoxFit.cover,
-                        width: double.infinity,
-                      ),
-                    ),
-                  ),
-                ),
-                options: CarouselOptions(
-                  height: 140.h,
-                  autoPlay: true,
-                  enlargeCenterPage: true,
-                  enableInfiniteScroll: true,
-                  scrollPhysics: const BouncingScrollPhysics(),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: Container(
-                  height: 45,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Marquee(
-                    text:
-                        'wait_for_us_soon_wait_for_us_soon_wait_for_us_soon_wait_for_us_soon'
-                            .tr(),
-                    style: TextStyle(
-                      color: AppColors.mainAppColor,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w700,
-                    ),
-                    blankSpace: 50.0,
-                    velocity: 40.0,
-                    pauseAfterRound: const Duration(seconds: 0),
-                    startPadding: 10.0,
-                    accelerationDuration: const Duration(seconds: 1),
-                    decelerationDuration: const Duration(milliseconds: 500),
-                  ),
-                ),
-              ),
+              const CustomCaesoudalSlidar(),
+              const CustomMarque(),
               SizedBox(
-                height: 20.h,
+                height: 15.h,
               ),
               const ContentGrid(),
               CarouselSlider(
@@ -254,7 +207,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>const  OrderAgain()));
+                                builder: (context) => const OrderAgain()));
                       },
                       child: Expanded(
                         child: Text(

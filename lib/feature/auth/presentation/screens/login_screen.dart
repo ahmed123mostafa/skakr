@@ -46,6 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
+       resizeToAvoidBottomInset: true,
       
       body: SafeArea(
 
