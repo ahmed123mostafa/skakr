@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:settings_app/core/constant/app_colors.dart';
+import 'package:settings_app/feature/main/payment/presentation/screens/request_faluire.dart';
 import 'package:settings_app/feature/main/payment/presentation/screens/request_succeffuly_excuted.dart';
 
 class DeliveryTimeScreen extends StatefulWidget {
@@ -43,6 +44,7 @@ class _DeliveryTimeScreenState extends State<DeliveryTimeScreen> {
           shadowColor: Colors.black.withOpacity(0.5),
           centerTitle: true,
           title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset("assets/images/Group (9).png"),
               Text(
@@ -170,7 +172,7 @@ class _DeliveryTimeScreenState extends State<DeliveryTimeScreen> {
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                const RequestSucceffulyExcuted()));
+                                const RequestSuccessfullyExecuted()));
                   },
                   child: Text("الدفع",
                       style: TextStyle(fontSize: 16.sp, color: Colors.white)),
