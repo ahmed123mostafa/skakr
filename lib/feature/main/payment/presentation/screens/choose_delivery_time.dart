@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:settings_app/core/constant/app_colors.dart';
-import 'package:settings_app/feature/main/payment/presentation/screens/request_faluire.dart';
 import 'package:settings_app/feature/main/payment/presentation/screens/request_succeffuly_excuted.dart';
 
 class DeliveryTimeScreen extends StatefulWidget {
@@ -135,7 +134,7 @@ class _DeliveryTimeScreenState extends State<DeliveryTimeScreen> {
                   ),
                   SizedBox(width: 5.w),
                   Image.asset(
-                    'assets/images/Vector (28).png', //
+                    'assets/images/Vector (28).png', 
                     width: 24,
                     height: 24,
                     color: AppColors.mainAppColor,

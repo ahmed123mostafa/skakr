@@ -4,8 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:settings_app/core/constant/app_assets.dart';
 import 'package:settings_app/core/constant/app_colors.dart';
 
-class MyPreviousOrders extends StatelessWidget {
-  const MyPreviousOrders({super.key});
+class MyPreviousEmptyOrders extends StatelessWidget {
+  const MyPreviousEmptyOrders({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class MyPreviousOrders extends StatelessWidget {
         body: Column(
           children: [
             SizedBox(height: 30.h),
-           const  Expanded(child:  OrdersScreen()), 
+            const Expanded(child: OrdersScreen()),
           ],
         ),
       ),
@@ -49,15 +49,14 @@ class OrdersScreen extends StatefulWidget {
 }
 
 class _OrdersScreenState extends State<OrdersScreen> {
-  int selectedIndex = 0; // 0 = previous, 1 = current
+  int selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: 20.h),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          padding: EdgeInsets.symmetric(horizontal: 10.w),
           child: Row(
             children: [
               Expanded(
@@ -78,14 +77,13 @@ class _OrdersScreenState extends State<OrdersScreen> {
                     ),
                     child: Center(
                       child: Text(
-                 "my_previous_orders".tr(),
+                        "my_previous_orders".tr(),
                         style: TextStyle(
-                          color: selectedIndex == 1
-                              ? Colors.white
-                              : Colors.black,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 14.sp
-                        ),
+                            color: selectedIndex == 1
+                                ? Colors.white
+                                : Colors.black,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 14.sp),
                       ),
                     ),
                   ),
@@ -115,7 +113,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                           color: selectedIndex == 0
                               ? Colors.white
                               : AppColors.mainAppColor,
-                              fontSize: 14.sp,
+                          fontSize: 14.sp,
                           fontWeight: FontWeight.w400,
                         ),
                       ),
@@ -128,11 +126,9 @@ class _OrdersScreenState extends State<OrdersScreen> {
         ),
         SizedBox(height: 50.h),
         Expanded(
-          child: selectedIndex == 0
-              ? buildCurrentOrders()
-               :buildPreviousOrders()
-             
-        ),
+            child: selectedIndex == 0
+                ? buildCurrentOrders()
+                : buildPreviousOrders()),
       ],
     );
   }
@@ -141,12 +137,12 @@ class _OrdersScreenState extends State<OrdersScreen> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-      Image.asset(AppAssets.cart234),
+        Image.asset(AppAssets.cart234),
         SizedBox(height: 20.h),
         Text(
           "لم تقم بتسجيل اي طلب بعد",
-          style: TextStyle(color: Colors.grey, fontSize: 25.sp,
-          fontWeight: FontWeight.w500),
+          style: TextStyle(
+              color: Colors.grey, fontSize: 25.sp, fontWeight: FontWeight.w500),
         ),
       ],
     );
@@ -156,12 +152,12 @@ class _OrdersScreenState extends State<OrdersScreen> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-      Image.asset(AppAssets.cart234),
+        Image.asset(AppAssets.cart234),
         SizedBox(height: 20.h),
         Text(
           "لم تقم بتسجيل اي طلب بعد",
-          style: TextStyle(color: Colors.grey, fontSize: 25.sp,
-          fontWeight: FontWeight.w500),
+          style: TextStyle(
+              color: Colors.grey, fontSize: 25.sp, fontWeight: FontWeight.w500),
         ),
       ],
     );

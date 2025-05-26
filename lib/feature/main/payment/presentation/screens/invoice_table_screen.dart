@@ -12,7 +12,7 @@ class InvoiceScreen extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
-          padding:const  EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
           child: Column(
             children: [
               Column(
@@ -28,7 +28,7 @@ class InvoiceScreen extends StatelessWidget {
                   Row(
                     children: [
                       infoRow("رقم الفاتورة", "114521", sized: 5),
-                    const   Spacer(),
+                      const Spacer(),
                       infoRow("تاريخ الفاتورة", "2025/4/25", sized: 5),
                     ],
                   ),
@@ -50,7 +50,7 @@ class InvoiceScreen extends StatelessWidget {
               Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  border: Border.all(color: AppColors.mainAppColor),
+                  border: Border.all(color: Colors.white),
                   borderRadius: BorderRadius.circular(3),
                 ),
                 child: Table(
@@ -184,18 +184,10 @@ class _TableCell extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Container(
         decoration: BoxDecoration(
-          color: AppColors.backgroundAppColor,
-          boxShadow: const [
-            BoxShadow(
-              color: Colors.white,
-              blurRadius: 5,
-              spreadRadius: 1,
-              offset: Offset(0, 2),
-            ),
-          ],
+          color: Colors.white,
           borderRadius: BorderRadius.circular(8),
         ),
-        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+        padding:const  EdgeInsets.symmetric(horizontal: 8, vertical: 4),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

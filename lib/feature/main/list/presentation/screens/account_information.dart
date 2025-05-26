@@ -3,16 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:settings_app/core/constant/app_assets.dart';
 import 'package:settings_app/core/constant/app_colors.dart';
+import 'package:settings_app/feature/main/favourite/presentation/screens/favourites_card.dart';
 import 'package:settings_app/feature/main/list/presentation/screens/frequently_question.dart';
-import 'package:settings_app/feature/main/list/presentation/screens/my_previos_screen.dart';
 import 'package:settings_app/feature/main/list/presentation/screens/policy_privacy.dart';
+import 'package:settings_app/feature/main/list/presentation/screens/prevuis_order/screen/previous_order.dart';
 import 'package:settings_app/feature/main/list/presentation/screens/profile_screen.dart';
 import 'package:settings_app/feature/main/list/presentation/screens/saved_address.dart';
 import 'package:settings_app/feature/main/list/presentation/screens/who_are_screen.dart';
 
-class AccountInformation extends StatelessWidget {
+class AccountInformation extends StatefulWidget {
   const AccountInformation({super.key});
 
+  @override
+  State<AccountInformation> createState() => _AccountInformationState();
+}
+
+class _AccountInformationState extends State<AccountInformation> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -80,7 +86,7 @@ class AccountInformation extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const MyPreviousOrders()));
+                              builder: (context) => MyPreviousOrders()));
                     },
                     child: Container(
                       padding: const EdgeInsets.all(10),
@@ -111,29 +117,37 @@ class AccountInformation extends StatelessWidget {
                   SizedBox(
                     width: 15.w,
                   ),
-                  Container(
-                    padding: const EdgeInsets.all(10),
-                    width: 136.w,
-                    height: 136.h,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(16)),
-                    child: Column(
-                      children: [
-                        Image.asset(AppAssets.love),
-                        SizedBox(
-                          height: 10.h,
-                        ),
-                        Text(
-                          "favorites".tr(),
-                          style: TextStyle(
-                            fontFamily: "Alexandria",
-                            fontSize: 11.sp,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.mainAppColor,
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const FavouritesCard()));
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(10),
+                      width: 136.w,
+                      height: 136.h,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(16)),
+                      child: Column(
+                        children: [
+                          Image.asset(AppAssets.love),
+                          SizedBox(
+                            height: 10.h,
                           ),
-                        ),
-                      ],
+                          Text(
+                            "favorites".tr(),
+                            style: TextStyle(
+                              fontFamily: "Alexandria",
+                              fontSize: 11.sp,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.mainAppColor,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],
