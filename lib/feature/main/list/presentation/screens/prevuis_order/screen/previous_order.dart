@@ -1,11 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:easy_stepper/easy_stepper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:settings_app/core/constant/app_colors.dart';
 
 class MyPreviousOrders extends StatelessWidget {
-   MyPreviousOrders({super.key});
-
+  MyPreviousOrders({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -129,7 +129,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
         ),
         Expanded(
             child: selectedIndex == 0
-                ? const BuildCurrentOrder()
+                ? BuildCurrentOrder()
                 : const BuilPrevuisOrder()),
       ],
     );
@@ -322,44 +322,38 @@ class BuilPrevuisOrder extends StatelessWidget {
 }
 
 class BuildCurrentOrder extends StatelessWidget {
-  const BuildCurrentOrder({super.key});
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Column(children: [
-        Padding(
-          padding: const EdgeInsets.only(right: 30, left: 30, top: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "تاريخ الطلبية 11 أبريل 2025",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w500,
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(right: 30, left: 30, top: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "تاريخ الطلبية 11 أبريل 2025",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
-              ),
-              Text(
-                "250.0 جنيه",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w500,
-                ),
-              )
-            ],
+                Text(
+                  "250.0 جنيه",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w500,
+                  ),
+                )
+              ],
+            ),
           ),
-        ),
-        SizedBox(
-          height: 10.h,
-        ),
-
-
-        
-
-      ]),
+          SizedBox(height: 10.h),
+        ],
+      ),
     );
   }
 }
@@ -421,7 +415,7 @@ class MyOrdersListScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Positioned( 
+                      Positioned(
                         top: 4,
                         right: 8,
                         child: Row(
@@ -497,7 +491,7 @@ class MyOrdersListScreen extends StatelessWidget {
                                       color: const Color(0xff231F20),
                                       fontSize: 14.sp,
                                       fontWeight: FontWeight.w400,
-                                    ), 
+                                    ),
                                   ),
                                 ),
                               ],

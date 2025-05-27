@@ -3,7 +3,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:marquee/marquee.dart';
 import 'package:settings_app/core/constant/app_assets.dart';
 import 'package:settings_app/core/constant/app_colors.dart';
 
@@ -202,14 +201,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     SizedBox(width: 3.w),
                     Image.asset(AppAssets.line),
                     SizedBox(width: 5.w),
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const OrderAgain()));
-                      },
-                      child: Expanded(
+                    Expanded(
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const OrderAgain()));
+                        },
                         child: Text(
                           "view_all".tr(),
                           textAlign: TextAlign.end,

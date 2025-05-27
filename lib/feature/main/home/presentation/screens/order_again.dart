@@ -123,263 +123,104 @@ class Customgridview extends StatelessWidget {
       child: SizedBox(
         height: MediaQuery.of(context).size.height,
         child: GridView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
           itemCount: 10,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 1,
-            crossAxisSpacing: 40,
+            crossAxisCount: 2,
+            crossAxisSpacing: 20,
             mainAxisSpacing: 20,
-            childAspectRatio: 1.3, // Adjusted to allow taller items
+            childAspectRatio: 0.7,
           ),
           itemBuilder: (context, index) {
-            return Row(
+            return Stack(
+              clipBehavior: Clip.none,
               children: [
-                Flexible(
-                  flex: 1,
-                  child: Stack(
-                    clipBehavior: Clip.none,
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12.r),
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.shade300,
+                        blurRadius: 6,
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Container(
-                        width: 220.w,
-                        height: 240.h, // Increased height
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12.r),
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.shade300,
-                              blurRadius: 6,
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => DetailsScreen(),
                             ),
-                          ],
-                        ),
-                        child: Stack(
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => DetailsScreen(),
-                                    ));
-                              },
-                              child: Positioned(
-                                top: 0,
-                                left: 0,
-                                right: 0,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(30),
-                                  child: Align(
-                                    alignment: Alignment.topCenter,
-                                    child: Image.asset(
-                                      AppAssets.offer,
-                                      width: 100.w,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Positioned(
-                              top: 0,
-                              right: 0,
-                              child: Stack(
-                                alignment: Alignment.center,
-                                children: [
-                                  Image.asset("assets/images/Vector 356.png"),
-                                  Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Text(
-                                        '10%',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 14.sp,
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                      ),
-                                      Text(
-                                        'OFF',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 14.sp,
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                            const Positioned(
-                              top: 0,
-                              left: 0,
-                              child: Icon(Icons.favorite_border,
-                                  color: Colors.grey),
-                            ),
-                            Positioned(
-                              top: 140.h, // Adjusted for taller container
-                              right: 12.w,
-                              child: Text(
-                                '5.00 جنيه',
-                                style: TextStyle(
-                                  fontSize: 20.sp,
-                                  color: AppColors.mainAppColor,
-                                  fontWeight: FontWeight.w700,
-                                  fontFamily: "Alexandria",
-                                ),
-                              ),
-                            ),
-                            Positioned(
-                              top: 165.h,
-                              right: 12.w,
-                              left: 12.w,
-                              child: Text(
-                                'النور برتقال عصير مصري 2كجم',
-                                textAlign: TextAlign.right,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: "Alexandria",
-                                  fontSize: 11.sp,
-                                  color: const Color(0xff231F20),
-                                ),
-                              ),
-                            ),
-                          ],
+                          );
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: Image.asset(
+                            AppAssets.offer,
+                            width: double.infinity,
+                            height: 120.h,
+                            fit: BoxFit.contain,
+                          ),
                         ),
                       ),
-                      Positioned(
-                        bottom: -15.h,
-                        left: 0,
-                        right: 0,
-                        child: Center(
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColors.mainAppColor,
-                              shape: const StadiumBorder(),
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 24.w, vertical: 10.h),
-                            ),
-                            child: Text(
-                              'إضافة للسلة',
-                              style: TextStyle(
-                                fontFamily: "Alexandria",
-                                fontSize: 10.sp,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.white,
-                              ),
-                            ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 12.w),
+                        child: Text(
+                          '5.00 جنيه',
+                          style: TextStyle(
+                            fontSize: 20.sp,
+                            color: AppColors.mainAppColor,
+                            fontWeight: FontWeight.w700,
+                            fontFamily: "Alexandria",
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 12.w, vertical: 4.h),
+                        child: Text(
+                          'النور برتقال عصير مصري 2كجم',
+                          textAlign: TextAlign.right,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontFamily: "Alexandria",
+                            fontSize: 11.sp,
+                            color: const Color(0xff231F20),
                           ),
                         ),
                       ),
                     ],
                   ),
                 ),
-                SizedBox(width: 5.w),
-                Flexible(
-                  flex: 1,
-                  child: Stack(
-                    clipBehavior: Clip.none,
-                    children: [
-                      Container(
-                        width: 220.w,
-                        height: 240.h,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12.r),
+                Positioned(
+                  bottom: -15.h,
+                  left: 0,
+                  right: 0,
+                  child: Center(
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.mainAppColor,
+                        shape: const StadiumBorder(),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 24.w, vertical: 10.h),
+                      ),
+                      child: Text(
+                        'إضافة للسلة',
+                        style: TextStyle(
+                          fontFamily: "Alexandria",
+                          fontSize: 10.sp,
+                          fontWeight: FontWeight.w500,
                           color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.shade300,
-                              blurRadius: 6,
-                            ),
-                          ],
-                        ),
-                        child: Stack(
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => DetailsScreen(),
-                                    ));
-                              },
-                              child: Positioned(
-                                top: 0,
-                                left: 0,
-                                right: 0,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(30),
-                                  child: Align(
-                                    alignment: Alignment.topCenter,
-                                    child: Image.asset(
-                                      AppAssets.offer,
-                                      width: 100.w,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const Positioned(
-                              top: 0,
-                              left: 0,
-                              child: Icon(Icons.favorite, color: Colors.red),
-                            ),
-                            Positioned(
-                              top: 140.h,
-                              right: 12.w,
-                              child: Text(
-                                '5.00 جنيه',
-                                style: TextStyle(
-                                  fontSize: 20.sp,
-                                  color: AppColors.mainAppColor,
-                                  fontWeight: FontWeight.w700,
-                                  fontFamily: "Alexandria",
-                                ),
-                              ),
-                            ),
-                            Positioned(
-                              top: 165.h,
-                              right: 12.w,
-                              left: 12.w,
-                              child: Text(
-                                'النور برتقال عصير مصري 2كجم',
-                                textAlign: TextAlign.right,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: "Alexandria",
-                                  fontSize: 11.sp,
-                                  color: const Color(0xff231F20),
-                                ),
-                              ),
-                            ),
-                          ],
                         ),
                       ),
-                      Positioned(
-                        bottom: -15.h,
-                        left: 0,
-                        right: 0,
-                        child: Center(
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColors.mainAppColor,
-                              shape: const StadiumBorder(),
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 24.w, vertical: 10.h),
-                            ),
-                            child: Text(
-                              'إضافة للسلة',
-                              style: TextStyle(
-                                fontFamily: "Alexandria",
-                                fontSize: 10.sp,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
                 ),
               ],
