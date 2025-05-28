@@ -40,11 +40,11 @@ class ProfileScreen extends StatelessWidget {
               child: Icon(Icons.person, size: 50.r, color: Colors.black),
             ),
             SizedBox(height: 10.h),
-            const Text("محمد سمير",
-                style: TextStyle(fontWeight: FontWeight.bold)),
+            Text("mohamed_samir".tr(),
+                style: const TextStyle(fontWeight: FontWeight.bold)),
             SizedBox(height: 20.h),
-            buildInfoContainer("محمد", AppAssets.firstname),
-            buildInfoContainer("سمير", AppAssets.firstname),
+            buildInfoContainer("mohamed".tr(), AppAssets.firstname),
+            buildInfoContainer("samir".tr(), AppAssets.firstname),
             buildInfoContainer("0704065550", AppAssets.phonenumber),
             buildInfoContainer("msa***@gmail.com", AppAssets.email),
             SizedBox(height: 30.h),
@@ -53,22 +53,22 @@ class ProfileScreen extends StatelessWidget {
               child: ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.mainAppColor,
-                  foregroundColor: Colors.white, 
+                  foregroundColor: Colors.white,
                   padding: EdgeInsets.symmetric(vertical: 12.h),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
                 icon: const Icon(Icons.lock_outline, color: Colors.white),
-                label: const Text(
-                  "تغيير كلمة المرور",
-                  style: TextStyle(color: Colors.white),
+                label: Text(
+                  "change_the_password".tr(),
+                  style: const TextStyle(color: Colors.white),
                 ),
                 onPressed: () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>const  ForgetPassword()));
+                          builder: (context) => const ForgetPassword()));
                 },
               ),
             ),
@@ -99,7 +99,7 @@ class ProfileScreen extends StatelessWidget {
                     Icons.delete,
                     color: AppColors.mainAppColor,
                   ),
-                  label: const Text("حذف الحساب"),
+                  label: Text("deleate _account".tr()),
                   onPressed: () {
                     showDialog(
                       context: context,
@@ -115,7 +115,7 @@ class ProfileScreen extends StatelessWidget {
                               Image.asset(AppAssets.deleate),
                               SizedBox(height: 10.h),
                               Text(
-                                'حذف الحساب',
+                                'deleate _account'.tr(),
                                 style: TextStyle(
                                   color: const Color(0xff231F20),
                                   fontWeight: FontWeight.w500,
@@ -123,11 +123,12 @@ class ProfileScreen extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                'هل أنت متاكد من حذف هذا الحساب؟',
+                                'are_you_sure_you_want_to_delete_this_account?'
+                                    .tr(),
                                 style: TextStyle(
                                   color: const Color(0xff231F20),
                                   fontWeight: FontWeight.w500,
-                                  fontSize: 12.sp,
+                                  fontSize: 10.sp,
                                 ),
                               ),
                               SizedBox(height: 20.h),
@@ -142,7 +143,7 @@ class ProfileScreen extends StatelessWidget {
                                         backgroundColor:
                                             AppColors.mainAppColor),
                                     child: Text(
-                                      'تأكيد',
+                                      'delete'.tr(),
                                       style: TextStyle(
                                           fontSize: 15.sp,
                                           fontWeight: FontWeight.w500,
@@ -159,7 +160,7 @@ class ProfileScreen extends StatelessWidget {
                                     style: ElevatedButton.styleFrom(
                                         backgroundColor: Colors.white),
                                     child: Text(
-                                      'إلغاء',
+                                      'cancel'.tr(),
                                       style: TextStyle(
                                           fontSize: 15.sp,
                                           fontWeight: FontWeight.w500,

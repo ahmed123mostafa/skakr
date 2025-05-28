@@ -92,7 +92,7 @@ class _MenueCartState extends State<MenueCart> {
                                                       CrossAxisAlignment.start,
                                                   children: [
                                                     Text(
-                                                      'أختر عنوان',
+                                                      'choose address'.tr(),
                                                       style: TextStyle(
                                                         color: AppColors
                                                             .mainAppColor,
@@ -112,7 +112,7 @@ class _MenueCartState extends State<MenueCart> {
                                                                         const NewAddAddress()));
                                                       },
                                                       child: Text(
-                                                        'أضف عنوان جديد',
+                                                        'add new address'.tr(),
                                                         style: TextStyle(
                                                           color: AppColors
                                                               .mainAppColor,
@@ -143,7 +143,7 @@ class _MenueCartState extends State<MenueCart> {
                                               height: 30.h,
                                             ),
                                             Text(
-                                              'عنوان موجود مسبقاً',
+                                              'an address already exists'.tr(),
                                               style: TextStyle(
                                                 fontSize: 14.sp,
                                                 fontWeight: FontWeight.bold,
@@ -213,7 +213,7 @@ class _MenueCartState extends State<MenueCart> {
                                                             "assets/images/Layer_2_copy_11 (1).png"),
                                                         SizedBox(width: 5.w),
                                                         Text(
-                                                          "Mohamed Said",
+                                                          "mohamed samir".tr(),
                                                           style: TextStyle(
                                                             color: AppColors
                                                                 .mainAppColor,
@@ -253,15 +253,15 @@ class _MenueCartState extends State<MenueCart> {
                                                         SizedBox(width: 5.w),
                                                         Expanded(
                                                           child: Text(
-                                                            "المنصوره - طلخا - برج المغازي   "
-                                                            "الدور العاشر شقة2",
+                                                            "mansoura_talkha_corner_of_agriculture_street_al-Maghazi_tower"
+                                                                .tr(),
                                                             style: TextStyle(
                                                               color: const Color(
                                                                   0xff231F20),
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w400,
-                                                              fontSize: 11.sp,
+                                                              fontSize: 12.sp,
                                                             ),
                                                             maxLines: 2,
                                                             overflow:
@@ -284,7 +284,7 @@ class _MenueCartState extends State<MenueCart> {
                               );
                             },
                             child: Text(
-                              'التوصيل إلي: المنزل',
+                              'delivery_to:home'.tr(),
                               style: TextStyle(
                                 color: AppColors.mainAppColor,
                                 fontSize: 10.sp,
@@ -293,7 +293,7 @@ class _MenueCartState extends State<MenueCart> {
                           ),
                           SizedBox(height: 3.h),
                           Text(
-                            'ا شارع الازهر 2 ,حولي , مدينة نصر',
+                            'azzhar_street 2,hawalli,nasr city'.tr(),
                             style: TextStyle(
                               color: AppColors.mainAppColor,
                               fontSize: 10.sp,
@@ -339,18 +339,18 @@ class _MenueCartState extends State<MenueCart> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "تفاح اخضر مستورد 1 كجم",
+                                  "imported_green_apples_1kg".tr(),
                                   style: TextStyle(
                                     color: const Color(0xff231F20),
                                     fontWeight: FontWeight.w600,
-                                    fontSize: 15.sp,
+                                    fontSize: 13.sp,
                                   ),
                                 ),
                                 SizedBox(height: 20.h),
                                 Row(
                                   children: [
                                     Text(
-                                      "السعر:",
+                                      "price:".tr(),
                                       style: TextStyle(
                                         fontSize: 11.sp,
                                         color: const Color(0xff231F20),
@@ -359,7 +359,7 @@ class _MenueCartState extends State<MenueCart> {
                                     ),
                                     SizedBox(width: 8.w),
                                     Text(
-                                      "20 جنيه",
+                                      "20 pounds".tr(),
                                       style: TextStyle(
                                         fontSize: 15.sp,
                                         fontWeight: FontWeight.w400,
@@ -371,7 +371,7 @@ class _MenueCartState extends State<MenueCart> {
                                 Row(
                                   children: [
                                     Text(
-                                      "الإجمالى:",
+                                      "total:".tr(),
                                       style: TextStyle(
                                         fontSize: 11.sp,
                                         color: const Color(0xff231F20),
@@ -380,7 +380,7 @@ class _MenueCartState extends State<MenueCart> {
                                     ),
                                     SizedBox(width: 8.w),
                                     Text(
-                                      "50 جنيه",
+                                      "20 pounds".tr(),
                                       style: TextStyle(
                                         fontSize: 15.sp,
                                         fontWeight: FontWeight.w400,
@@ -458,16 +458,16 @@ class _MenueCartState extends State<MenueCart> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            '300 جنيه',
+                            '300 pounds'.tr(),
                             style: TextStyle(
                                 fontSize: 25.sp,
                                 color: AppColors.mainAppColor,
                                 fontWeight: FontWeight.w600),
                           ),
                           Text(
-                            'المجموع الفرعي',
+                            'subtotal'.tr(),
                             style: TextStyle(
-                              fontSize: 11.sp,
+                              fontSize: 13.sp,
                               color: AppColors.mainAppColor,
                               fontWeight: FontWeight.w500,
                             ),
@@ -484,7 +484,7 @@ class _MenueCartState extends State<MenueCart> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                    const     DeliveryTimeScreen()));
+                                        const DeliveryTimeScreen()));
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.mainAppColor,
@@ -494,7 +494,7 @@ class _MenueCartState extends State<MenueCart> {
                           ),
                           child: Center(
                             child: Text(
-                              'الدفع',
+                              'payment'.tr(),
                               style: TextStyle(
                                 fontSize: 16.sp,
                                 color: AppColors.backgroundAppColor,
@@ -532,23 +532,23 @@ class OrderMinimumWidget extends StatelessWidget {
           border: Border.all(color: AppColors.mainAppColor),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.only(right: 5, top: 10, left: 5),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Row(
                 children: [
                   Text(
-                    "الحد الأدني للطلب",
+                    "the_minimum_order".tr(),
                     style: TextStyle(
-                      fontSize: 12.sp,
+                      fontSize: 10.sp,
                       color: AppColors.mainAppColor,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Text(
-                    " 2000جنيه",
+                    "2000 pounds".tr(),
                     style: TextStyle(
                       fontSize: 12.sp,
                       color: AppColors.mainAppColor,
@@ -560,7 +560,7 @@ class OrderMinimumWidget extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    "الإجمالي",
+                    "total".tr(),
                     style: TextStyle(
                       fontSize: 12.sp,
                       color: AppColors.mainAppColor,
@@ -569,7 +569,7 @@ class OrderMinimumWidget extends StatelessWidget {
                   ),
                   const Spacer(),
                   Text(
-                    " 3000جنيه",
+                    "3000 pounds".tr(),
                     style: TextStyle(
                       fontSize: 12.sp,
                       color: AppColors.mainAppColor,
@@ -580,7 +580,8 @@ class OrderMinimumWidget extends StatelessWidget {
               ),
               SizedBox(height: 20.h),
               Text(
-                "أقل من الحد الأدني لإتمام الشراءالمتبقي لإتمام الشراء 1700 جنيه",
+                "less than the minimum required to complete the purchase. Remaining to complete the purchase is 1700 pounds."
+                    .tr(),
                 style: TextStyle(
                   fontSize: 9.sp,
                   color: Colors.black,

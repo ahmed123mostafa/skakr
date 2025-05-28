@@ -24,9 +24,14 @@ class WhoAreScreen extends StatelessWidget {
             fontSize: 16.sp,
           ),
         ),
-        leading: Icon(
-          Icons.arrow_back,
-          color: AppColors.mainAppColor,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(
+            Icons.arrow_back,
+            color: AppColors.mainAppColor,
+          ),
         ),
       ),
       body: Column(
@@ -49,7 +54,8 @@ class WhoAreScreen extends StatelessWidget {
                   children: [
                     // Title container (fixed at top of big container)
                     Container(
-                      padding: const EdgeInsets.only(right: 20, top: 20),
+                      padding:
+                          const EdgeInsets.only(right: 20, top: 20, left: 20),
                       height: 58.h,
                       width: double.infinity,
                       decoration: BoxDecoration(
@@ -78,7 +84,8 @@ class WhoAreScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Text(
-                            "هناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوى المقروء لصفحة ما سيلهي القارئ عن التركيز على الشكل الخارجي للنص أو شكل توضع الفقرات في الصفحة التي يقرأها. ولذلك يتم استخدام طريقة لوريم إيبسوم ",
+                            "there_is_a_long_established_fact_that_the_readable_content_of_a_page_will_distract_the_reader_from_focusingon_the_text's_outer_appearance_or_the_layout_of_the_paragraphson_the_page_they_are_reading.therefore,the_Lorem_Ipsum_method_is_used."
+                                .tr(),
                             style: TextStyle(
                               color: const Color(0xff181818),
                               fontWeight: FontWeight.w500,

@@ -1,5 +1,4 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:easy_stepper/easy_stepper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:settings_app/core/constant/app_colors.dart';
@@ -25,9 +24,14 @@ class MyPreviousOrders extends StatelessWidget {
               fontSize: 16.sp,
             ),
           ),
-          leading: Icon(
-            Icons.arrow_back,
-            color: AppColors.mainAppColor,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(
+              Icons.arrow_back,
+              color: AppColors.mainAppColor,
+            ),
           ),
         ),
         body: Column(
@@ -190,7 +194,7 @@ class BuilPrevuisOrder extends StatelessWidget {
                     height: 10.h,
                   ),
                   Text(
-                    "تم الاستلام",
+                    "received".tr(),
                     style: TextStyle(
                       color: const Color(0xff23A20A),
                       fontSize: 13.sp,
@@ -245,7 +249,7 @@ class BuilPrevuisOrder extends StatelessWidget {
                     height: 10.h,
                   ),
                   Text(
-                    "ملغاه",
+                    "cancelled".tr(),
                     style: TextStyle(
                       color: AppColors.mainAppColor,
                       fontSize: 13.sp,
@@ -300,7 +304,7 @@ class BuilPrevuisOrder extends StatelessWidget {
                     height: 10.h,
                   ),
                   Text(
-                    "ملغاه",
+                    "cancelled".tr(),
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 13.sp,
@@ -396,20 +400,20 @@ class MyOrdersListScreen extends StatelessWidget {
                               height: 49.h,
                             ),
                             Positioned(
-                              top: 10,
+                              top: 12,
                               left: 10,
                               child: Text(
-                                "عرض",
+                                "show".tr(),
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 16.sp,
+                                  fontSize: 12.sp,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
                             ),
                             Positioned(
                               top: 13,
-                              right: 10,
+                              right: 11,
                               child: Image.asset("assets/images/Frame 11.png"),
                             ),
                           ],
@@ -421,7 +425,7 @@ class MyOrdersListScreen extends StatelessWidget {
                         child: Row(
                           children: [
                             Text(
-                              "رقـــم الــطـــلــــب",
+                              "order_number".tr(),
                               style: TextStyle(
                                 color: const Color(0xff231F20),
                                 fontSize: 13.sp,
@@ -446,7 +450,7 @@ class MyOrdersListScreen extends StatelessWidget {
                         child: Row(
                           children: [
                             Text(
-                              "تـاريـخ الـطـلبــيـه",
+                              "order_history".tr(),
                               style: TextStyle(
                                 color: const Color(0xff231F20),
                                 fontSize: 13.sp,
@@ -476,7 +480,7 @@ class MyOrdersListScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "عنوان التوصيل",
+                                  "delivery_address".tr(),
                                   style: TextStyle(
                                     color: const Color(0xff231F20),
                                     fontSize: 13.sp,
@@ -486,10 +490,11 @@ class MyOrdersListScreen extends StatelessWidget {
                                 SizedBox(width: 10.w),
                                 Expanded(
                                   child: Text(
-                                    "المنطق:الاندلس :1 الشارع :1 الجاده:1 المنزل:1 الدور1الشقة:1",
+                                    "mansoura_talkha_corner_of_agriculture_street_al-Maghazi_tower"
+                                        .tr(),
                                     style: TextStyle(
                                       color: const Color(0xff231F20),
-                                      fontSize: 14.sp,
+                                      fontSize: 10.sp,
                                       fontWeight: FontWeight.w400,
                                     ),
                                   ),
@@ -503,7 +508,7 @@ class MyOrdersListScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "حالة الطلبية",
+                                  "order_status".tr(),
                                   style: TextStyle(
                                     color: const Color(0xff231F20),
                                     fontSize: 13.sp,
@@ -512,7 +517,7 @@ class MyOrdersListScreen extends StatelessWidget {
                                 ),
                                 SizedBox(width: 20.w),
                                 Text(
-                                  "تم الالغاء",
+                                  "it_has_been_canceled.".tr(),
                                   style: TextStyle(
                                     color: const Color(0xffFF0909),
                                     fontSize: 16.sp,
@@ -545,7 +550,7 @@ class MyOrdersListScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "إجمالي السعر:",
+                          "total_price:".tr(),
                           style: TextStyle(
                             color: const Color(0xff231F20),
                             fontSize: 11.sp,
@@ -553,7 +558,7 @@ class MyOrdersListScreen extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          "1000.00 جنيه",
+                          "1000.00 pounds".tr(),
                           style: TextStyle(
                             color: AppColors.mainAppColor,
                             fontSize: 13.sp,

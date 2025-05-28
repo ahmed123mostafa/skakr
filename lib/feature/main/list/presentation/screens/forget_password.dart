@@ -15,6 +15,7 @@ class ForgetPassword extends StatefulWidget {
 class _ForgetPasswordState extends State<ForgetPassword> {
   bool ispassword = true;
   TextEditingController passwordcontrroler = TextEditingController();
+    TextEditingController newpasscontrroler = TextEditingController();
   TextEditingController confermpasswordcontrroler = TextEditingController();
 
   @override
@@ -49,6 +50,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
               Padding(
                 padding: const EdgeInsets.only(right: 16, left: 16),
                 child: CustomTextFormField(
+                  hintFontSize: 10,
                   prefix: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Image.asset(AppAssets.password),
@@ -63,7 +65,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                     }
                     return null;
                   },
-                  hintText: "كلمة السر القديمة".tr(),
+                  hintText: "the_old_password".tr(),
                   obscureText: ispassword,
                   subfix: IconButton(
                     onPressed: () {
@@ -73,7 +75,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                     },
                     icon: Icon(
                       ispassword
-                          ? Icons.remove_red_eye_outlined
+                          ? Icons.visibility_off_outlined
                           : Icons.remove_red_eye,
                     ),
                     color: const Color(0xff6A707C),
@@ -83,7 +85,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
               Padding(
                 padding: const EdgeInsets.only(right: 16, left: 16),
                 child: CustomTextFormField(
-                  hintFontSize: 9,
+                  hintFontSize: 6,
                   prefix: Padding(
                     padding: const EdgeInsets.all(5),
                     child: Image.asset(AppAssets.password),
@@ -99,7 +101,8 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                     return null;
                   },
                   hintText:
-                      "كلمة السر الجديدة (لا تقل عن 8 حروف او ارقام)".tr(),
+                      "the_new_password_new_password(must_be_at_least_8_letters_or_numbers)"
+                          .tr(),
                   obscureText: ispassword,
                   subfix: IconButton(
                     onPressed: () {
@@ -109,7 +112,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                     },
                     icon: Icon(
                       ispassword
-                          ? Icons.remove_red_eye_outlined
+                          ? Icons.visibility_off_outlined
                           : Icons.remove_red_eye,
                     ),
                     color: const Color(0xff6A707C),
@@ -119,11 +122,12 @@ class _ForgetPasswordState extends State<ForgetPassword> {
               Padding(
                 padding: const EdgeInsets.only(right: 16, left: 16),
                 child: CustomTextFormField(
+                  hintFontSize: 10,
                   prefix: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Image.asset(AppAssets.password),
                   ),
-                  controller: confermpasswordcontrroler,
+                  controller: newpasscontrroler,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "Please enter your confirm password";
@@ -133,7 +137,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                     }
                     return null;
                   },
-                  hintText: "تأكيد كلمة السر الجديدة".tr(),
+                  hintText: "confirm_the_new_password".tr(),
                   obscureText: ispassword,
                   subfix: IconButton(
                     onPressed: () {
@@ -143,7 +147,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                     },
                     icon: Icon(
                       ispassword
-                          ? Icons.remove_red_eye_outlined
+                          ? Icons.visibility_off_outlined
                           : Icons.remove_red_eye,
                     ),
                     color: const Color(0xff6A707C),
@@ -157,17 +161,16 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                   child: ElevatedButton.icon(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.mainAppColor,
-                        foregroundColor:
-                            Colors.white, 
+                        foregroundColor: Colors.white,
                         padding: EdgeInsets.symmetric(vertical: 12.h),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
                       icon: const Icon(Icons.lock_outline, color: Colors.white),
-                      label: const Text(
-                        "تغيير كلمة المرور",
-                        style: TextStyle(color: Colors.white),
+                      label: Text(
+                        "change_the_password".tr(),
+                        style: const TextStyle(color: Colors.white),
                       ),
                       onPressed: () {}),
                 ),

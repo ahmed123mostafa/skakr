@@ -1,13 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:settings_app/core/constant/app_assets.dart';
 import 'package:settings_app/core/constant/app_colors.dart';
 import 'package:settings_app/core/constant/custom_text_field.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
 import '../../../home/presentation/widget/custom_quantity_counter.dart';
+import 'dart:ui' as ui;
 
 class DetailsScreen extends StatelessWidget {
   final pageController = PageController();
@@ -20,6 +19,7 @@ class DetailsScreen extends StatelessWidget {
         backgroundColor: const Color(0xffF1F1F1),
         body: SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 20.h),
               Padding(
@@ -50,6 +50,7 @@ class DetailsScreen extends StatelessWidget {
                         child: CustomTextFormField(
                           fillColor: Colors.white,
                           prefix: const Icon(Icons.search),
+                          hintFontSize: 8,
                           hintText:
                               "type_here_the_one_you_want_to_search_for".tr(),
                         ),
@@ -164,9 +165,11 @@ class DetailsScreen extends StatelessWidget {
                       height: 20.h,
                     ),
                     Padding(
-                      padding: EdgeInsets.only(right: 25.h),
+                      padding: EdgeInsets.only(right: 25.h, left: 25),
                       child: Align(
-                        alignment: Alignment.topRight,
+                        alignment: context.locale == const Locale('ar')
+                            ? Alignment.topRight
+                            : Alignment.topLeft,
                         child: Text(
                           "imported_green_apple_1kg".tr(),
                           style: TextStyle(
@@ -178,26 +181,26 @@ class DetailsScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 15.h,),
+                    SizedBox(
+                      height: 10.h,
+                    ),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Padding(
-                          padding: EdgeInsets.only(right: 35.h),
-                          child: Align(
-                            alignment: Alignment.topRight,
-                            child: Text(
-                              "5,00  ".tr(),
-                              style: TextStyle(
-                                fontFamily: "Alexandria",
-                                fontSize: 24.sp,
-                                fontWeight: FontWeight.w700,
-                                color: const Color(0xff231F20),
-                              ),
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: Text(
+                            "5,00".tr(),
+                            style: TextStyle(
+                              fontFamily: "Alexandria",
+                              fontSize: 24.sp,
+                              fontWeight: FontWeight.w700,
+                              color: const Color(0xff231F20),
                             ),
                           ),
                         ),
                         Text(
-                          " جنيه ".tr(),
+                          "pound".tr(),
                           style: TextStyle(
                             fontFamily: "Alexandria",
                             fontSize: 16.sp,
@@ -214,8 +217,7 @@ class DetailsScreen extends StatelessWidget {
                               padding: EdgeInsets.symmetric(
                                   horizontal: 12.w, vertical: 6.h),
                               decoration: BoxDecoration(
-                                color: AppColors
-                                    .mainAppColor, 
+                                color: AppColors.mainAppColor,
                                 borderRadius: BorderRadius.circular(20.r),
                                 boxShadow: [
                                   BoxShadow(
@@ -226,7 +228,7 @@ class DetailsScreen extends StatelessWidget {
                                 ],
                               ),
                               child: Text(
-                                "متوفر",
+                                "available".tr(),
                                 style: TextStyle(
                                   fontSize: 14.sp,
                                   fontWeight: FontWeight.w600,
@@ -251,67 +253,77 @@ class DetailsScreen extends StatelessWidget {
                         )
                       ],
                     ),
-                    SizedBox(height: 5.h,),
-                  Row(
-                    children: [
-                      const  OfferToggleSlider(),
-                      SizedBox(width: 20.w,),
-                      Container(
-                        padding:const  EdgeInsets.all(
-                                 10),
-                        height: 40.h,
-            width: 160.w, 
-            decoration: BoxDecoration(
-            color: Colors.white,
-              borderRadius: BorderRadius.circular(20.r),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.4),  
-                  blurRadius: 4,
-                  offset: const Offset(0, 2),
-                ),
-              ],
-            ),child: Row(
-              children: [
-              Text(
-                          "أضافة الي السلة",
-                          style: TextStyle(
-                            fontFamily: "Alexandria",
-                            fontSize: 10.sp,
-                            fontWeight: FontWeight.w600,
-                            color: const Color(0xff231F20),
-                          ),
-                        ),
-                       const  Spacer(),
-                       Container(
-                        width: 36,
-                        height: 31,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16),
-                          color: AppColors.mainAppColor
-                        ),
-                        child: Image.asset("assets/images/Layer 2 (1).png"))
-
-            ],),
-                        
-                      )
-                    ],
-                  )
-                  
-                  ,SizedBox(height: 20.h,),
-             const     Padding(
-                   padding:  EdgeInsets.only(left: 45,right: 45),
-                   
-                   child:   Divider(color: Color(0xff231F20),
-                    thickness: 1,
+                    SizedBox(
+                      width: 10.h,
                     ),
-                 ),
-                  Padding(
-                      padding: EdgeInsets.only(right: 25.h),
+                    SizedBox(
+                      height: 15.h,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const OfferToggleSlider(),
+                        SizedBox(
+                          width: 20.w,
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(10),
+                          height: 40.h,
+                          width: 160.w,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20.r),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.4),
+                                blurRadius: 4,
+                                offset: const Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                          child: Row(
+                            children: [
+                              Text(
+                                "add_to_cart".tr(),
+                                style: TextStyle(
+                                  fontFamily: "Alexandria",
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: const Color(0xff231F20),
+                                ),
+                              ),
+                              const Spacer(),
+                              Container(
+                                  width: 36,
+                                  height: 31,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(16),
+                                      color: AppColors.mainAppColor),
+                                  child: Image.asset(
+                                      "assets/images/Layer 2 (1).png"))
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 45, right: 45),
+                      child: Divider(
+                        color: Color(0xff231F20),
+                        thickness: 1,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(right: 20.h, left: 20),
                       child: Align(
-                        alignment: Alignment.topRight,
+                        alignment: context.locale == const Locale('ar')
+                            ? Alignment.topRight
+                            : Alignment.topLeft,
                         child: Text(
-                          "الوصف",
+                          "description".tr(),
                           style: TextStyle(
                             fontFamily: "Alexandria",
                             fontSize: 16.sp,
@@ -322,11 +334,14 @@ class DetailsScreen extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(right: 25.h,left: 15),
+                      padding: EdgeInsets.only(right: 25.h, left: 15),
                       child: Align(
-                        alignment: Alignment.topRight,
+                        alignment: context.locale == const Locale('ar')
+                            ? Alignment.topRight
+                            : Alignment.topLeft,
                         child: Text(
-                          "استعد لتذوق الطعم اللذيذ لبطاطس القلي الهشة! مع طبيعتها المتعددة الاستخدامات وطعمها اللذيذ تعتبر بطاطس القلي مكوتا أساسيا في مطابخ العديد من الثقافات في جميع أنحاء العالم.",
+                          "get_ready_to_savor_the_delicious_the_delicious_taste_of_crispy_fries!_with their_versatile_nature_and_delightful_flavor,fries_are_a_staple_in_the_kitchens_of_many_cultures_around_the_world."
+                              .tr(),
                           style: TextStyle(
                             fontFamily: "Alexandria",
                             fontSize: 13.sp,
@@ -336,32 +351,34 @@ class DetailsScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 25.h,),
+                    SizedBox(
+                      height: 25.h,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                              "رؤية المزيد",
-                              style: TextStyle(
-                                fontFamily: "Alexandria",
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w500,
-                                color: AppColors.mainAppColor,
-                              ),
-                            ),
-                            SizedBox(width: 5.w,),
-                           Image.asset("assets/images/Vector 348.png")
+                          "see_more".tr(),
+                          style: TextStyle(
+                            fontFamily: "Alexandria",
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.mainAppColor,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 5.w,
+                        ),
+                        Image.asset("assets/images/Vector 348.png")
                       ],
                     ),
-                    
-                    
-
-                  
                   ],
                 ),
               ),
-              SizedBox(height: 10.h,),
-               Padding(
+              SizedBox(
+                height: 10.h,
+              ),
+              Padding(
                 padding: const EdgeInsets.all(8),
                 child: Row(
                   children: [
@@ -396,8 +413,8 @@ class DetailsScreen extends StatelessWidget {
                   ],
                 ),
               ),
-            const  SimilairProduct(),
-            Padding(
+              const SimilairProduct(),
+              Padding(
                 padding: const EdgeInsets.all(8),
                 child: Row(
                   children: [
@@ -432,19 +449,18 @@ class DetailsScreen extends StatelessWidget {
                   ],
                 ),
               ),
-               const  SimilairProduct(),
-              
-                Padding(
+              const SimilairProduct(),
+              Padding(
                 padding: const EdgeInsets.all(8),
                 child: Row(
                   children: [
                     Expanded(
                       child: Text(
-                        " i_watched_it_recently".tr(),
+                        "i_watched_it_recently".tr(),
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           fontFamily: "Alexandria",
-                          fontSize: 9.sp,
+                          fontSize: 7.sp,
                           fontWeight: FontWeight.w600,
                           color: AppColors.mainAppColor,
                         ),
@@ -469,9 +485,7 @@ class DetailsScreen extends StatelessWidget {
                   ],
                 ),
               ),
-               const  SimilairProduct(),
-
-            
+              const SimilairProduct(),
             ],
           ),
         ),
@@ -479,7 +493,6 @@ class DetailsScreen extends StatelessWidget {
     );
   }
 }
-
 
 class OfferToggleSlider extends StatefulWidget {
   const OfferToggleSlider({super.key});
@@ -500,18 +513,18 @@ class _OfferToggleSliderState extends State<OfferToggleSlider> {
         });
       },
       child: Padding(
-         padding: const EdgeInsets.only(right: 25),
+        padding: const EdgeInsets.only(right: 25),
         child: Align(
-           alignment: Alignment.topRight,
+          alignment: Alignment.topRight,
           child: Container(
             height: 40.h,
-            width: 140.w, 
+            width: 140.w,
             decoration: BoxDecoration(
-            color: Colors.white,
+              color: Colors.white,
               borderRadius: BorderRadius.circular(20.r),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.4),  
+                  color: Colors.black.withOpacity(0.4),
                   blurRadius: 4,
                   offset: const Offset(0, 2),
                 ),
@@ -537,12 +550,13 @@ class _OfferToggleSliderState extends State<OfferToggleSlider> {
                     Expanded(
                       child: Center(
                         child: Text(
-                          'بالتة',
+                          'basket'.tr(),
                           style: TextStyle(
-                            fontSize: 14.sp,
+                            fontSize: 12.sp,
                             fontWeight: FontWeight.w500,
                             fontFamily: "Alexandria",
-                            color: isOffersSelected ? Colors.black : Colors.white,
+                            color:
+                                isOffersSelected ? Colors.black : Colors.white,
                           ),
                         ),
                       ),
@@ -550,12 +564,13 @@ class _OfferToggleSliderState extends State<OfferToggleSlider> {
                     Expanded(
                       child: Center(
                         child: Text(
-                          'عبوة',
+                          'package'.tr(),
                           style: TextStyle(
-                            fontSize: 14.sp,
+                            fontSize: 10.sp,
                             fontWeight: FontWeight.w500,
                             fontFamily: "Alexandria",
-                            color: !isOffersSelected ? Colors.black : Colors.white,
+                            color:
+                                !isOffersSelected ? Colors.black : Colors.white,
                           ),
                         ),
                       ),
@@ -571,17 +586,16 @@ class _OfferToggleSliderState extends State<OfferToggleSlider> {
   }
 }
 
-
 class SimilairProduct extends StatelessWidget {
   const SimilairProduct({super.key});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 250,  
+      height: 250,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: 5, 
+        itemCount: 5,
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.only(right: 10),
@@ -620,10 +634,10 @@ class SimilairProduct extends StatelessWidget {
                               alignment: Alignment.center,
                               children: [
                                 Image.asset("assets/images/Vector 356.png"),
-                                const Column(
+                                Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    Center(
+                                    const Center(
                                       child: Text(
                                         '10%',
                                         style: TextStyle(
@@ -635,10 +649,10 @@ class SimilairProduct extends StatelessWidget {
                                     ),
                                     Center(
                                       child: Text(
-                                        'OFF',
-                                        style: TextStyle(
+                                        'offers'.tr(),
+                                        style: const TextStyle(
                                           color: Colors.white,
-                                          fontSize: 14,
+                                          fontSize: 12,
                                           fontWeight: FontWeight.w700,
                                         ),
                                       ),
@@ -657,27 +671,28 @@ class SimilairProduct extends StatelessWidget {
                           Positioned(
                             top: 120,
                             right: 12,
+                            left: 12,
                             child: Text(
-                              '5.00 جنيه',
+                              '5.00_pounds'.tr(),
                               style: TextStyle(
-                                fontSize: 20,
+                                fontSize: 17,
                                 color: AppColors.mainAppColor,
                                 fontWeight: FontWeight.w700,
                                 fontFamily: "Alexandria",
                               ),
                             ),
                           ),
-                          const Positioned(
+                          Positioned(
                             top: 145,
                             right: 12,
                             left: 12,
                             child: Text(
-                              'النور برتقال عصير مصري 2كجم',
+                              'al_Noor_orange_juice_egyptian_2kg'.tr(),
                               textAlign: TextAlign.right,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontWeight: FontWeight.w500,
                                 fontFamily: "Alexandria",
-                                fontSize: 11,
+                                fontSize: 9,
                                 color: Color(0xff231F20),
                               ),
                             ),
@@ -685,20 +700,15 @@ class SimilairProduct extends StatelessWidget {
                         ],
                       ),
                     ),
-                   const  Positioned(
-                      bottom: -15,
+                    const Positioned(
+                      bottom: -10,
                       left: 0,
                       right: 0,
-                      child: Center(
-                        child:QuantityCounter()
-                      ),
+                      child: Center(child: QuantityCounter()),
                     ),
                   ],
                 ),
-
-                const SizedBox(width: 12), 
-
-                
+                const SizedBox(width: 12),
                 Stack(
                   clipBehavior: Clip.none,
                   children: [
@@ -735,27 +745,28 @@ class SimilairProduct extends StatelessWidget {
                           Positioned(
                             top: 120,
                             right: 12,
+                            left: 12,
                             child: Text(
-                              '5.00 جنيه',
+                              '5.00_pounds'.tr(),
                               style: TextStyle(
-                                fontSize: 20,
+                                fontSize: 17,
                                 color: AppColors.mainAppColor,
                                 fontWeight: FontWeight.w700,
                                 fontFamily: "Alexandria",
                               ),
                             ),
                           ),
-                          const Positioned(
+                          Positioned(
                             top: 145,
                             right: 12,
                             left: 12,
                             child: Text(
-                              'النور برتقال عصير مصري 2كجم',
+                              'al_Noor_orange_juice_egyptian_2kg'.tr(),
                               textAlign: TextAlign.right,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontWeight: FontWeight.w500,
                                 fontFamily: "Alexandria",
-                                fontSize: 11,
+                                fontSize: 9,
                                 color: Color(0xff231F20),
                               ),
                             ),
@@ -764,7 +775,7 @@ class SimilairProduct extends StatelessWidget {
                       ),
                     ),
                     Positioned(
-                      bottom: -10,
+                      bottom: -6,
                       left: 0,
                       right: 0,
                       child: Center(

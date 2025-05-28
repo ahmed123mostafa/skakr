@@ -142,7 +142,7 @@ class _FavouriteItemState extends State<FavouriteItem> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'تفاح أخضر مستورد اكجم',
+                    'imported_green_apples_1kg'.tr(),
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 12.sp,
@@ -151,7 +151,7 @@ class _FavouriteItemState extends State<FavouriteItem> {
                   ),
                   SizedBox(height: 4.h),
                   Text(
-                    '5 جنيه',
+                    '5.00_pounds'.tr(),
                     style: TextStyle(
                       fontSize: 25.sp,
                       fontWeight: FontWeight.w500,
@@ -160,7 +160,9 @@ class _FavouriteItemState extends State<FavouriteItem> {
                   ),
                   SizedBox(height: 6.h),
                   Align(
-                    alignment: Alignment.bottomLeft,
+                    alignment: context.locale == const Locale('ar')
+                        ? Alignment.bottomLeft
+                        : Alignment.bottomRight,
                     child: ElevatedButton(
                       onPressed: () {},
                       style: ElevatedButton.styleFrom(
@@ -174,7 +176,7 @@ class _FavouriteItemState extends State<FavouriteItem> {
                         ),
                       ),
                       child: Text(
-                        'عرض التفاصيل',
+                        'view_details'.tr(),
                         style: TextStyle(
                           fontSize: 12.sp,
                           color: AppColors.backgroundAppColor,

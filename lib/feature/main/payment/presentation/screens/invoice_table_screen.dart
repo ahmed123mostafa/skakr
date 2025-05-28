@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:settings_app/core/constant/app_colors.dart';
 import 'package:settings_app/core/constant/custom_bottom.dart';
+import 'package:settings_app/feature/main/home/presentation/home_view.dart';
 
 class InvoiceScreen extends StatelessWidget {
   const InvoiceScreen({super.key});
@@ -19,7 +21,7 @@ class InvoiceScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "الفاتورة",
+                    "bill".tr(),
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 25.sp,
@@ -27,23 +29,38 @@ class InvoiceScreen extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      infoRow("رقم الفاتورة", "114521", sized: 5),
+                      infoRow("invoice number".tr(), "114521", sized: 5),
                       const Spacer(),
-                      infoRow("تاريخ الفاتورة", "2025/4/25", sized: 5),
+                      infoRow("invoice date".tr(), "2025/4/25", sized: 5),
                     ],
                   ),
-                  infoRow("طريقة الدفع", "الدفع عند الاستلام", sized: 5),
-                  infoRow("إجمالي الطلب", "105.00", sized: 5),
-                  infoRow("الخصم / الإضافة", "0.000", sized: 5),
-                  infoRow("السعر النهائي", "105.00", sized: 5),
+                  infoRow("payment method".tr(), "cash on delivery".tr(),
+                      sized: 5),
+                  Row(
+                    children: [
+                      infoRow("total quantity".tr(), "1", sized: 5),
+                      const Spacer(),
+                      infoRow("total invoice".tr(), "105.00", sized: 5),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      infoRow("deduction / addition".tr(), "0.000", sized: 5),
+                      const Spacer(),
+                      infoRow("the final price".tr(), "105.00", sized: 5),
+                    ],
+                  )
                 ],
               ),
               const SizedBox(height: 20),
-              const Align(
-                alignment: Alignment.topRight,
+              Align(
+                alignment: context.locale == const Locale('ar')
+                    ? Alignment.topRight
+                    : Alignment.topLeft,
                 child: Text(
-                  "الأصناف",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                  "categories".tr(),
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 18),
                 ),
               ),
               const SizedBox(height: 12),
@@ -67,15 +84,15 @@ class InvoiceScreen extends StatelessWidget {
                   children: [
                     _tableHeaderRow(),
                     _tableDataRow(
-                        "1", "بيبسي 1.5 لتر كرتونة", "2", "30.00", "60.00"),
+                        "1", "pepsi 1.5 liters carton".tr(), "2", "30.00", "60.00"),
                     _tableDataRow(
-                        "2", "مياه 1.5 لتر كرتونة", "2", "65.00", "130.00"),
-                    _tableDataRow("3", "سبرايت كرتونة", "2", "130.00", "260.0"),
-                    _tableDataRow("4", "فانتا كرتونة", "2", "150.00", "300.0"),
+                        "2", "pepsi 1.5 liters carton".tr(), "2", "65.00", "130.00"),
+                    _tableDataRow("3", "pepsi 1.5 liters carton".tr(), "2", "130.00", "260.0"),
+                    _tableDataRow("4", "pepsi 1.5 liters carton".tr(), "2", "150.00", "300.0"),
                     _tableDataRow(
-                        "5", "كوكاكولا كرتونة", "2", "150.00", "300.0"),
+                        "5", "pepsi 1.5 liters carton".tr(), "2", "150.00", "300.0"),
                     _tableDataRow(
-                        "6", "ببسي زجاج 250مل", "1", "20.00", "20.00"),
+                        "6", "pepsi 1.5 liters carton".tr(), "1", "20.00", "20.00"),
                   ],
                 ),
               ),
@@ -83,7 +100,7 @@ class InvoiceScreen extends StatelessWidget {
               CustomButton(
                   width: 212,
                   height: 31,
-                  text: "متابعة الطلب",
+                  text: "tracking the order".tr(),
                   onPressed: () {}),
               SizedBox(
                 height: 10.h,
@@ -91,8 +108,13 @@ class InvoiceScreen extends StatelessWidget {
               CustomButton(
                   width: 212,
                   height: 31,
-                  text: "الصفحة الرئيسية",
-                  onPressed: () {}),
+                  text: "home page".tr(),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const HomeView()));
+                  }),
               const SizedBox(height: 24),
               Center(
                 child: Image.asset("assets/images/Group 195.png"),
@@ -105,12 +127,12 @@ class InvoiceScreen extends StatelessWidget {
   }
 
   TableRow _tableHeaderRow() {
-    return const TableRow(children: [
-      _TableHeader(text: "رقم"),
-      _TableHeader(text: "اسم الصنف"),
-      _TableHeader(text: "الكمية"),
-      _TableHeader(text: "السعر"),
-      _TableHeader(text: "إجمالي"),
+    return TableRow(children: [
+      _TableHeader(text: "number".tr()),
+      _TableHeader(text: "product name".tr()),
+      _TableHeader(text: "amount".tr()),
+      _TableHeader(text: "price piece".tr()),
+      _TableHeader(text: "total".tr()),
     ]);
   }
 
@@ -164,7 +186,7 @@ class _TableHeader extends StatelessWidget {
         text,
         textAlign: TextAlign.center,
         style: TextStyle(
-            fontSize: 12.sp,
+            fontSize: 6.sp,
             fontWeight: FontWeight.w600,
             color: AppColors.backgroundAppColor),
       ),
@@ -187,7 +209,7 @@ class _TableCell extends StatelessWidget {
           color: Colors.white,
           borderRadius: BorderRadius.circular(8),
         ),
-        padding:const  EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

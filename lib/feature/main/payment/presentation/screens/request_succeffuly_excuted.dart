@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:settings_app/core/constant/app_colors.dart';
@@ -19,8 +20,9 @@ class _RequestSuccessfullyExecutedState
     Future.delayed(const Duration(seconds: 5), () {
       if (mounted) {
         Navigator.pop(context);
-        
-         Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) =>const InvoiceScreen()));
+
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (_) => const InvoiceScreen()));
       }
     });
   }
@@ -37,16 +39,16 @@ class _RequestSuccessfullyExecutedState
             Center(child: Image.asset("assets/images/pana.png")),
             SizedBox(height: 40.h),
             Text(
-              "تم تنفيذ الطلب بنجاح",
+              "the request has been successfully executed.".tr(),
               style: TextStyle(
-                fontSize: 20.sp,
+                fontSize: 15.sp,
                 color: AppColors.mainAppColor,
                 fontWeight: FontWeight.w600,
               ),
             ),
             SizedBox(height: 20.h),
             Text(
-              "يرجي الانتظار",
+              "Please wait".tr(),
               style: TextStyle(
                 fontSize: 20.sp,
                 color: AppColors.mainAppColor,

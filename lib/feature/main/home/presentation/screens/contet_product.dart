@@ -57,10 +57,10 @@ class ContentProduct extends StatelessWidget {
                               width: 20.w,
                             ),
                             Text(
-                              "دواجن، لحوم ومأكولات بحرية".tr(),
+                              "poultry_meats_and_seafood".tr(),
                               style: TextStyle(
                                 fontFamily: "Alexandria",
-                                fontSize: 12.sp,
+                                fontSize: 9.sp,
                                 fontWeight: FontWeight.w600,
                                 color: AppColors.mainAppColor,
                               ),
@@ -159,7 +159,12 @@ class CategorySelector extends StatefulWidget {
 }
 
 class _CategorySelectorState extends State<CategorySelector> {
-  final List<String> categories = ['الكل', 'دواجن', 'لحوم', 'مأكولات بحرية'];
+  final List<String> categories = [
+    'all'.tr(),
+    'poultry'.tr(),
+    'meat'.tr(),
+    'seafood'.tr()
+  ];
   int selectedIndex = 0;
 
   @override

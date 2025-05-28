@@ -50,16 +50,21 @@ class _NewAddAddressState extends State<NewAddAddress> {
           shadowColor: Colors.black.withOpacity(0.5),
           centerTitle: true,
           title: Text(
-            "أضافة عنوان جديد",
+            "add a new address".tr(),
             style: TextStyle(
               color: AppColors.mainAppColor,
               fontWeight: FontWeight.w500,
               fontSize: 16.sp,
             ),
           ),
-          leading: Icon(
-            Icons.arrow_back,
-            color: AppColors.mainAppColor,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(
+              Icons.arrow_back,
+              color: AppColors.mainAppColor,
+            ),
           ),
         ),
         body: SingleChildScrollView(
@@ -77,7 +82,7 @@ class _NewAddAddressState extends State<NewAddAddress> {
                     return null;
                   },
                   textInputType: TextInputType.text,
-                  hintText: "قم بتسمية العنوان(منزل-شقة-مكتب)",
+                  hintText: "name the title (house-apartment-office)".tr(),
                 ),
               ),
               SizedBox(height: 20.h),
@@ -95,7 +100,7 @@ class _NewAddAddressState extends State<NewAddAddress> {
                     Image.asset("assets/images/Group 186 (1).png"),
                     SizedBox(width: 10.w),
                     Text(
-                      "عنوان التوصيل".tr(),
+                      "delivery address".tr(),
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w500,
@@ -128,7 +133,7 @@ class _NewAddAddressState extends State<NewAddAddress> {
                                       ? "governorate".tr()
                                       : governoratecontrrler.text,
                                   style: TextStyle(
-                                    fontSize: 12.sp,
+                                    fontSize: 10.sp,
                                     color: const Color(0xff231F20),
                                   ),
                                 ),
@@ -211,7 +216,7 @@ class _NewAddAddressState extends State<NewAddAddress> {
                                       ? "region".tr()
                                       : regioncontrrler.text,
                                   style: TextStyle(
-                                    fontSize: 12.sp,
+                                    fontSize: 10.sp,
                                     color: const Color(0xff231F20),
                                   ),
                                 ),
@@ -285,7 +290,7 @@ class _NewAddAddressState extends State<NewAddAddress> {
                     }
                     return null;
                   },
-                  hintText: "المنطقة",
+                  hintText: "area".tr(),
                 ),
               ),
               Padding(
@@ -298,7 +303,9 @@ class _NewAddAddressState extends State<NewAddAddress> {
                     }
                     return null;
                   },
-                  hintText: "اسم/رقم المبني (عماره-برج-فيلا)",
+                  hintText:
+                      "name/Number of the building (apartment-tower-villa)"
+                          .tr(),
                 ),
               ),
               Row(
@@ -314,7 +321,7 @@ class _NewAddAddressState extends State<NewAddAddress> {
                           }
                           return null;
                         },
-                        hintText: "الطابق",
+                        hintText: "floor".tr(),
                       ),
                     ),
                   ),
@@ -330,7 +337,7 @@ class _NewAddAddressState extends State<NewAddAddress> {
                           }
                           return null;
                         },
-                        hintText: "رقم الشقة/الفيلا",
+                        hintText: "Apartment/Villa Number".tr(),
                       ),
                     ),
                   ),
@@ -347,7 +354,7 @@ class _NewAddAddressState extends State<NewAddAddress> {
                       }
                       return null;
                     },
-                    hintText: "تعليمات التوصيل"),
+                    hintText: "delivery_instructions".tr()),
               ),
               SizedBox(height: 40.h),
               Padding(
@@ -356,7 +363,7 @@ class _NewAddAddressState extends State<NewAddAddress> {
                   child: CustomButton(
                     width: 386.w,
                     height: 45.h,
-                    text: "أضافة عنوان".tr(),
+                    text: "add address".tr(),
                     onPressed: () {},
                   ),
                 ),

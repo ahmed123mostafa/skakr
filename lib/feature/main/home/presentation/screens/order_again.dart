@@ -172,9 +172,9 @@ class Customgridview extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 12.w),
                         child: Text(
-                          '5.00 جنيه',
+                          '5.00_pounds'.tr(),
                           style: TextStyle(
-                            fontSize: 20.sp,
+                            fontSize: 17.sp,
                             color: AppColors.mainAppColor,
                             fontWeight: FontWeight.w700,
                             fontFamily: "Alexandria",
@@ -185,12 +185,12 @@ class Customgridview extends StatelessWidget {
                         padding: EdgeInsets.symmetric(
                             horizontal: 12.w, vertical: 4.h),
                         child: Text(
-                          'النور برتقال عصير مصري 2كجم',
+                          'al_Noor_orange_juice_egyptian_2kg'.tr(),
                           textAlign: TextAlign.right,
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontFamily: "Alexandria",
-                            fontSize: 11.sp,
+                            fontSize: 8.sp,
                             color: const Color(0xff231F20),
                           ),
                         ),
@@ -212,7 +212,8 @@ class Customgridview extends StatelessWidget {
                             horizontal: 24.w, vertical: 10.h),
                       ),
                       child: Text(
-                        'إضافة للسلة',
+                        'add_to_cart'.tr(),
+                       
                         style: TextStyle(
                           fontFamily: "Alexandria",
                           fontSize: 10.sp,

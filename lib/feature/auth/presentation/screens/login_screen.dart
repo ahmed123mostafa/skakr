@@ -46,10 +46,8 @@ class _LoginScreenState extends State<LoginScreen> {
     final screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-       resizeToAvoidBottomInset: true,
-      
+      resizeToAvoidBottomInset: true,
       body: SafeArea(
-
         child: SizedBox(
           width: screenWidth,
           height: screenHeight,
@@ -112,7 +110,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               hintText: "phone_number".tr(),
                               textInputAction: TextInputAction.next,
                               onFieldSubmitted: (_) {
-                                FocusScope.of(context).requestFocus(passwordFocusNode);
+                                FocusScope.of(context)
+                                    .requestFocus(passwordFocusNode);
                               },
                             ),
                           ),
@@ -126,7 +125,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                   return "Please enter your password".tr();
                                 }
                                 if (value.length < 7) {
-                                  return "Password must be at least 7 characters".tr();
+                                  return "Password must be at least 7 characters"
+                                      .tr();
                                 }
                                 return null;
                               },
@@ -140,7 +140,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   });
                                 },
                                 icon: Icon(isPassword
-                                    ? Icons.remove_red_eye_outlined
+                                    ? Icons.visibility_off_outlined
                                     : Icons.remove_red_eye),
                                 color: const Color(0xff6A707C),
                               ),
@@ -174,48 +174,82 @@ class _LoginScreenState extends State<LoginScreen> {
                             height: 38,
                             fontSize: 14,
                           ),
-                          SizedBox(height: 20.h,),
-                          Image.asset(AppAssets.or),
-                          SizedBox(height:20.h),
+                          SizedBox(
+                            height: 20.h,
+                          ),
+                          Container(
+                            width: 30.w,
+                            height: 24.h,
+                            decoration: BoxDecoration(
+                              color: const Color(0XFFE9E9E9),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Center(
+                              child: Text(
+                                'or'.tr(),
+                                style: TextStyle(
+                                  fontFamily: "Alexandria",
+                                  fontSize: 10.sp,
+                                  fontWeight: FontWeight.w300,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 20.h),
                           CustomButton(
                             text: "no_account".tr(),
                             borderRadius: 20,
                             onPressed: () {
-
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const RegisterScreen(),
-                                  ),
-                                );
-
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const RegisterScreen(),
+                                ),
+                              );
                             },
                             width: 227,
                             height: 38,
                             fontSize: 14,
                           ),
-                          SizedBox(height: 20.h,),
-                          Image.asset(AppAssets.or),
-                          SizedBox(height:20.h),
-                  
+                          SizedBox(
+                            height: 20.h,
+                          ),
+                          Container(
+                            width: 30.w,
+                            height: 24.h,
+                            decoration: BoxDecoration(
+                              color: const Color(0XFFE9E9E9),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Center(
+                              child: Text(
+                                'or'.tr(),
+                                style: TextStyle(
+                                  fontFamily: "Alexandria",
+                                  fontSize: 10.sp,
+                                  fontWeight: FontWeight.w300,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 20.h),
                           CustomButton(
                             text: "follow_a_guest".tr(),
                             borderRadius: 20,
                             onPressed: () {
-
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const HomeView(),
-                                  ),
-                                );
-                              },
-
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const HomeView(),
+                                ),
+                              );
+                            },
                             width: 227,
                             height: 38,
                             fontSize: 14,
                           ),
-                  
                         ],
                       ),
                     ),
@@ -229,4 +263,3 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
-

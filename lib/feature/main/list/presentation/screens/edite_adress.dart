@@ -56,9 +56,14 @@ class _EditeAddressState extends State<EditeAddress> {
               fontSize: 16.sp,
             ),
           ),
-          leading: Icon(
-            Icons.arrow_back,
-            color: AppColors.mainAppColor,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(
+              Icons.arrow_back,
+              color: AppColors.mainAppColor,
+            ),
           ),
         ),
         body: SingleChildScrollView(
@@ -77,7 +82,7 @@ class _EditeAddressState extends State<EditeAddress> {
                       return null;
                     },
                     textInputType: TextInputType.text,
-                    hintText: "مكتب",
+                    hintText: "office".tr(),
                   ),
                 ),
                 SizedBox(height: 20.h),
@@ -286,7 +291,7 @@ class _EditeAddressState extends State<EditeAddress> {
                             }
                             return null;
                           },
-                          hintText: "شارع الزراعة",
+                          hintText: "agriculture_street".tr(),
                         ),
                       ),
                     ),
@@ -302,7 +307,7 @@ class _EditeAddressState extends State<EditeAddress> {
                             }
                             return null;
                           },
-                          hintText: "برج المغازي",
+                          hintText: "al-maghazi_tower".tr(),
                         ),
                       ),
                     ),
@@ -319,7 +324,8 @@ class _EditeAddressState extends State<EditeAddress> {
                         }
                       },
                       hintText:
-                          "المنصوره - غرب - شارع قناة السويسبرج المغازي - الدور العاشر شقة 2"),
+                          "mansoura_talkha_corner_of_agriculture_street_al-Maghazi_tower"
+                              .tr()),
                 ),
                 40.verticalSpace,
                 Padding(

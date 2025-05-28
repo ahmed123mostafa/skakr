@@ -13,7 +13,7 @@ class CatagoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color(0xffF1F1F1),
+        backgroundColor: const Color(0xffF1F1F1),
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -46,6 +46,7 @@ class CatagoryScreen extends StatelessWidget {
                         child: CustomTextFormField(
                           fillColor: Colors.white,
                           prefix: const Icon(Icons.search),
+                          hintFontSize: 8,
                           hintText:
                               "type_here_the_one_you_want_to_search_for".tr(),
                         ),

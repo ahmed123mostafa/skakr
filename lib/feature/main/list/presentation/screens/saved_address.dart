@@ -38,9 +38,14 @@ class SavedAddress extends StatelessWidget {
               ),
             ],
           ),
-          leading: Icon(
-            Icons.arrow_back,
-            color: AppColors.mainAppColor,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(
+              Icons.arrow_back,
+              color: AppColors.mainAppColor,
+            ),
           ),
         ),
         body: Column(
@@ -97,7 +102,7 @@ class SavedAddress extends StatelessWidget {
                                     "assets/images/Layer_2_copy_11 (1).png"),
                                 SizedBox(width: 5.w),
                                 Text(
-                                  "Mohamed Said",
+                                  "mohamed_samir".tr(),
                                   style: TextStyle(
                                     color: AppColors.mainAppColor,
                                     fontWeight: FontWeight.w400,
@@ -113,7 +118,7 @@ class SavedAddress extends StatelessWidget {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                   const    EditeAddress()));
+                                                      const EditeAddress()));
                                         },
                                         child: Image.asset(AppAssets.edite)),
                                     GestureDetector(
@@ -134,7 +139,7 @@ class SavedAddress extends StatelessWidget {
                                                   Image.asset(AppAssets.addres),
                                                   SizedBox(height: 10.h),
                                                   Text(
-                                                    'حذف العنوان',
+                                                    'delete_the_address'.tr(),
                                                     style: TextStyle(
                                                       color: AppColors
                                                           .mainAppColor,
@@ -144,13 +149,14 @@ class SavedAddress extends StatelessWidget {
                                                     ),
                                                   ),
                                                   Text(
-                                                    'هل أنت متاكد من حذف هذا العنوان؟',
+                                                    'are_you_sure_you_want_to_delete_this_address?'
+                                                        .tr(),
                                                     style: TextStyle(
                                                       color: AppColors
                                                           .mainAppColor,
                                                       fontWeight:
                                                           FontWeight.w500,
-                                                      fontSize: 12.sp,
+                                                      fontSize: 10.sp,
                                                     ),
                                                   ),
                                                   SizedBox(height: 20.h),
@@ -170,7 +176,7 @@ class SavedAddress extends StatelessWidget {
                                                                     AppColors
                                                                         .mainAppColor),
                                                         child: Text(
-                                                          'تأكيد',
+                                                          'delete'.tr(),
                                                           style: TextStyle(
                                                               fontSize: 15.sp,
                                                               fontWeight:
@@ -194,7 +200,7 @@ class SavedAddress extends StatelessWidget {
                                                                     Colors
                                                                         .white),
                                                         child: Text(
-                                                          'إلغاء',
+                                                          'cancel'.tr(),
                                                           style: TextStyle(
                                                               fontSize: 15.sp,
                                                               fontWeight:
@@ -252,12 +258,12 @@ class SavedAddress extends StatelessWidget {
                                 SizedBox(width: 5.w),
                                 Expanded(
                                   child: Text(
-                                    "المنصوره - طلخا - برج المغازي   "
-                                    "الدور العاشر شقة2",
+                                    "mansoura_talkha_corner_of_agriculture_street_al-Maghazi_tower"
+                                        .tr(),
                                     style: TextStyle(
                                       color: const Color(0xff231F20),
                                       fontWeight: FontWeight.w400,
-                                      fontSize: 11.sp,
+                                      fontSize: 9.sp,
                                     ),
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,

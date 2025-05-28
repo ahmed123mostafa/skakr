@@ -77,7 +77,127 @@
    "name_the_title_(House-Apartment-Office)":"قم بتسمية العنوان(منزل - شقة - مكتب)",
    "choose_governorate":"اختر المحافظه",
    "cairo":"القاهره",
-   "mansoura":"المنصوره"
+   "mansoura":"المنصوره",
+   "or":"أو",
+   "5.00_pounds":"5,00 جنيه",
+   "al_Noor_orange_juice_egyptian_2kg":"النور برتقال عصير مصرى 2كجم",
+   "add_to_cart":"اضف الى السلة",
+   "upward":"إلي الأعلى",
+   "poultry_meats_and_seafood":"دواجن، لحوم ومأكولات بحرية",
+   "all":"الكل",
+   "poultry":"دواجن",
+   "meat":"لحوم",
+   "seafood":"سمك",
+   "pound":"جنيه",
+   "available":"متوفر",
+   "basket":"بالته",
+   "package":"عبوه",
+   "description":"الوصف",
+   "get_ready_to_savor_the_delicious_the_delicious_taste_of_crispy_fries!_with their_versatile_nature_and_delightful_flavor,fries_are_a_staple_in_the_kitchens_of_many_cultures_around_the_world.":"استعد لتذوق الطعم اللذيذ لبطاطس القلي الهشة! مع طبيعتها المتعددة الاستخدامات وطعمها اللذيذ تعتبر بطاطس القلي مكوتا أساسيا في مطابخ العديد من الثقافات في جميع أنحاء العالم.",
+   "see_more":"رؤية المزيد",
+   "view_details":"عرض التفاصيل",
+   "imported_green_apples_1kg":"تفاح اخضر مستورد 1كجم",
+   "hello,mohamed":"اهلا,محمد",
+   "account_information":"معلومات الحساب",
+   "mohamed_samir":"محمد سمير",
+   "mohamed":"محمد",
+   "samir":"سمير",
+   "change_the_password":"تغير كلمة المرور",
+   "deleate _account":"حذف الحساب",
+   "are_you_sure_you_want_to_delete_this_account?":"هل أنت متأكد أنك تريد حذف هذا الحساب؟",
+   "delete":"حذف",
+   "cancel":"إلغاء",
+   "the_old_password":"كلمة المرور القديمة",
+   "the_new_password_new_password(must_be_at_least_8_letters_or_numbers)":"كلمة السر الجديدة (لا تقل عن 8 حروف او ارقام)",
+   "confirm_the_new_password":"تأكيد كلمة المرور الجديدة",
+   "there_is_a_long_established_fact_that_the_readable_content_of_a_page_will_distract_the_reader_from_focusingon_the_text's_outer_appearance_or_the_layout_of_the_paragraphson_the_page_they_are_reading.therefore,the_Lorem_Ipsum_method_is_used.":"هناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوى المقروء لصفحة ما سيلهي القارئ عن التركيز على الشكل الخارجي للنص أو شكل توضع الفقرات في الصفحة التي يقرأها. ولذلك يتم استخدام طريقة لوريم إيبسوم ",
+   "there_is_a_long_established_fact_that":"هناك حقيقة مثبتة منذ زمن طويل وهي أن",
+   "delete_the_address":"حذف العنوان",
+   "are_you_sure_you_want_to_delete_this_address?":"هل أنت متأكد أنك تريد حذف هذا العنوان؟",
+   "mansoura_talkha_corner_of_agriculture_street_al-Maghazi_tower":"المنصوره - طلخا - ناصية شارع الزراعة - برج المغازي",
+   "office":"مكتب",
+   "agriculture_street":"شارع الزراعة",
+   "al-maghazi_tower":"برج المغازي",
+   "received":"تم الاستلام",
+   "cancelled":"ملغاه",
+   "order_number":"رقـــم الــطـــلــــب",
+   "show":"عرض",
+   "order_history" :"تـاريـخ الـطـلبــيـه",
+   "delivery_address":"عنوان التوصيل",
+   "order_status":"حالة الطلبية",
+   "it_has_been_canceled.":"تم الالغاء",
+   "total_price:":"إجمالي السعر:",
+   "1000.00 pounds":"1000 جنيه",
+   "delivery_to:home":"التوصيل إلي:المنزل",
+   "azzhar_street 2,hawalli,nasr city":"ا شارع الازهر 2 ,حولي , مدينة نصر",
+   "price:":"السعر",
+   "20 pounds":"20 جنيه",
+   "total:":"الإجمالي",
+   "the_minimum_order":"الحد الأدني للطلب",
+   "2000 pounds":"2000 جنيه",
+   "total":"الإجمالي",
+    "3000 pounds":"3000 جنيه",
+    "less than the minimum required to complete the purchase. Remaining to complete the purchase is 1700 pounds.":"اقل من الحد الادنيلاتمام الشراء المتبقي لاتمام الشراء1700 جنيه",
+    "subtotal":"المجموع الفرعي",
+    "300 pounds":"300 جنيه",
+    "payment":"الدفع",
+    "choose address":"اختر العنوان",
+    "add new address":"أضف عنوان جديد",
+    "an address already exists":"عنوان موجود مسبقاً",
+    "add a new address":"أضافة عنوان جديد",
+    "name the title (house-apartment-office)":"قم بتسمية العنوان(منزل-شقة-مكتب)",
+    "delivery address":"عنوان التوصيل",
+    "area":"المنطقه",
+    "name/Number of the building (apartment-tower-villa)":"اسم/رقم المبني (عماره-برج-فيلا)",
+    "apartment/Villa Number":"رقم الشقة/الفيلا",
+    "add address":"اضافه عنوان",
+    "choose delivery time":"اختر وقت التوصيل",
+    "delivery now":"توصيل الان",
+    "delivery later":"توصيل لاحقا",
+    "today":"اليوم",
+    "tomorrow":"غدا",
+    "payment method":"طريقة الدفع",
+    "cash on delivery":"الدفع عند الاستلام",
+    "the subtotal":"المجموع الفرعي",
+    "delivery fees":"رسوم التوصيل",
+    "discount rate":"نسبة الخصم",
+   "pounds":"جنيه",
+   "the request has been successfully executed.":"تم تنفيذ الطلب بنجاح",
+   "Please wait":"يرجي الانتظار",
+   "bill":"الفاتورة",
+   "invoice number":"رقـــــــم الفـاتـــــوره",
+   "invoice date":"تـــاريــــخ الفـاتــــوره",
+   "total quantity":"إجمـالـــي الكمــية",
+   "total invoice":"إجمالي الفـاتـــــوره",
+   "deduction / addition":"الخصم / الإضافة",
+   "the final price":"السعر النهائي",
+   "tracking the order":"متابعة الطلب",
+   "home page":"الصفحة الرئيسية",
+   "number":"رقم",
+   "product name":"اسم الصنف",
+   "amount":"الكمية",
+   "price piece":"سعر القطعة",
+   "pepsi 1.5 liters carton":"بيبسي 1.5 لتر كرتونة"
+   
+
+
+
+    
+    
+
+  
+
+
+
+
+
+
+
+   
+
+
+
+  
    
    
 

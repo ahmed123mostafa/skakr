@@ -5,19 +5,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:settings_app/core/constant/app_colors.dart';
 
 class PolicyAndPrivacy extends StatelessWidget {
-   PolicyAndPrivacy({super.key});
-   List<String> items = [
-    "1. هناك حقيقة مثبتة منذ زمن طويل وهي أن",
-    "2. المحتوى المقروء لصفحة ما سيلهي القارئ عن التركيز ",
-    "3.  المحتوى المقروء لصفحة ما سيلهي القارئ عن التركيز  ",
-   
+  PolicyAndPrivacy({super.key});
+  List<String> items = [
+    "1.there_is_a_long_established_fact_that".tr(),
+    "2.there_is_a_long_established_fact_that".tr(),
+    "3.there_is_a_long_established_fact_that".tr(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        
         backgroundColor: const Color(0xffF1F1F1),
         appBar: AppBar(
           backgroundColor: Colors.white,
@@ -32,13 +30,17 @@ class PolicyAndPrivacy extends StatelessWidget {
               fontSize: 16.sp,
             ),
           ),
-          leading: Icon(
-            Icons.arrow_back,
-            color: AppColors.mainAppColor,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(
+              Icons.arrow_back,
+              color: AppColors.mainAppColor,
+            ),
           ),
         ),
-
- body: Column(
+        body: Column(
           children: [
             Expanded(
               child: ListView.builder(
@@ -78,15 +80,15 @@ class PolicyAndPrivacy extends StatelessWidget {
                           ),
                         ),
                         collapsed: const SizedBox.shrink(),
-                        expanded: const Padding(
-                          padding: EdgeInsets.all(12),
+                        expanded: Padding(
+                          padding: const EdgeInsets.all(12),
                           child: Text(
-                            "هناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوى المقروء للصفحة ما سيلهي القارئ عن التركيز على الشكل الخارجي للنص...",
-                            style: TextStyle(
+                            "there_is_a_long_established_fact_that_the_readable_content_of_a_page_will_distract_the_reader_from_focusingon_the_text's_outer_appearance_or_the_layout_of_the_paragraphson_the_page_they_are_reading.therefore,the_Lorem_Ipsum_method_is_used."
+                                .tr(),
+                            style: const TextStyle(
                                 color: Color(0xff181818),
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500),
-                            textAlign: TextAlign.right,
                           ),
                         ),
                         theme: const ExpandableThemeData(

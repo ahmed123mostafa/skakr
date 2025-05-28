@@ -40,7 +40,7 @@ class _AccountInformationState extends State<AccountInformation> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "أهلا , محمد",
+                          "hello,mohamed".tr(),
                           style: TextStyle(
                             fontFamily: "Alexandria",
                             fontSize: 16.sp,
@@ -49,7 +49,7 @@ class _AccountInformationState extends State<AccountInformation> {
                           ),
                         ),
                         Text(
-                          "معلومات الحساب",
+                          "account_information".tr(),
                           style: TextStyle(
                             fontFamily: "Alexandria",
                             fontSize: 8.sp,

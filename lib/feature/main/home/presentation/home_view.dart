@@ -23,10 +23,10 @@ class HomeView extends StatelessWidget {
             backgroundColor: Colors.white,
             curve: Curves.easeOutQuint,
             currentIndex: homeCubit
-                .currentIndex, // Using the current index from HomeCubit
+                .currentIndex, 
             onTap: (index) {
               homeCubit.changeSelectIndexBottom(
-                  index: index); // Trigger index change
+                  index: index);
             },
             items: [
               SalomonBottomBarItem(

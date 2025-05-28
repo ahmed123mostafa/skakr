@@ -47,7 +47,7 @@ class _DeliveryTimeScreenState extends State<DeliveryTimeScreen> {
             children: [
               Image.asset("assets/images/Group (9).png"),
               Text(
-                "اختر وقت التوصيل".tr(),
+                "choose delivery time".tr(),
                 style: TextStyle(
                   color: AppColors.mainAppColor,
                   fontWeight: FontWeight.w500,
@@ -56,9 +56,14 @@ class _DeliveryTimeScreenState extends State<DeliveryTimeScreen> {
               ),
             ],
           ),
-          leading: Icon(
-            Icons.arrow_back,
-            color: AppColors.mainAppColor,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(
+              Icons.arrow_back,
+              color: AppColors.mainAppColor,
+            ),
           ),
         ),
         body: SingleChildScrollView(
@@ -66,24 +71,24 @@ class _DeliveryTimeScreenState extends State<DeliveryTimeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("اختر وقت التوصيل",
+              Text("choose delivery time".tr(),
                   style: TextStyle(
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w400,
                       color: const Color(0xff231F20))),
               SizedBox(height: 10.h),
-              buildRadioOption("التوصيل الآن", "now"),
+              buildRadioOption("delivery now".tr(), "now"),
               SizedBox(height: 5.w),
-              buildRadioOption("التوصيل لاحقًا", "later"),
+              buildRadioOption("delivery later".tr(), "later"),
               SizedBox(height: 20.h),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  buildDayLabel("غدًا", "tomorrow"),
+                  buildDayLabel("tomorrow".tr(), "tomorrow"),
                   SizedBox(
                     width: 10.w,
                   ),
-                  buildDayLabel("اليوم", "today"),
+                  buildDayLabel("today".tr(), "today"),
                 ],
               ),
               SizedBox(height: 10.h),
@@ -104,7 +109,7 @@ class _DeliveryTimeScreenState extends State<DeliveryTimeScreen> {
                 ),
               ),
               SizedBox(height: 10.h),
-              Text("طريقة الدفع",
+              Text("payment method".tr(),
                   style: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w600,
@@ -125,7 +130,7 @@ class _DeliveryTimeScreenState extends State<DeliveryTimeScreen> {
                     },
                   ),
                   Text(
-                    'الدفع عند الاستلام',
+                    'cash on delivery'.tr(),
                     style: TextStyle(
                       fontSize: 16.sp,
                       color: const Color(0xff231F20),
@@ -134,7 +139,7 @@ class _DeliveryTimeScreenState extends State<DeliveryTimeScreen> {
                   ),
                   SizedBox(width: 5.w),
                   Image.asset(
-                    'assets/images/Vector (28).png', 
+                    'assets/images/Vector (28).png',
                     width: 24,
                     height: 24,
                     color: AppColors.mainAppColor,
@@ -147,14 +152,14 @@ class _DeliveryTimeScreenState extends State<DeliveryTimeScreen> {
                     height: 40.h,
                     color: AppColors.mainAppColor,
                   )),
-              buildSummaryRow("المجموع الفرعي", "100.00"),
-              buildSummaryRow("رسوم التوصيل", "10.00"),
-              buildSummaryRow("نسبة الخصم", "0.00"),
-              buildSummaryRow("قيمة الخصم", "0.00"),
+              buildSummaryRow("the subtotal".tr(), "100"),
+              buildSummaryRow("delivery fees".tr(), "10"),
+              buildSummaryRow("discount rate".tr(), "0"),
+              buildSummaryRow("discount rate".tr(), "0"),
               SizedBox(
                 height: 10.h,
               ),
-              buildSummaryRow("الإجمالي", "110.00", isTotal: true),
+              buildSummaryRow("total".tr(), "110.00", isTotal: true),
               SizedBox(height: 20.h),
               SizedBox(
                 width: double.infinity,
@@ -173,7 +178,7 @@ class _DeliveryTimeScreenState extends State<DeliveryTimeScreen> {
                             builder: (context) =>
                                 const RequestSuccessfullyExecuted()));
                   },
-                  child: Text("الدفع",
+                  child: Text("payment".tr(),
                       style: TextStyle(fontSize: 16.sp, color: Colors.white)),
                 ),
               ),
@@ -237,11 +242,13 @@ class _DeliveryTimeScreenState extends State<DeliveryTimeScreen> {
           color: selected ? AppColors.mainAppColor : Colors.white,
           borderRadius: BorderRadius.circular(20.r),
         ),
-        child: Text(
-          time,
-          style: TextStyle(
-            color: selected ? Colors.white : Colors.black,
-            fontSize: 10.sp,
+        child: Center(
+          child: Text(
+            time,
+            style: TextStyle(
+              color: selected ? Colors.white : Colors.black,
+              fontSize: 10.sp,
+            ),
           ),
         ),
       ),
@@ -254,14 +261,20 @@ class _DeliveryTimeScreenState extends State<DeliveryTimeScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label,
-              style: TextStyle(
-                  fontSize: isTotal ? 15.sp : 14.sp,
-                  fontWeight: isTotal ? FontWeight.w600 : FontWeight.w400)),
-          Text("$value جنيه",
-              style: TextStyle(
-                  fontSize: isTotal ? 16.sp : 14.sp,
-                  color: isTotal ? AppColors.mainAppColor : Colors.black)),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: isTotal ? 15.sp : 14.sp,
+              fontWeight: isTotal ? FontWeight.w600 : FontWeight.w400,
+            ),
+          ),
+          Text(
+            "$value ${'pounds'.tr()}",
+            style: TextStyle(
+              fontSize: isTotal ? 16.sp : 14.sp,
+              color: isTotal ? AppColors.mainAppColor : Colors.black,
+            ),
+          ),
         ],
       ),
     );

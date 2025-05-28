@@ -16,25 +16,37 @@ class _ContentGridState extends State<ContentGrid> {
   final ScrollController _scrollController = ScrollController();
   final List<Map<String, String>> _allItems = [
     {'title': 'offers'.tr(), 'image': AppAssets.offers},
-    {'title': 'fruits_and_vegetables'.tr(), 'image': AppAssets.fruitsandvegetables},
+    {
+      'title': 'fruits_and_vegetables'.tr(),
+      'image': AppAssets.fruitsandvegetables
+    },
     {'title': 'fresh_food'.tr(), 'image': AppAssets.freshfood},
     {'title': 'baked'.tr(), 'image': AppAssets.baked},
     {'title': 'poultry_meat_seafood'.tr(), 'image': AppAssets.meat},
     {'title': 'ready_to_eat'.tr(), 'image': AppAssets.readytoeat},
     {'title': 'offers'.tr(), 'image': AppAssets.offers},
-    {'title': 'fruits_and_vegetables'.tr(), 'image': AppAssets.fruitsandvegetables},
+    {
+      'title': 'fruits_and_vegetables'.tr(),
+      'image': AppAssets.fruitsandvegetables
+    },
     {'title': 'fresh_food'.tr(), 'image': AppAssets.freshfood},
     {'title': 'baked'.tr(), 'image': AppAssets.baked},
     {'title': 'poultry_meat_seafood'.tr(), 'image': AppAssets.meat},
     {'title': 'ready_to_eat'.tr(), 'image': AppAssets.readytoeat},
     {'title': 'offers'.tr(), 'image': AppAssets.offers},
-    {'title': 'fruits_and_vegetables'.tr(), 'image': AppAssets.fruitsandvegetables},
+    {
+      'title': 'fruits_and_vegetables'.tr(),
+      'image': AppAssets.fruitsandvegetables
+    },
     {'title': 'fresh_food'.tr(), 'image': AppAssets.freshfood},
     {'title': 'baked'.tr(), 'image': AppAssets.baked},
     {'title': 'poultry_meat_seafood'.tr(), 'image': AppAssets.meat},
     {'title': 'ready_to_eat'.tr(), 'image': AppAssets.readytoeat},
     {'title': 'offers'.tr(), 'image': AppAssets.offers},
-    {'title': 'fruits_and_vegetables'.tr(), 'image': AppAssets.fruitsandvegetables},
+    {
+      'title': 'fruits_and_vegetables'.tr(),
+      'image': AppAssets.fruitsandvegetables
+    },
     {'title': 'fresh_food'.tr(), 'image': AppAssets.freshfood},
     {'title': 'baked'.tr(), 'image': AppAssets.baked},
     {'title': 'poultry_meat_seafood'.tr(), 'image': AppAssets.meat},
@@ -73,7 +85,8 @@ class _ContentGridState extends State<ContentGrid> {
   }
 
   void _scrollToTop() {
-    _scrollController.animateTo(0, duration: const Duration(milliseconds: 500), curve: Curves.easeInOut);
+    _scrollController.animateTo(0,
+        duration: const Duration(milliseconds: 500), curve: Curves.easeInOut);
   }
 
   @override
@@ -136,7 +149,9 @@ class _ContentGridState extends State<ContentGrid> {
                 'view_more'.tr(),
                 style: TextStyle(
                   fontSize: 9.sp,
-                  color: _allItems.isNotEmpty ? AppColors.mainAppColor : Colors.grey,
+                  color: _allItems.isNotEmpty
+                      ? AppColors.mainAppColor
+                      : Colors.grey,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -160,7 +175,7 @@ class _ContentGridState extends State<ContentGrid> {
           ),
           SizedBox(height: 8.h),
           Text(
-            'العودة للأعلى',
+            'upward'.tr(),
             style: TextStyle(
               fontSize: 10.sp,
               color: AppColors.mainAppColor,
@@ -176,8 +191,8 @@ class _ContentGridState extends State<ContentGrid> {
     return InkWell(
       borderRadius: BorderRadius.circular(15.r),
       onTap: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => const ContentProduct()));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const ContentProduct()));
       },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

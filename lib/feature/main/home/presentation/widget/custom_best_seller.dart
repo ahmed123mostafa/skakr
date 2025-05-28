@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:settings_app/core/constant/app_assets.dart';
@@ -9,10 +10,10 @@ class BestSellerCart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 250,  
+      height: 250,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: 5, 
+        itemCount: 5,
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.only(right: 10),
@@ -51,10 +52,10 @@ class BestSellerCart extends StatelessWidget {
                               alignment: Alignment.center,
                               children: [
                                 Image.asset("assets/images/Vector 356.png"),
-                                const Column(
+                                Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    Center(
+                                    const Center(
                                       child: Text(
                                         '10%',
                                         style: TextStyle(
@@ -66,10 +67,10 @@ class BestSellerCart extends StatelessWidget {
                                     ),
                                     Center(
                                       child: Text(
-                                        'OFF',
-                                        style: TextStyle(
+                                        'offers'.tr(),
+                                        style: const TextStyle(
                                           color: Colors.white,
-                                          fontSize: 14,
+                                          fontSize: 12,
                                           fontWeight: FontWeight.w700,
                                         ),
                                       ),
@@ -88,27 +89,28 @@ class BestSellerCart extends StatelessWidget {
                           Positioned(
                             top: 120,
                             right: 12,
+                            left: 12,
                             child: Text(
-                              '5.00 جنيه',
+                              '5.00_pounds'.tr(),
                               style: TextStyle(
-                                fontSize: 20,
+                                fontSize: 17,
                                 color: AppColors.mainAppColor,
                                 fontWeight: FontWeight.w700,
                                 fontFamily: "Alexandria",
                               ),
                             ),
                           ),
-                          const Positioned(
+                          Positioned(
                             top: 145,
                             right: 12,
                             left: 12,
                             child: Text(
-                              'النور برتقال عصير مصري 2كجم',
+                              'al_Noor_orange_juice_egyptian_2kg'.tr(),
                               textAlign: TextAlign.right,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontWeight: FontWeight.w500,
                                 fontFamily: "Alexandria",
-                                fontSize: 11,
+                                fontSize: 9,
                                 color: Color(0xff231F20),
                               ),
                             ),
@@ -130,7 +132,7 @@ class BestSellerCart extends StatelessWidget {
                                 horizontal: 24, vertical: 10),
                           ),
                           child: Text(
-                            'إضافة للسلة',
+                            'add_to_cart'.tr(),
                             style: TextStyle(
                               fontFamily: "Alexandria",
                               fontSize: 10.sp,
@@ -143,10 +145,7 @@ class BestSellerCart extends StatelessWidget {
                     ),
                   ],
                 ),
-
-                const SizedBox(width: 12), 
-
-                
+                const SizedBox(width: 12),
                 Stack(
                   clipBehavior: Clip.none,
                   children: [
@@ -174,47 +173,42 @@ class BestSellerCart extends StatelessWidget {
                               ),
                             ),
                           ),
-                           Positioned(
+                          Positioned(
                             top: 3,
                             right: 0,
-                            
-                            
-                              
-                              child:   Image.asset("assets/images/Frame 1243.png"),
-                               
-                              
-                            
+                            child: Image.asset("assets/images/Frame 1243.png"),
                           ),
                           const Positioned(
                             top: 0,
                             left: 0,
                             child:
-                                Icon(Icons.favorite_border, color: Color(0xffDF002A)),
+                                Icon(Icons.favorite, color: Color(0xffDF002A)),
                           ),
                           Positioned(
                             top: 120,
                             right: 12,
+                            left: 12,
                             child: Text(
-                              '5.00 جنيه',
+                              '5.00_pounds'.tr(),
                               style: TextStyle(
-                                fontSize: 20,
+                                fontSize: 17,
                                 color: AppColors.mainAppColor,
                                 fontWeight: FontWeight.w700,
                                 fontFamily: "Alexandria",
                               ),
                             ),
                           ),
-                          const Positioned(
+                          Positioned(
                             top: 145,
                             right: 12,
                             left: 12,
                             child: Text(
-                              'النور برتقال عصير مصري 2كجم',
+                              'al_Noor_orange_juice_egyptian_2kg'.tr(),
                               textAlign: TextAlign.right,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontWeight: FontWeight.w500,
                                 fontFamily: "Alexandria",
-                                fontSize: 11,
+                                fontSize: 9,
                                 color: Color(0xff231F20),
                               ),
                             ),
@@ -223,20 +217,21 @@ class BestSellerCart extends StatelessWidget {
                       ),
                     ),
                     Positioned(
-                      bottom: -10,
+                      bottom: -7,
                       left: 0,
                       right: 0,
                       child: Center(
                         child: ElevatedButton(
                           onPressed: () {},
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.mainAppColor.withOpacity(.3),
+                            backgroundColor:
+                                AppColors.mainAppColor.withOpacity(.3),
                             shape: const StadiumBorder(),
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 24, vertical: 10),
                           ),
                           child: Text(
-                            'إضافة للسلة',
+                            'add_to_cart'.tr(),
                             style: TextStyle(
                               fontFamily: "Alexandria",
                               fontSize: 10.sp,

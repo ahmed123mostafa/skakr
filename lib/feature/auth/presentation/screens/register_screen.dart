@@ -112,6 +112,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         Padding(
                           padding: const EdgeInsets.only(right: 16, left: 16),
                           child: CustomTextFormField(
+                            hintFontSize: 10,
                             prefix: Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: Image.asset(AppAssets.firstname),
@@ -130,6 +131,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         Padding(
                           padding: const EdgeInsets.only(right: 16, left: 16),
                           child: CustomTextFormField(
+                            hintFontSize: 10,
                             prefix: Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: Image.asset(AppAssets.firstname),
@@ -148,6 +150,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         Padding(
                           padding: const EdgeInsets.only(right: 16, left: 16),
                           child: CustomTextFormField(
+                            hintFontSize: 10,
                             prefix: Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: Image.asset(AppAssets.phonenumber),
@@ -167,6 +170,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         Padding(
                           padding: const EdgeInsets.only(right: 16, left: 16),
                           child: CustomTextFormField(
+                            hintFontSize: 10,
                             prefix: Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: Image.asset(AppAssets.email),
@@ -210,7 +214,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               },
                               icon: Icon(
                                 ispassword
-                                    ? Icons.remove_red_eye_outlined
+                                    ? Icons.visibility_off_outlined
                                     : Icons.remove_red_eye,
                               ),
                               color: const Color(0xff6A707C),
@@ -220,6 +224,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         Padding(
                           padding: const EdgeInsets.only(right: 16, left: 16),
                           child: CustomTextFormField(
+                            hintFontSize: 10,
                             prefix: Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: Image.asset(AppAssets.password),
@@ -244,7 +249,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               },
                               icon: Icon(
                                 ispassword
-                                    ? Icons.remove_red_eye_outlined
+                                    ? Icons.visibility_off_outlined
                                     : Icons.remove_red_eye,
                               ),
                               color: const Color(0xff6A707C),
@@ -296,7 +301,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                   ? "governorate".tr()
                                                   : governoratecontrrler.text,
                                               style: TextStyle(
-                                                fontSize: 12.sp,
+                                                fontSize: 10.sp,
                                                 color: const Color(0xff231F20),
                                               ),
                                             ),
@@ -397,7 +402,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                   ? "region".tr()
                                                   : regioncontrrler.text,
                                               style: TextStyle(
-                                                fontSize: 12.sp,
+                                                fontSize: 10.sp,
                                                 color: const Color(0xff231F20),
                                               ),
                                             ),
@@ -478,6 +483,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         Padding(
                           padding: const EdgeInsets.only(right: 16, left: 16),
                           child: CustomTextFormField(
+                            hintFontSize: 10,
                             controller: cityController,
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -504,6 +510,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         Padding(
                           padding: const EdgeInsets.only(right: 16, left: 16),
                           child: CustomTextFormField(
+                            hintFontSize: 10,
                             controller: floorController,
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -527,6 +534,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               return null;
                             },
                             hintText: "floor".tr(),
+                            hintFontSize: 10,
                             obscureText: false,
                             textInputType: TextInputType.number,
                           ),
@@ -534,6 +542,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         Padding(
                           padding: const EdgeInsets.only(right: 16, left: 16),
                           child: CustomTextFormField(
+                            hintFontSize: 10,
                             textInputType: TextInputType.number,
                             controller: homeController,
                             validator: (value) {
@@ -548,6 +557,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         Padding(
                           padding: const EdgeInsets.only(right: 16, left: 16),
                           child: CustomTextFormField(
+                            hintFontSize: 10,
                             controller: regionController,
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -562,6 +572,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         Padding(
                           padding: const EdgeInsets.only(right: 16, left: 16),
                           child: CustomTextFormField(
+                            hintFontSize: 10,
                             maxLines: 5,
                             controller: confermpasswordcontrroler,
                             validator: (value) {
