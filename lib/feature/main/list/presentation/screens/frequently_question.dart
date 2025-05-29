@@ -7,10 +7,9 @@ import 'package:settings_app/core/constant/app_colors.dart';
 class FrequentlyQuestion extends StatelessWidget {
   FrequentlyQuestion({super.key});
   List<String> items = [
-    "1.there_is_a_long_established_fact_that".tr(),
-    "2.there_is_a_long_established_fact_that".tr(),
-    "3.there_is_a_long_established_fact_that".tr(),
-   
+    "there_is_a_long_established_fact_that".tr(),
+    "there_is_a_long_established_fact_that".tr(),
+    "there_is_a_long_established_fact_that".tr(),
   ];
 
   @override

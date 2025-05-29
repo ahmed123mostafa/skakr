@@ -181,7 +181,18 @@
   "product name":"Product name",
   "amount":"Amount",
   "price piece":"price piece",
-  "pepsi 1.5 liters carton":"Pepsi 1.5 liters carton"
+  "pepsi 1.5 liters carton":"Pepsi 1.5 liters carton",
+  "order date April 11, 2025":"Order date April 11, 2025",
+  "the order has been received":"the order has been received",
+  "your order has been successfully received and will be processed soon. Thank you for choosing us":"Your order has been successfully received and will be processed soon. Thank you for choosing us",
+  "the order has been confirmed":"The order has been confirmed",
+  "your order has been confirmed successfully and we are now in the process of preparing it for shipment to you":"Your order has been confirmed successfully and we are now in the process of preparing it for shipment to you",
+  "the order is in the preparation stage":"The order is in the preparation stage",
+  "the order is on its way to you. It will be delivered by shipping service soon":"The order is on its way to you. It will be delivered by shipping service soon",
+  "on the way to you":"On the way to you",
+  "the order is currently in preparation. It will be ready for shipping as soon as possible":"The order is currently in preparation. It will be ready for shipping as soon as possible",
+  "delivered":"Delivered",
+  "your order has been successfully received, thank you for your purchase. We hope you are satisfied with your products":"Your order has been successfully received, thank you for your purchase. We hope you are satisfied with your products"
 
  
   

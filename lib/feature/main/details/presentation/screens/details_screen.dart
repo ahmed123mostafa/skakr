@@ -788,7 +788,7 @@ class SimilairProduct extends StatelessWidget {
                                 horizontal: 24, vertical: 10),
                           ),
                           child: Text(
-                            'إضافة للسلة',
+                            'add_to_cart'.tr(),
                             style: TextStyle(
                               fontFamily: "Alexandria",
                               fontSize: 10.sp,

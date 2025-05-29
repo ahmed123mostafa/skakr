@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:settings_app/core/constant/app_colors.dart';
+import 'package:settings_app/feature/main/list/presentation/screens/prevuis_order/screen/widget/build_current_order.dart';
 
 class MyPreviousOrders extends StatelessWidget {
   MyPreviousOrders({super.key});
@@ -328,37 +329,7 @@ class BuilPrevuisOrder extends StatelessWidget {
 class BuildCurrentOrder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(right: 30, left: 30, top: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "تاريخ الطلبية 11 أبريل 2025",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                Text(
-                  "250.0 جنيه",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w500,
-                  ),
-                )
-              ],
-            ),
-          ),
-          SizedBox(height: 10.h),
-        ],
-      ),
-    );
+    return const StepperPageView();
   }
 }
 

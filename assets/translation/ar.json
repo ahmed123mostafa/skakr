@@ -177,7 +177,18 @@
    "product name":"اسم الصنف",
    "amount":"الكمية",
    "price piece":"سعر القطعة",
-   "pepsi 1.5 liters carton":"بيبسي 1.5 لتر كرتونة"
+   "pepsi 1.5 liters carton":"بيبسي 1.5 لتر كرتونة",
+   "order date April 11, 2025":"تاريخ الطلبية 11 أبريل 2025",
+   "the order has been received":"تم استلام الطلب",
+   "your order has been successfully received and will be processed soon. Thank you for choosing us":"تم استلام طلبك بنجاح وسيتم معالجته قريبا شكرا لاختيارك لنا  ",
+   "the order has been confirmed":"تم تأكيد الطلب",
+   "your order has been confirmed successfully and we are now in the process of preparing it for shipment to you":"تم تأكيد طلبك بنجاح ونحن الأن بصددتجهيزه لارساله اليك",
+   "the order is in the preparation stage":"الطلب في مرحلة التجهيز",
+   "the order is on its way to you. It will be delivered by shipping service soon":"الطلب في طريقه اليكم سيتم توصيل خدمه الشحن قريبا",
+   "on the way to you":"في الطريق إليك",
+   "the order is currently in preparation. It will be ready for shipping as soon as possible":"الطلب في مرحلة التجهيز الأن سيتم تحضيره للشحن في اقرب وقت ممكن ",
+   "delivered":"تم التسليم",
+   "your order has been successfully received, thank you for your purchase. We hope you are satisfied with your products":"تم استلام طلبك بنجاح شكرا لك علي الشراء نامل ان تكون راضيا عن منتجاتك"
    
 
 

@@ -33,6 +33,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   cupertino_icons: ^1.0.2
+  flutter_native_splash:
   device_preview: ^1.2.0
   easy_localization: ^3.0.7+1
   flutter_screenutil: ^5.9.3
