@@ -12,7 +12,7 @@ void main() async {
 
   runApp(
     DevicePreview(
-      enabled: true, 
+      enabled: false, 
       builder: (context) => EasyLocalization(
         supportedLocales: const [Locale('en'), Locale('ar')],
         path: 'assets/translation',
