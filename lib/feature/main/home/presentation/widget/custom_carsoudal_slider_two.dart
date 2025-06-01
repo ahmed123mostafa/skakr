@@ -5,8 +5,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:settings_app/core/constant/app_assets.dart';
 import 'package:settings_app/core/constant/app_colors.dart';
 
-class CustomCaesoudalSlidar extends StatelessWidget {
-  const CustomCaesoudalSlidar({super.key});
+class CarsodalSliderTwo extends StatelessWidget {
+  const CarsodalSliderTwo({super.key});
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -23,7 +24,7 @@ class CustomCaesoudalSlidar extends StatelessWidget {
             child: Stack(
               children: [
                 Image.asset(
-                  AppAssets.banner,
+                  AppAssets.banner2,
                   fit: BoxFit.cover,
                   width: double.infinity,
                 ),

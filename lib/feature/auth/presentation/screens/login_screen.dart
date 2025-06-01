@@ -1,13 +1,16 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:settings_app/core/constant/app_assets.dart';
 import 'package:settings_app/core/constant/app_colors.dart';
 import 'package:settings_app/core/constant/custom_bottom.dart';
 import 'package:settings_app/core/constant/custom_text_field.dart';
+import 'package:settings_app/core/helper/biometric_helper.dart';
 import 'package:settings_app/feature/auth/presentation/screens/register_screen.dart';
 import 'package:settings_app/feature/auth/presentation/widget/wave_background_painter.dart';
 import 'package:settings_app/feature/main/home/presentation/home_view.dart';
+import 'package:settings_app/feature/main/home/presentation/screens/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -157,6 +160,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                           SizedBox(height: 10.h),
+                          const HomePage(),
+                          SizedBox(
+                            height: 10.h,
+                          ),
                           CustomButton(
                             text: "login".tr(),
                             borderRadius: 20,
@@ -261,5 +268,49 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+}
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child:ElevatedButton(
+  onPressed: () async {
+    final isAuthenticated = await BiometricHelper.authenticate(context);
+    if (isAuthenticated) {
+   
+    }
+  },
+  child: const Text("تسجيل الدخول بالبصمة"),
+),
+    );
+  }
+
+  Future<void> _goToPrivatePage() async {
+    if (!await BiometricHelper.isBiometricSupported()) {
+      Fluttertoast.showToast(msg: "الجهاز لا يدعم البصمة.");
+      return;
+    }
+
+    final availableBiometrics = await BiometricHelper.getAvailableBiometrics();
+    if (availableBiometrics.isEmpty) {
+      Fluttertoast.showToast(msg: "لا توجد بصمة مفعلة. يرجى تفعيلها.");
+      return;
+    }
+
+    final bool didAuthenticate = await BiometricHelper.authenticate(context);
+    if (didAuthenticate && mounted) {
+      Navigator.of(context).push(
+        MaterialPageRoute(builder: (ctx) => HomeScreen()),
+      );
+    }
   }
 }

@@ -4,9 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:settings_app/core/constant/app_assets.dart';
 import 'package:settings_app/core/constant/app_colors.dart';
 import 'package:settings_app/core/constant/custom_text_field.dart';
+import 'package:settings_app/feature/main/details/presentation/widget/custom_similair_product.dart';
+import 'package:settings_app/feature/main/details/presentation/widget/offer_toogel_slider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import '../../../home/presentation/widget/custom_quantity_counter.dart';
-import 'dart:ui' as ui;
 
 class DetailsScreen extends StatelessWidget {
   final pageController = PageController();
@@ -14,6 +14,12 @@ class DetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    double w(double width) => screenWidth * width / 375;
+    double h(double height) => screenHeight * height / 812;
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: const Color(0xffF1F1F1),
@@ -21,17 +27,17 @@ class DetailsScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 20.h),
+              SizedBox(height: h(20)),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
+                padding: EdgeInsets.symmetric(horizontal: w(10)),
                 child: Row(
                   children: [
                     Expanded(
                       flex: 3,
                       child: Container(
-                        padding: const EdgeInsets.only(right: 1),
-                        width: 107,
-                        height: 43,
+                        padding: EdgeInsets.only(right: w(1)),
+                        width: w(107),
+                        height: h(43),
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: const BorderRadius.only(
@@ -50,7 +56,7 @@ class DetailsScreen extends StatelessWidget {
                         child: CustomTextFormField(
                           fillColor: Colors.white,
                           prefix: const Icon(Icons.search),
-                          hintFontSize: 8,
+                          hintFontSize: 9.sp,
                           hintText:
                               "type_here_the_one_you_want_to_search_for".tr(),
                         ),
@@ -59,8 +65,8 @@ class DetailsScreen extends StatelessWidget {
                     Expanded(
                       flex: 1,
                       child: Container(
-                        width: 107,
-                        height: 43,
+                        width: w(107),
+                        height: h(43),
                         decoration: BoxDecoration(
                           color: const Color(0xffF1F1F1),
                           borderRadius: BorderRadius.circular(16),
@@ -85,15 +91,13 @@ class DetailsScreen extends StatelessWidget {
                                 color: AppColors.mainAppColor,
                               ),
                             ),
-                            const SizedBox(width: 5),
+                            SizedBox(width: w(5)),
                             Image.asset(AppAssets.menuuu),
                           ],
                         ),
                       ),
                     ),
-                    SizedBox(
-                      width: 3.w,
-                    ),
+                    SizedBox(width: w(3)),
                     Icon(
                       Icons.arrow_forward,
                       color: AppColors.mainAppColor,
@@ -101,18 +105,14 @@ class DetailsScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(
-                height: 20.h,
-              ),
+              SizedBox(height: h(20)),
               Container(
                 width: double.infinity,
-                height: 560.h,
+                height: h(580),
                 color: Colors.white,
                 child: Column(
                   children: [
-                    SizedBox(
-                      height: 20.h,
-                    ),
+                    SizedBox(height: h(20)),
                     const Padding(
                       padding: EdgeInsets.only(left: 17),
                       child: Align(
@@ -123,17 +123,15 @@ class DetailsScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
+                    SizedBox(height: h(10)),
                     Padding(
-                      padding: const EdgeInsets.only(left: 20),
+                      padding: EdgeInsets.only(left: w(20)),
                       child: Align(
                           alignment: Alignment.topLeft,
                           child: Image.asset("assets/images/Group 123.png")),
                     ),
                     SizedBox(
-                      height: 150,
+                      height: h(150),
                       child: PageView.builder(
                           controller: pageController,
                           physics: const BouncingScrollPhysics(),
@@ -161,11 +159,9 @@ class DetailsScreen extends StatelessWidget {
                             activeDotColor: AppColors.mainAppColor),
                       ),
                     ),
-                    SizedBox(
-                      height: 20.h,
-                    ),
+                    SizedBox(height: h(20)),
                     Padding(
-                      padding: EdgeInsets.only(right: 25.h, left: 25),
+                      padding: EdgeInsets.only(right: w(25), left: w(25)),
                       child: Align(
                         alignment: context.locale == const Locale('ar')
                             ? Alignment.topRight
@@ -181,9 +177,7 @@ class DetailsScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
+                    SizedBox(height: h(10)),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -208,14 +202,12 @@ class DetailsScreen extends StatelessWidget {
                             color: const Color(0xff231F20).withOpacity(0.7),
                           ),
                         ),
-                        SizedBox(
-                          width: 25.w,
-                        ),
+                        SizedBox(width: w(25)),
                         Row(
                           children: [
                             Container(
                               padding: EdgeInsets.symmetric(
-                                  horizontal: 12.w, vertical: 6.h),
+                                  horizontal: w(12), vertical: h(6)),
                               decoration: BoxDecoration(
                                 color: AppColors.mainAppColor,
                                 borderRadius: BorderRadius.circular(20.r),
@@ -237,9 +229,7 @@ class DetailsScreen extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            SizedBox(
-                              width: 3.w,
-                            ),
+                            SizedBox(width: w(3)),
                             Text(
                               'SN : 2494',
                               style: TextStyle(
@@ -253,23 +243,17 @@ class DetailsScreen extends StatelessWidget {
                         )
                       ],
                     ),
-                    SizedBox(
-                      width: 10.h,
-                    ),
-                    SizedBox(
-                      height: 15.h,
-                    ),
+                    SizedBox(width: h(10)),
+                    SizedBox(height: h(15)),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const OfferToggleSlider(),
-                        SizedBox(
-                          width: 20.w,
-                        ),
+                        SizedBox(width: w(20)),
                         Container(
                           padding: const EdgeInsets.all(10),
-                          height: 40.h,
-                          width: 160.w,
+                          height: h(40),
+                          width: w(160),
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(20.r),
@@ -282,6 +266,7 @@ class DetailsScreen extends StatelessWidget {
                             ],
                           ),
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
                                 "add_to_cart".tr(),
@@ -292,23 +277,24 @@ class DetailsScreen extends StatelessWidget {
                                   color: const Color(0xff231F20),
                                 ),
                               ),
-                              const Spacer(),
                               Container(
-                                  width: 36,
-                                  height: 31,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(16),
-                                      color: AppColors.mainAppColor),
-                                  child: Image.asset(
-                                      "assets/images/Layer 2 (1).png"))
+                                width: w(30),
+                                height: h(41),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(16),
+                                    color: AppColors.mainAppColor),
+                                child: Image.asset(
+                                  "assets/images/Layer 2 (1).png",
+                                  width: 20,
+                                  height: 20,
+                                ),
+                              )
                             ],
                           ),
                         )
                       ],
                     ),
-                    SizedBox(
-                      height: 20.h,
-                    ),
+                    SizedBox(height: h(20)),
                     const Padding(
                       padding: EdgeInsets.only(left: 45, right: 45),
                       child: Divider(
@@ -317,7 +303,7 @@ class DetailsScreen extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(right: 20.h, left: 20),
+                      padding: EdgeInsets.only(right: w(20), left: w(20)),
                       child: Align(
                         alignment: context.locale == const Locale('ar')
                             ? Alignment.topRight
@@ -333,8 +319,9 @@ class DetailsScreen extends StatelessWidget {
                         ),
                       ),
                     ),
+                    SizedBox(height: h(5)),
                     Padding(
-                      padding: EdgeInsets.only(right: 25.h, left: 15),
+                      padding: EdgeInsets.only(right: w(25), left: w(15)),
                       child: Align(
                         alignment: context.locale == const Locale('ar')
                             ? Alignment.topRight
@@ -351,35 +338,12 @@ class DetailsScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: 25.h,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "see_more".tr(),
-                          style: TextStyle(
-                            fontFamily: "Alexandria",
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w500,
-                            color: AppColors.mainAppColor,
-                          ),
-                        ),
-                        SizedBox(
-                          width: 5.w,
-                        ),
-                        Image.asset("assets/images/Vector 348.png")
-                      ],
-                    ),
                   ],
                 ),
               ),
-              SizedBox(
-                height: 10.h,
-              ),
+              SizedBox(height: h(10)),
               Padding(
-                padding: const EdgeInsets.all(8),
+                padding: EdgeInsets.all(w(8)),
                 child: Row(
                   children: [
                     Expanded(
@@ -394,9 +358,9 @@ class DetailsScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(width: 3.w),
+                    SizedBox(width: w(3)),
                     Image.asset(AppAssets.line),
-                    SizedBox(width: 5.w),
+                    SizedBox(width: w(5)),
                     Expanded(
                       child: Text(
                         "view_all".tr(),
@@ -415,7 +379,7 @@ class DetailsScreen extends StatelessWidget {
               ),
               const SimilairProduct(),
               Padding(
-                padding: const EdgeInsets.all(8),
+                padding: EdgeInsets.all(w(8)),
                 child: Row(
                   children: [
                     Expanded(
@@ -430,9 +394,9 @@ class DetailsScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(width: 3.w),
+                    SizedBox(width: w(3)),
                     Image.asset(AppAssets.line),
-                    SizedBox(width: 5.w),
+                    SizedBox(width: w(5)),
                     Expanded(
                       child: Text(
                         "view_all".tr(),
@@ -451,7 +415,7 @@ class DetailsScreen extends StatelessWidget {
               ),
               const SimilairProduct(),
               Padding(
-                padding: const EdgeInsets.all(8),
+                padding: EdgeInsets.all(w(8)),
                 child: Row(
                   children: [
                     Expanded(
@@ -466,9 +430,9 @@ class DetailsScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(width: 3.w),
+                    SizedBox(width: w(3)),
                     Image.asset(AppAssets.line),
-                    SizedBox(width: 5.w),
+                    SizedBox(width: w(5)),
                     Expanded(
                       child: Text(
                         "view_all".tr(),
@@ -489,322 +453,6 @@ class DetailsScreen extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class OfferToggleSlider extends StatefulWidget {
-  const OfferToggleSlider({super.key});
-
-  @override
-  State<OfferToggleSlider> createState() => _OfferToggleSliderState();
-}
-
-class _OfferToggleSliderState extends State<OfferToggleSlider> {
-  bool isOffersSelected = true;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          isOffersSelected = !isOffersSelected;
-        });
-      },
-      child: Padding(
-        padding: const EdgeInsets.only(right: 25),
-        child: Align(
-          alignment: Alignment.topRight,
-          child: Container(
-            height: 40.h,
-            width: 140.w,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(20.r),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.4),
-                  blurRadius: 4,
-                  offset: const Offset(0, 2),
-                ),
-              ],
-            ),
-            child: Stack(
-              children: [
-                AnimatedPositioned(
-                  duration: const Duration(milliseconds: 200),
-                  left: isOffersSelected ? 0 : 80.w,
-                  right: isOffersSelected ? 80.w : 0,
-                  child: Container(
-                    height: 40.h,
-                    width: 80.w,
-                    decoration: BoxDecoration(
-                      color: AppColors.mainAppColor,
-                      borderRadius: BorderRadius.circular(20.r),
-                    ),
-                  ),
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Center(
-                        child: Text(
-                          'basket'.tr(),
-                          style: TextStyle(
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w500,
-                            fontFamily: "Alexandria",
-                            color:
-                                isOffersSelected ? Colors.black : Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Center(
-                        child: Text(
-                          'package'.tr(),
-                          style: TextStyle(
-                            fontSize: 10.sp,
-                            fontWeight: FontWeight.w500,
-                            fontFamily: "Alexandria",
-                            color:
-                                !isOffersSelected ? Colors.black : Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class SimilairProduct extends StatelessWidget {
-  const SimilairProduct({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 250,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: 5,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.only(right: 10),
-            child: Row(
-              children: [
-                Stack(
-                  clipBehavior: Clip.none,
-                  children: [
-                    Container(
-                      width: 190,
-                      height: 228,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(color: Colors.grey.shade300, blurRadius: 6),
-                        ],
-                      ),
-                      child: Stack(
-                        children: [
-                          Positioned(
-                            top: 40,
-                            left: 0,
-                            right: 0,
-                            child: Center(
-                              child: Image.asset(
-                                AppAssets.offer,
-                                width: 90,
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            top: 0,
-                            right: 0,
-                            child: Stack(
-                              alignment: Alignment.center,
-                              children: [
-                                Image.asset("assets/images/Vector 356.png"),
-                                Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    const Center(
-                                      child: Text(
-                                        '10%',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                      ),
-                                    ),
-                                    Center(
-                                      child: Text(
-                                        'offers'.tr(),
-                                        style: const TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                          const Positioned(
-                            top: 0,
-                            left: 0,
-                            child:
-                                Icon(Icons.favorite_border, color: Colors.grey),
-                          ),
-                          Positioned(
-                            top: 120,
-                            right: 12,
-                            left: 12,
-                            child: Text(
-                              '5.00_pounds'.tr(),
-                              style: TextStyle(
-                                fontSize: 17,
-                                color: AppColors.mainAppColor,
-                                fontWeight: FontWeight.w700,
-                                fontFamily: "Alexandria",
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            top: 145,
-                            right: 12,
-                            left: 12,
-                            child: Text(
-                              'al_Noor_orange_juice_egyptian_2kg'.tr(),
-                              textAlign: TextAlign.right,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontFamily: "Alexandria",
-                                fontSize: 9,
-                                color: Color(0xff231F20),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const Positioned(
-                      bottom: -10,
-                      left: 0,
-                      right: 0,
-                      child: Center(child: QuantityCounter()),
-                    ),
-                  ],
-                ),
-                const SizedBox(width: 12),
-                Stack(
-                  clipBehavior: Clip.none,
-                  children: [
-                    Container(
-                      width: 190,
-                      height: 228,
-                      margin: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(color: Colors.grey.shade300, blurRadius: 6),
-                        ],
-                      ),
-                      child: Stack(
-                        children: [
-                          Positioned(
-                            top: 40,
-                            left: 0,
-                            right: 0,
-                            child: Center(
-                              child: Image.asset(
-                                AppAssets.offer,
-                                width: 90,
-                              ),
-                            ),
-                          ),
-                          const Positioned(
-                            top: 0,
-                            left: 0,
-                            child:
-                                Icon(Icons.favorite_border, color: Colors.grey),
-                          ),
-                          Positioned(
-                            top: 120,
-                            right: 12,
-                            left: 12,
-                            child: Text(
-                              '5.00_pounds'.tr(),
-                              style: TextStyle(
-                                fontSize: 17,
-                                color: AppColors.mainAppColor,
-                                fontWeight: FontWeight.w700,
-                                fontFamily: "Alexandria",
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            top: 145,
-                            right: 12,
-                            left: 12,
-                            child: Text(
-                              'al_Noor_orange_juice_egyptian_2kg'.tr(),
-                              textAlign: TextAlign.right,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontFamily: "Alexandria",
-                                fontSize: 9,
-                                color: Color(0xff231F20),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Positioned(
-                      bottom: -6,
-                      left: 0,
-                      right: 0,
-                      child: Center(
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.mainAppColor,
-                            shape: const StadiumBorder(),
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 24, vertical: 10),
-                          ),
-                          child: Text(
-                            'add_to_cart'.tr(),
-                            style: TextStyle(
-                              fontFamily: "Alexandria",
-                              fontSize: 10.sp,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          );
-        },
       ),
     );
   }

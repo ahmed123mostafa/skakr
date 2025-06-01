@@ -12,7 +12,7 @@ void main() async {
 
   runApp(
     DevicePreview(
-      enabled: false, 
+      enabled: true, 
       builder: (context) => EasyLocalization(
         supportedLocales: const [Locale('en'), Locale('ar')],
         path: 'assets/translation',
@@ -46,7 +46,9 @@ class MyApp extends StatelessWidget {
             localizationsDelegates: context.localizationDelegates,
             theme: ThemeData(
               fontFamily: 'Alexandria', 
+              useMaterial3: false,
             ),
+          
             home: const SplashScreen(), 
           ),
         );

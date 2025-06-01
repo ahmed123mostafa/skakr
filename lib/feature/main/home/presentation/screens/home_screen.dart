@@ -1,5 +1,3 @@
-import 'package:carousel_slider/carousel_options.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,6 +6,7 @@ import 'package:settings_app/core/constant/app_colors.dart';
 
 import 'package:settings_app/core/constant/custom_text_field.dart';
 import 'package:settings_app/feature/main/home/presentation/screens/order_again.dart';
+import 'package:settings_app/feature/main/home/presentation/widget/custom_carsoudal_slider_two.dart';
 import 'package:settings_app/feature/main/home/presentation/widget/custom_caesoudal_slidar.dart';
 import 'package:settings_app/feature/main/home/presentation/widget/custom_grid_view.dart';
 import 'package:settings_app/feature/main/home/presentation/widget/custom_marque.dart';
@@ -156,29 +155,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 15.h,
               ),
               const ContentGrid(),
-              CarouselSlider(
-                items: List.generate(
-                  4,
-                  (index) => Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 5),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
-                      child: Image.asset(
-                        AppAssets.banner2,
-                        fit: BoxFit.cover,
-                        width: double.infinity,
-                      ),
-                    ),
-                  ),
-                ),
-                options: CarouselOptions(
-                  height: 140.h,
-                  autoPlay: true,
-                  enlargeCenterPage: true,
-                  enableInfiniteScroll: true,
-                  scrollPhysics: const BouncingScrollPhysics(),
-                ),
-              ),
+              const CarsodalSliderTwo(),
               SizedBox(
                 height: 20.h,
               ),
@@ -246,15 +223,23 @@ class _HomeScreenState extends State<HomeScreen> {
                     Image.asset(AppAssets.line),
                     SizedBox(width: 5.w),
                     Expanded(
-                      child: Text(
-                        "view_all".tr(),
-                        textAlign: TextAlign.end,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontFamily: "Alexandria",
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w600,
-                          color: const Color(0xff231F20),
+                      child: InkWell(
+                        onTap: (){
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const OrderAgain()));
+                        },
+                        child: Text(
+                          "view_all".tr(),
+                          textAlign: TextAlign.end,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontFamily: "Alexandria",
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w600,
+                            color: const Color(0xff231F20),
+                          ),
                         ),
                       ),
                     ),
@@ -282,15 +267,23 @@ class _HomeScreenState extends State<HomeScreen> {
                     Image.asset(AppAssets.line),
                     SizedBox(width: 5.w),
                     Expanded(
-                      child: Text(
-                        "view_all".tr(),
-                        textAlign: TextAlign.end,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontFamily: "Alexandria",
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w600,
-                          color: const Color(0xff231F20),
+                      child: InkWell(
+                        onTap: (){
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const OrderAgain()));
+                        },
+                        child: Text(
+                          "view_all".tr(),
+                          textAlign: TextAlign.end,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontFamily: "Alexandria",
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w600,
+                            color: const Color(0xff231F20),
+                          ),
                         ),
                       ),
                     ),
@@ -318,15 +311,23 @@ class _HomeScreenState extends State<HomeScreen> {
                     Image.asset(AppAssets.line),
                     SizedBox(width: 5.w),
                     Expanded(
-                      child: Text(
-                        "view_all".tr(),
-                        textAlign: TextAlign.end,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontFamily: "Alexandria",
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w600,
-                          color: const Color(0xff231F20),
+                      child: InkWell(
+                        onTap: (){
+                         Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const OrderAgain()));
+                        },
+                        child: Text(
+                          "view_all".tr(),
+                          textAlign: TextAlign.end,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontFamily: "Alexandria",
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w600,
+                            color: const Color(0xff231F20),
+                          ),
                         ),
                       ),
                     ),

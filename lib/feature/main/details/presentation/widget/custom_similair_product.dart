@@ -1,29 +1,27 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:settings_app/core/constant/app_assets.dart';
 import 'package:settings_app/core/constant/app_colors.dart';
+import 'package:settings_app/feature/main/home/presentation/widget/custom_quantity_counter.dart';
 
-class BestSellerCart extends StatelessWidget {
-  const BestSellerCart({super.key});
+class SimilairProduct extends StatelessWidget {
+  const SimilairProduct({super.key});
 
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
 
     final containerWidth = screenWidth * 0.45;
-    final containerHeight = containerWidth * 1.2;
-    final imageWidth = containerWidth * 0.5;
-    final buttonHorizontalPadding = containerWidth * 0.12;
-    const buttonVerticalPadding = 10.0;
-    final fontSizePrice = screenWidth * 0.045;
-    final fontSizeTitle = screenWidth * 0.022;
-    final fontSizeButton = screenWidth * 0.028;
+
+    final containerHeight = screenHeight * 0.3;
 
     return SizedBox(
       height: containerHeight + 40,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: 9,
+        itemCount: 10,
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.only(right: 10),
@@ -45,13 +43,13 @@ class BestSellerCart extends StatelessWidget {
                       child: Stack(
                         children: [
                           Positioned(
-                            top: containerHeight * 0.16,
+                            top: containerHeight * 0.18,
                             left: 0,
                             right: 0,
                             child: Center(
                               child: Image.asset(
                                 AppAssets.offer,
-                                width: imageWidth,
+                                width: containerWidth * 0.5,
                               ),
                             ),
                           ),
@@ -65,12 +63,12 @@ class BestSellerCart extends StatelessWidget {
                                 Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    Center(
+                                    const Center(
                                       child: Text(
                                         '10%',
                                         style: TextStyle(
                                           color: Colors.white,
-                                          fontSize: fontSizePrice * 0.8,
+                                          fontSize: 14,
                                           fontWeight: FontWeight.w700,
                                         ),
                                       ),
@@ -78,9 +76,9 @@ class BestSellerCart extends StatelessWidget {
                                     Center(
                                       child: Text(
                                         'offers'.tr(),
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           color: Colors.white,
-                                          fontSize: fontSizePrice * 0.7,
+                                          fontSize: 12,
                                           fontWeight: FontWeight.w700,
                                         ),
                                       ),
@@ -97,13 +95,13 @@ class BestSellerCart extends StatelessWidget {
                                 Icon(Icons.favorite_border, color: Colors.grey),
                           ),
                           Positioned(
-                            top: containerHeight * 0.5,
+                            top: containerHeight * 0.53,
                             right: 12,
                             left: 12,
                             child: Text(
                               '5.00_pounds'.tr(),
                               style: TextStyle(
-                                fontSize: fontSizePrice,
+                                fontSize: 17,
                                 color: AppColors.mainAppColor,
                                 fontWeight: FontWeight.w700,
                                 fontFamily: "Alexandria",
@@ -117,43 +115,22 @@ class BestSellerCart extends StatelessWidget {
                             child: Text(
                               'al_Noor_orange_juice_egyptian_2kg'.tr(),
                               textAlign: TextAlign.right,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontWeight: FontWeight.w500,
                                 fontFamily: "Alexandria",
-                                fontSize: fontSizeTitle,
-                                color: const Color(0xff231F20),
+                                fontSize: 9,
+                                color: Color(0xff231F20),
                               ),
                             ),
                           ),
                         ],
                       ),
                     ),
-                    Positioned(
-                      bottom: -15,
+                    const Positioned(
+                      bottom: -10,
                       left: 0,
                       right: 0,
-                      child: Center(
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.mainAppColor,
-                            shape: const StadiumBorder(),
-                            padding: EdgeInsets.symmetric(
-                              horizontal: buttonHorizontalPadding,
-                              vertical: buttonVerticalPadding,
-                            ),
-                          ),
-                          child: Text(
-                            'add_to_cart'.tr(),
-                            style: TextStyle(
-                              fontFamily: "Alexandria",
-                              fontSize: fontSizeButton,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
+                      child: Center(child: QuantityCounter()),
                     ),
                   ],
                 ),
@@ -175,35 +152,30 @@ class BestSellerCart extends StatelessWidget {
                       child: Stack(
                         children: [
                           Positioned(
-                            top: containerHeight * 0.16,
+                            top: containerHeight * 0.18,
                             left: 0,
                             right: 0,
                             child: Center(
                               child: Image.asset(
                                 AppAssets.offer,
-                                width: imageWidth,
+                                width: containerWidth * 0.5,
                               ),
                             ),
-                          ),
-                          Positioned(
-                            top: containerHeight * 0.012,
-                            right: 0,
-                            child: Image.asset("assets/images/Frame 1243.png"),
                           ),
                           const Positioned(
                             top: 0,
                             left: 0,
                             child:
-                                Icon(Icons.favorite, color: Color(0xffDF002A)),
+                                Icon(Icons.favorite_border, color: Colors.grey),
                           ),
                           Positioned(
-                            top: containerHeight * 0.5,
+                            top: containerHeight * 0.53,
                             right: 12,
                             left: 12,
                             child: Text(
                               '5.00_pounds'.tr(),
                               style: TextStyle(
-                                fontSize: fontSizePrice,
+                                fontSize: 17,
                                 color: AppColors.mainAppColor,
                                 fontWeight: FontWeight.w700,
                                 fontFamily: "Alexandria",
@@ -217,11 +189,11 @@ class BestSellerCart extends StatelessWidget {
                             child: Text(
                               'al_Noor_orange_juice_egyptian_2kg'.tr(),
                               textAlign: TextAlign.right,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontWeight: FontWeight.w500,
                                 fontFamily: "Alexandria",
-                                fontSize: fontSizeTitle,
-                                color: const Color(0xff231F20),
+                                fontSize: 9,
+                                color: Color(0xff231F20),
                               ),
                             ),
                           ),
@@ -229,26 +201,23 @@ class BestSellerCart extends StatelessWidget {
                       ),
                     ),
                     Positioned(
-                      bottom: -7,
+                      bottom: -6,
                       left: 0,
                       right: 0,
                       child: Center(
                         child: ElevatedButton(
                           onPressed: () {},
                           style: ElevatedButton.styleFrom(
-                            backgroundColor:
-                                AppColors.mainAppColor.withOpacity(.3),
+                            backgroundColor: AppColors.mainAppColor,
                             shape: const StadiumBorder(),
-                            padding: EdgeInsets.symmetric(
-                              horizontal: buttonHorizontalPadding,
-                              vertical: buttonVerticalPadding,
-                            ),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 24, vertical: 10),
                           ),
                           child: Text(
                             'add_to_cart'.tr(),
                             style: TextStyle(
                               fontFamily: "Alexandria",
-                              fontSize: fontSizeButton,
+                              fontSize: 10.sp,
                               fontWeight: FontWeight.w500,
                               color: Colors.white,
                             ),

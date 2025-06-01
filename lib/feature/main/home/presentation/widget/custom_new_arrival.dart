@@ -11,11 +11,17 @@ class NewArrivalcart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    final containerWidth = screenWidth * 0.45;
+    final containerHeight = screenHeight * 0.30;
+
     return SizedBox(
-      height: 250,
+      height: containerHeight + 40,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: 5,
+        itemCount: 9,
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.only(right: 10),
@@ -25,8 +31,8 @@ class NewArrivalcart extends StatelessWidget {
                   clipBehavior: Clip.none,
                   children: [
                     Container(
-                      width: 190,
-                      height: 228,
+                      width: containerWidth,
+                      height: containerHeight,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
                         color: Colors.white,
@@ -37,13 +43,13 @@ class NewArrivalcart extends StatelessWidget {
                       child: Stack(
                         children: [
                           Positioned(
-                            top: 40,
+                            top: containerHeight * 0.18,
                             left: 0,
                             right: 0,
                             child: Center(
                               child: Image.asset(
                                 AppAssets.offer,
-                                width: 90,
+                                width: containerWidth * 0.5,
                               ),
                             ),
                           ),
@@ -89,7 +95,7 @@ class NewArrivalcart extends StatelessWidget {
                                 Icon(Icons.favorite_border, color: Colors.grey),
                           ),
                           Positioned(
-                            top: 120,
+                            top: containerHeight * 0.52,
                             right: 12,
                             left: 12,
                             child: Text(
@@ -103,7 +109,7 @@ class NewArrivalcart extends StatelessWidget {
                             ),
                           ),
                           Positioned(
-                            top: 145,
+                            top: containerHeight * 0.63,
                             right: 12,
                             left: 12,
                             child: Text(
@@ -133,8 +139,8 @@ class NewArrivalcart extends StatelessWidget {
                   clipBehavior: Clip.none,
                   children: [
                     Container(
-                      width: 190,
-                      height: 228,
+                      width: containerWidth,
+                      height: containerHeight,
                       margin: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
@@ -146,13 +152,13 @@ class NewArrivalcart extends StatelessWidget {
                       child: Stack(
                         children: [
                           Positioned(
-                            top: 40,
+                            top: containerHeight * 0.18,
                             left: 0,
                             right: 0,
                             child: Center(
                               child: Image.asset(
                                 AppAssets.offer,
-                                width: 90,
+                                width: containerWidth * 0.5,
                               ),
                             ),
                           ),
@@ -163,7 +169,7 @@ class NewArrivalcart extends StatelessWidget {
                                 Icon(Icons.favorite_border, color: Colors.grey),
                           ),
                           Positioned(
-                            top: 120,
+                            top: containerHeight * 0.52,
                             right: 12,
                             left: 12,
                             child: Text(
@@ -177,7 +183,7 @@ class NewArrivalcart extends StatelessWidget {
                             ),
                           ),
                           Positioned(
-                            top: 145,
+                            top: containerHeight * 0.64,
                             right: 12,
                             left: 12,
                             child: Text(

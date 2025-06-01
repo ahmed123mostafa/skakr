@@ -280,12 +280,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           children: [
                             Expanded(
                               child: Padding(
-                                padding: const EdgeInsets.only(right: 8),
+                                padding:
+                                    const EdgeInsets.only(right: 16, left: 16),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Container(
-                                      width: 145,
+                                      width: 185,
                                       height: 50,
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 12, vertical: 8),
@@ -381,20 +382,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             SizedBox(width: 5.w),
                             Expanded(
                               child: Padding(
-                                padding: const EdgeInsets.only(left: 8),
+                                padding:
+                                    const EdgeInsets.only(right: 16, left: 16),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Container(
-                                      width: 145,
+                                      width: 185,
                                       height: 50,
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 12, vertical: 8),
+                                      padding: const EdgeInsets.all(8),
                                       decoration: BoxDecoration(
                                         color: const Color(0xffEEEEEE),
                                         borderRadius: BorderRadius.circular(4),
                                       ),
                                       child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
                                           Expanded(
                                             child: Text(
@@ -402,7 +405,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                   ? "region".tr()
                                                   : regioncontrrler.text,
                                               style: TextStyle(
-                                                fontSize: 10.sp,
+                                                fontSize: 9.sp,
                                                 color: const Color(0xff231F20),
                                               ),
                                             ),

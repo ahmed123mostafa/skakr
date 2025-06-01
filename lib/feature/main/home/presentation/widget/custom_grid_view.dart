@@ -53,42 +53,6 @@ class _ContentGridState extends State<ContentGrid> {
     {'title': 'ready_to_eat'.tr(), 'image': AppAssets.readytoeat},
   ];
 
-  List<Map<String, String>> _visibleItems = [];
-  final int _initialItems = 8;
-  bool _showAll = false;
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _loadInitialItems();
-    });
-  }
-
-  void _loadInitialItems() {
-    final endIndex = _initialItems.clamp(0, _allItems.length);
-    setState(() {
-      _visibleItems = _allItems.sublist(0, endIndex);
-      _showAll = false;
-    });
-    if (_allItems.isNotEmpty && _scrollController.hasClients) {
-      _scrollToTop();
-    }
-  }
-
-  void _loadAllItems() {
-    if (_allItems.isEmpty) return;
-    setState(() {
-      _visibleItems = _allItems;
-      _showAll = true;
-    });
-  }
-
-  void _scrollToTop() {
-    _scrollController.animateTo(0,
-        duration: const Duration(milliseconds: 500), curve: Curves.easeInOut);
-  }
-
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -103,130 +67,66 @@ class _ContentGridState extends State<ContentGrid> {
         physics: const NeverScrollableScrollPhysics(),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: crossAxisCount,
-          crossAxisSpacing: 16.w,
-          mainAxisSpacing: 16.h,
+          crossAxisSpacing: 12.w,
           childAspectRatio: childAspectRatio,
         ),
-        itemCount: _visibleItems.length + 1,
+        itemCount: _allItems.length,
         itemBuilder: (context, index) {
-          if (index >= _visibleItems.length) {
-            return _showAll
-                ? SizedBox.expand(child: Center(child: buildBackToTopButton()))
-                : buildLoadMoreButton();
-          }
-          return buildGridItem(_visibleItems[index]);
+          return buildGridItem(_allItems[index], screenWidth, crossAxisCount);
         },
       ),
     );
   }
 
-  Widget buildLoadMoreButton() {
-    return InkWell(
-      borderRadius: BorderRadius.circular(15.r),
-      onTap: _allItems.isNotEmpty ? _loadAllItems : null,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SizedBox(height: 16.h),
-          Image.asset(AppAssets.addmore),
-          SizedBox(height: 7.h),
-          Container(
-            width: 100,
-            height: 30,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(16),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
-                  blurRadius: 4,
-                  offset: const Offset(0, 2),
-                ),
-              ],
-            ),
-            child: Center(
-              child: Text(
-                'view_more'.tr(),
-                style: TextStyle(
-                  fontSize: 9.sp,
-                  color: _allItems.isNotEmpty
-                      ? AppColors.mainAppColor
-                      : Colors.grey,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  Widget buildGridItem(
+      Map<String, String> item, double screenWidth, int crossAxisCount) {
+    final itemWidth =
+        (screenWidth - 32.w - (crossAxisCount - 1) * 12.w) / crossAxisCount;
+    final imageSize = itemWidth * 0.9;
+    final containerHeight = imageSize * 0.34;
 
-  Widget buildBackToTopButton() {
-    return InkWell(
-      borderRadius: BorderRadius.circular(15.r),
-      onTap: _loadInitialItems,
-      child: Column(
-        children: [
-          Icon(
-            Icons.arrow_upward,
-            color: AppColors.mainAppColor,
-            size: 24.w,
-          ),
-          SizedBox(height: 8.h),
-          Text(
-            'upward'.tr(),
-            style: TextStyle(
-              fontSize: 10.sp,
-              color: AppColors.mainAppColor,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget buildGridItem(Map<String, String> item) {
     return InkWell(
       borderRadius: BorderRadius.circular(15.r),
       onTap: () {
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => const ContentProduct()));
       },
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Stack(
+        alignment: Alignment.bottomCenter,
         children: [
-          Image.asset(
-            item['image']!,
-            width: 89,
-            height: 89,
-            fit: BoxFit.contain,
+          ClipRRect(
+            borderRadius: BorderRadius.circular(15.r),
+            child: Image.asset(
+              item['image']!,
+              width: imageSize,
+              height: imageSize,
+              fit: BoxFit.contain,
+            ),
           ),
           Container(
-            width: double.infinity,
-            height: 30,
+            width: imageSize,
+            height: containerHeight,
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(16.r),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
+                  color: Colors.black.withOpacity(0.3),
                   blurRadius: 4,
                   offset: const Offset(0, 2),
                 ),
               ],
             ),
-            child: Center(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 4.w),
-                child: Text(
-                  item['title']!,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: 9.sp,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.mainAppColor),
+            alignment: Alignment.center,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 4.w),
+              child: Text(
+                item['title']!,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 10.sp,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.mainAppColor,
                 ),
               ),
             ),

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:settings_app/core/constant/app_assets.dart';
 import 'package:settings_app/core/constant/app_colors.dart';
-import 'package:settings_app/feature/main/home/presentation/screens/order_again.dart';
+import 'package:settings_app/feature/main/home/presentation/widget/custom_grid_views.dart';
 
 class ContentProduct extends StatelessWidget {
   const ContentProduct({super.key});
@@ -80,7 +80,7 @@ class ContentProduct extends StatelessWidget {
                           boxShadow: [
                             BoxShadow(
                               color: Colors.grey.withOpacity(
-                                  0.3), // updated for visible shadow
+                                  0.3), 
                               spreadRadius: 2,
                               blurRadius: 5,
                               offset: const Offset(0, 3),

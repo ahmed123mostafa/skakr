@@ -53,5 +53,7 @@
 		</array>
 		<key>UIStatusBarHidden</key>
 		<false/>
+		<key>NSFaceIDUsageDescription</key>
+                <string>We need a face id to access private content</string>
 	</dict>
 </plist>
