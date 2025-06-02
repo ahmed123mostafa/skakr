@@ -14,8 +14,10 @@ class ForgetPassword extends StatefulWidget {
 
 class _ForgetPasswordState extends State<ForgetPassword> {
   bool ispassword = true;
+  bool isnewpassword = true;
+  bool isconfermpassword = true;
   TextEditingController passwordcontrroler = TextEditingController();
-    TextEditingController newpasscontrroler = TextEditingController();
+  TextEditingController newpasscontrroler = TextEditingController();
   TextEditingController confermpasswordcontrroler = TextEditingController();
 
   @override
@@ -50,7 +52,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
               Padding(
                 padding: const EdgeInsets.only(right: 16, left: 16),
                 child: CustomTextFormField(
-                  hintFontSize: 10,
+                  hintFontSize: 12,
                   prefix: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Image.asset(AppAssets.password),
@@ -85,7 +87,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
               Padding(
                 padding: const EdgeInsets.only(right: 16, left: 16),
                 child: CustomTextFormField(
-                  hintFontSize: 6,
+                  hintFontSize: 12,
                   prefix: Padding(
                     padding: const EdgeInsets.all(5),
                     child: Image.asset(AppAssets.password),
@@ -100,18 +102,16 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                     }
                     return null;
                   },
-                  hintText:
-                      "the_new_password_new_password(must_be_at_least_8_letters_or_numbers)"
-                          .tr(),
-                  obscureText: ispassword,
+                  hintText: "the new password".tr(),
+                  obscureText: isnewpassword,
                   subfix: IconButton(
                     onPressed: () {
                       setState(() {
-                        ispassword = !ispassword;
+                        isnewpassword = !isnewpassword;
                       });
                     },
                     icon: Icon(
-                      ispassword
+                      isnewpassword
                           ? Icons.visibility_off_outlined
                           : Icons.remove_red_eye,
                     ),
@@ -120,9 +120,28 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                 ),
               ),
               Padding(
+                padding: const EdgeInsets.only(
+                    right: 16, left: 16, top: 10, bottom: 10),
+                child: Align(
+                  alignment: context.locale == const Locale('ar')
+                      ? Alignment.topRight
+                      : Alignment.topLeft,
+                  child: Text(
+                    "the_new_password_new_password(must_be_at_least_8_letters_or_numbers)"
+                        .tr(),
+                    style: TextStyle(
+                      color: const Color(
+                        0xff231F20,
+                      ),
+                      fontSize: 9.sp,
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
                 padding: const EdgeInsets.only(right: 16, left: 16),
                 child: CustomTextFormField(
-                  hintFontSize: 10,
+                  hintFontSize: 12,
                   prefix: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Image.asset(AppAssets.password),
@@ -138,15 +157,15 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                     return null;
                   },
                   hintText: "confirm_the_new_password".tr(),
-                  obscureText: ispassword,
+                  obscureText: isconfermpassword,
                   subfix: IconButton(
                     onPressed: () {
                       setState(() {
-                        ispassword = !ispassword;
+                        isconfermpassword = !isconfermpassword;
                       });
                     },
                     icon: Icon(
-                      ispassword
+                      isconfermpassword
                           ? Icons.visibility_off_outlined
                           : Icons.remove_red_eye,
                     ),

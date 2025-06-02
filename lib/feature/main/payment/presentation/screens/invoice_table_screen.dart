@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:settings_app/core/constant/app_colors.dart';
 import 'package:settings_app/core/constant/custom_bottom.dart';
-import 'package:settings_app/feature/main/home/presentation/home_view.dart';
+import 'package:settings_app/feature/main/home/presentation/screens/home_screen.dart';
+import 'package:settings_app/feature/main/list/presentation/screens/prevuis_order/screen/previous_order.dart';
 
 class InvoiceScreen extends StatelessWidget {
   const InvoiceScreen({super.key});
@@ -83,16 +84,18 @@ class InvoiceScreen extends StatelessWidget {
                   defaultVerticalAlignment: TableCellVerticalAlignment.middle,
                   children: [
                     _tableHeaderRow(),
-                    _tableDataRow(
-                        "1", "pepsi 1.5 liters carton".tr(), "2", "30.00", "60.00"),
-                    _tableDataRow(
-                        "2", "pepsi 1.5 liters carton".tr(), "2", "65.00", "130.00"),
-                    _tableDataRow("3", "pepsi 1.5 liters carton".tr(), "2", "130.00", "260.0"),
-                    _tableDataRow("4", "pepsi 1.5 liters carton".tr(), "2", "150.00", "300.0"),
-                    _tableDataRow(
-                        "5", "pepsi 1.5 liters carton".tr(), "2", "150.00", "300.0"),
-                    _tableDataRow(
-                        "6", "pepsi 1.5 liters carton".tr(), "1", "20.00", "20.00"),
+                    _tableDataRow("1", "pepsi 1.5 liters carton".tr(), "2",
+                        "30.00", "60.00"),
+                    _tableDataRow("2", "pepsi 1.5 liters carton".tr(), "2",
+                        "65.00", "130.00"),
+                    _tableDataRow("3", "pepsi 1.5 liters carton".tr(), "2",
+                        "130.00", "260.0"),
+                    _tableDataRow("4", "pepsi 1.5 liters carton".tr(), "2",
+                        "150.00", "300.0"),
+                    _tableDataRow("5", "pepsi 1.5 liters carton".tr(), "2",
+                        "150.00", "300.0"),
+                    _tableDataRow("6", "pepsi 1.5 liters carton".tr(), "1",
+                        "20.00", "20.00"),
                   ],
                 ),
               ),
@@ -101,7 +104,12 @@ class InvoiceScreen extends StatelessWidget {
                   width: 212,
                   height: 31,
                   text: "tracking the order".tr(),
-                  onPressed: () {}),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => MyPreviousOrders()));
+                  }),
               SizedBox(
                 height: 10.h,
               ),
@@ -110,10 +118,8 @@ class InvoiceScreen extends StatelessWidget {
                   height: 31,
                   text: "home page".tr(),
                   onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const HomeView()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => HomeScreen()));
                   }),
               const SizedBox(height: 24),
               Center(

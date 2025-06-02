@@ -101,6 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           Padding(
                             padding: const EdgeInsets.only(right: 16, left: 16),
                             child: CustomTextFormField(
+                              hintFontSize: 12,
                               controller: emailController,
                               focusNode: emailFocusNode,
                               validator: (value) {
@@ -121,6 +122,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           Padding(
                             padding: const EdgeInsets.only(right: 16, left: 16),
                             child: CustomTextFormField(
+                              hintFontSize: 12,
                               controller: passwordController,
                               focusNode: passwordFocusNode,
                               validator: (value) {
@@ -282,15 +284,13 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child:ElevatedButton(
-  onPressed: () async {
-    final isAuthenticated = await BiometricHelper.authenticate(context);
-    if (isAuthenticated) {
-   
-    }
-  },
-  child: const Text("تسجيل الدخول بالبصمة"),
-),
+      child: ElevatedButton(
+        onPressed: () async {
+          final isAuthenticated = await BiometricHelper.authenticate(context);
+          if (isAuthenticated) {}
+        },
+        child: const Text("تسجيل الدخول بالبصمة"),
+      ),
     );
   }
 

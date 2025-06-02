@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:settings_app/core/constant/app_colors.dart';
+import 'package:settings_app/feature/main/payment/presentation/screens/invoice_table_screen.dart';
 
 class StepperPageView extends StatelessWidget {
   const StepperPageView({super.key});
@@ -15,9 +16,9 @@ class StepperPageView extends StatelessWidget {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(right: 15, left: 15, top: 10),
+              padding: const EdgeInsets.only(top: 10, bottom: 10),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
                     "order date April 11, 2025".tr(),
@@ -27,6 +28,9 @@ class StepperPageView extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                     ),
                   ),
+                  SizedBox(
+                    width: 20.w,
+                  ),
                   Text(
                     "2000 pounds".tr(),
                     style: TextStyle(
@@ -34,11 +38,55 @@ class StepperPageView extends StatelessWidget {
                       fontSize: 12.sp,
                       fontWeight: FontWeight.w500,
                     ),
-                  )
+                  ),
+                  SizedBox(
+                    width: 20.w,
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    width: 80.w,
+                    height: 40.h,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage("assets/images/Rectangle 6438.png"),
+                        //  fit: BoxFit.fill,
+                      ),
+                    ),
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const InvoiceScreen()),
+                        );
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "show".tr(),
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w600,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10.w,
+                          ),
+                          Image.asset(
+                            "assets/images/Frame 11.png",
+                            width: 12,
+                            height: 12,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
-            const SizedBox(height: 20),
             const Expanded(child: StepperPage())
           ],
         ),

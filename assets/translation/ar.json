@@ -20,7 +20,7 @@
     "first_name": "الاسم الاول",
     "last_name": "الاسم الاخير",
     "confirm_password": "تأكيد كلمة المرور",
-    "check_in": "تسجيل",
+    "sign up": "تسجيل",
     "phone_number_(not_less_than_11_digits)": "رقم الهاتف  (لا يقل عن 11 رقم)",
     "password_(not_less_than_8_letters)": "كلمة المرور (لا تقل عن 8 حروف  )",
     "email_(optional)": "البريد الالكتروني(اختياري)",
@@ -108,7 +108,7 @@
    "delete":"حذف",
    "cancel":"إلغاء",
    "the_old_password":"كلمة المرور القديمة",
-   "the_new_password_new_password(must_be_at_least_8_letters_or_numbers)":"كلمة السر الجديدة (لا تقل عن 8 حروف او ارقام)",
+   "the_new_password_new_password(must_be_at_least_8_letters_or_numbers)":"كلمة المرور الجديدة (لا تقل عن 8 حروف او ارقام)",
    "confirm_the_new_password":"تأكيد كلمة المرور الجديدة",
    "there_is_a_long_established_fact_that_the_readable_content_of_a_page_will_distract_the_reader_from_focusingon_the_text's_outer_appearance_or_the_layout_of_the_paragraphson_the_page_they_are_reading.therefore,the_Lorem_Ipsum_method_is_used.":"هناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوى المقروء لصفحة ما سيلهي القارئ عن التركيز على الشكل الخارجي للنص أو شكل توضع الفقرات في الصفحة التي يقرأها. ولذلك يتم استخدام طريقة لوريم إيبسوم ",
    "there_is_a_long_established_fact_that":"هناك حقيقة مثبتة منذ زمن طويل وهي أن",
@@ -189,7 +189,9 @@
    "the order is currently in preparation. It will be ready for shipping as soon as possible":"الطلب في مرحلة التجهيز الأن سيتم تحضيره للشحن في اقرب وقت ممكن ",
    "delivered":"تم التسليم",
    "your order has been successfully received, thank you for your purchase. We hope you are satisfied with your products":"تم استلام طلبك بنجاح شكرا لك علي الشراء نامل ان تكون راضيا عن منتجاتك",
-   "shop now":"تسوق الان"
+   "shop now":"تسوق الان",
+   "the new password":"كلمه المرور الجديده"
+  
    
 
 

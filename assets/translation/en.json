@@ -21,6 +21,7 @@
   "first_name":"First name",
   "last_name":"Last name",
   "confirm_password":"Confirm Password",
+  "sign up":"Sign up",
   "check_in":"Check in",
   "phone_number_(not_less_than_11_digits)":"Phone number (not less than 11 digits)",
   "password_(not_less_than_8_letters)":"Password (not less than 8 letters )",
@@ -193,7 +194,8 @@
   "the order is currently in preparation. It will be ready for shipping as soon as possible":"The order is currently in preparation. It will be ready for shipping as soon as possible",
   "delivered":"Delivered",
   "your order has been successfully received, thank you for your purchase. We hope you are satisfied with your products":"Your order has been successfully received, thank you for your purchase. We hope you are satisfied with your products",
-  "shop now":"Shop now"
+  "shop now":"Shop now",
+  "the new password":"The new password"
 
  
   

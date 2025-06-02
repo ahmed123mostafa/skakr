@@ -30,32 +30,33 @@ class CustomCaesoudalSlidar extends StatelessWidget {
                 Positioned(
                   left: isArabic ? null : 8,
                   right: isArabic ? 8 : null,
-                  top: screenHeight * 0.12,
+                  top: screenHeight * 0.10,
                   child: Container(
                     padding: const EdgeInsets.all(8),
-                    width: screenWidth * 0.3,
-                    height: screenHeight * 0.05,
+                    width: screenWidth * 0.25,
+                    height: screenHeight * 0.04,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(25),
                       color: AppColors.backgroundAppColor,
                     ),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Icon(
-                          Icons.arrow_back,
-                          color: AppColors.mainAppColor,
-                          size: 15.sp,
-                        ),
-                        SizedBox(width: 5.w),
                         Text(
                           'shop now'.tr(),
                           style: TextStyle(
-                            fontSize: 12.sp,
+                            fontSize: 10.sp,
                             color: AppColors.mainAppColor,
                             fontWeight: FontWeight.w400,
                             fontFamily: "Alexandria",
                           ),
+                        ),
+                        SizedBox(width: 5.w),
+                        Icon(
+                          Icons.arrow_forward,
+                          color: AppColors.mainAppColor,
+                          size: 8.sp,
                         ),
                       ],
                     ),

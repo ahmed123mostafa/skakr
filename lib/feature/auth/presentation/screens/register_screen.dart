@@ -60,6 +60,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   bool ispassword = true;
+  bool isresetpassword = true;
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +113,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         Padding(
                           padding: const EdgeInsets.only(right: 16, left: 16),
                           child: CustomTextFormField(
-                            hintFontSize: 10,
+                            hintFontSize: 12,
                             prefix: Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: Image.asset(AppAssets.firstname),
@@ -131,7 +132,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         Padding(
                           padding: const EdgeInsets.only(right: 16, left: 16),
                           child: CustomTextFormField(
-                            hintFontSize: 10,
+                            hintFontSize: 12,
                             prefix: Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: Image.asset(AppAssets.firstname),
@@ -150,7 +151,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         Padding(
                           padding: const EdgeInsets.only(right: 16, left: 16),
                           child: CustomTextFormField(
-                            hintFontSize: 9,
+                            hintFontSize: 12,
                             prefix: Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: Image.asset(AppAssets.phonenumber),
@@ -163,14 +164,31 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               return null;
                             },
                             textInputType: TextInputType.phone,
-                            hintText:
-                                "phone_number_(not_less_than_11_digits)".tr(),
+                            hintText: "phone_number".tr(),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              right: 16, left: 16, top: 10, bottom: 10),
+                          child: Align(
+                            alignment: context.locale == const Locale('ar')
+                                ? Alignment.topRight
+                                : Alignment.topLeft,
+                            child: Text(
+                              "phone_number_(not_less_than_11_digits)".tr(),
+                              style: TextStyle(
+                                color: const Color(
+                                  0xff231F20,
+                                ),
+                                fontSize: 12.sp,
+                              ),
+                            ),
                           ),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(right: 16, left: 16),
                           child: CustomTextFormField(
-                            hintFontSize: 10,
+                            hintFontSize: 12,
                             prefix: Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: Image.asset(AppAssets.email),
@@ -189,7 +207,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         Padding(
                           padding: const EdgeInsets.only(right: 16, left: 16),
                           child: CustomTextFormField(
-                            hintFontSize: 7.5,
+                            hintFontSize: 12,
                             prefix: Padding(
                               padding: const EdgeInsets.all(5),
                               child: Image.asset(AppAssets.password),
@@ -204,7 +222,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               }
                               return null;
                             },
-                            hintText: "password_(not_less_than_8_letters)".tr(),
+                            hintText: "password".tr(),
                             obscureText: ispassword,
                             subfix: IconButton(
                               onPressed: () {
@@ -222,9 +240,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                         ),
                         Padding(
+                          padding: const EdgeInsets.only(
+                              right: 16, left: 16, top: 10, bottom: 10),
+                          child: Align(
+                            alignment: context.locale == const Locale('ar')
+                                ? Alignment.topRight
+                                : Alignment.topLeft,
+                            child: Text(
+                              "password_(not_less_than_8_letters)".tr(),
+                              style: TextStyle(
+                                color: const Color(
+                                  0xff231F20,
+                                ),
+                                fontSize: 12.sp,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
                           padding: const EdgeInsets.only(right: 16, left: 16),
                           child: CustomTextFormField(
-                            hintFontSize: 10,
+                            hintFontSize: 12,
                             prefix: Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: Image.asset(AppAssets.password),
@@ -240,15 +276,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               return null;
                             },
                             hintText: "confirm_password".tr(),
-                            obscureText: ispassword,
+                            obscureText: isresetpassword,
                             subfix: IconButton(
                               onPressed: () {
                                 setState(() {
-                                  ispassword = !ispassword;
+                                  isresetpassword = !isresetpassword;
                                 });
                               },
                               icon: Icon(
-                                ispassword
+                                isresetpassword
                                     ? Icons.visibility_off_outlined
                                     : Icons.remove_red_eye,
                               ),
@@ -486,7 +522,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         Padding(
                           padding: const EdgeInsets.only(right: 16, left: 16),
                           child: CustomTextFormField(
-                            hintFontSize: 10,
+                            hintFontSize: 12,
                             controller: cityController,
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -500,6 +536,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         Padding(
                           padding: const EdgeInsets.only(right: 16, left: 16),
                           child: CustomTextFormField(
+                            hintFontSize: 12,
                             controller: streetController,
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -513,7 +550,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         Padding(
                           padding: const EdgeInsets.only(right: 16, left: 16),
                           child: CustomTextFormField(
-                            hintFontSize: 10,
+                            hintFontSize: 12,
                             controller: floorController,
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -537,7 +574,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               return null;
                             },
                             hintText: "floor".tr(),
-                            hintFontSize: 10,
+                            hintFontSize: 12,
                             obscureText: false,
                             textInputType: TextInputType.number,
                           ),
@@ -545,7 +582,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         Padding(
                           padding: const EdgeInsets.only(right: 16, left: 16),
                           child: CustomTextFormField(
-                            hintFontSize: 10,
+                            hintFontSize: 12,
                             textInputType: TextInputType.number,
                             controller: homeController,
                             validator: (value) {
@@ -560,7 +597,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         Padding(
                           padding: const EdgeInsets.only(right: 16, left: 16),
                           child: CustomTextFormField(
-                            hintFontSize: 10,
+                            hintFontSize: 12,
                             controller: regionController,
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -575,7 +612,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         Padding(
                           padding: const EdgeInsets.only(right: 16, left: 16),
                           child: CustomTextFormField(
-                            hintFontSize: 10,
+                            hintFontSize: 12,
                             maxLines: 5,
                             controller: confermpasswordcontrroler,
                             validator: (value) {
@@ -591,7 +628,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           child: CustomButton(
                             width: 227.w,
                             height: 38.h,
-                            text: "check_in".tr(),
+                            text: "sign up".tr(),
                             onPressed: () {},
                           ),
                         ),

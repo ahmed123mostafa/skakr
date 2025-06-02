@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:settings_app/core/constant/app_colors.dart';
 import 'package:settings_app/feature/main/list/presentation/screens/prevuis_order/screen/widget/build_current_order.dart';
+import 'package:settings_app/feature/main/payment/presentation/screens/invoice_table_screen.dart';
 
 class MyPreviousOrders extends StatelessWidget {
   MyPreviousOrders({super.key});
@@ -363,31 +364,41 @@ class MyOrdersListScreen extends StatelessWidget {
                       Positioned(
                         top: 5,
                         left: 0,
-                        child: Stack(
-                          children: [
-                            Image.asset(
-                              "assets/images/Rectangle 6438.png",
-                              width: 79.w,
-                              height: 49.h,
-                            ),
-                            Positioned(
-                              top: 12,
-                              left: 10,
-                              child: Text(
-                                "show".tr(),
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w600,
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const InvoiceScreen()));
+                          },
+                          child: Stack(
+                            children: [
+                              Image.asset(
+                                "assets/images/Rectangle 6438.png",
+                                width: 79.w,
+                                height: 49.h,
+                              ),
+                              Positioned(
+                                top: 12,
+                                left: 10,
+                                child: Text(
+                                  "show".tr(),
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
                               ),
-                            ),
-                            Positioned(
-                              top: 13,
-                              right: 11,
-                              child: Image.asset("assets/images/Frame 11.png"),
-                            ),
-                          ],
+                              Positioned(
+                                top: 13,
+                                right: 11,
+                                child:
+                                    Image.asset("assets/images/Frame 11.png"),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                       Positioned(
