@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:settings_app/core/constant/app_colors.dart';
 
 class CustomTextFormField extends StatefulWidget {
   final TextEditingController? controller;
@@ -17,7 +18,7 @@ class CustomTextFormField extends StatefulWidget {
   final double hintFontSize;
   final TextInputAction? textInputAction;
   final ValueChanged<String>? onFieldSubmitted;
-  final FocusNode? focusNode;  
+  final FocusNode? focusNode;
 
   const CustomTextFormField({
     super.key,
@@ -36,7 +37,7 @@ class CustomTextFormField extends StatefulWidget {
     this.hintFontSize = 12,
     this.textInputAction,
     this.onFieldSubmitted,
-    this.focusNode,  
+    this.focusNode,
   });
 
   @override
@@ -52,7 +53,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       padding: EdgeInsets.symmetric(vertical: widget.paddingN),
       child: TextFormField(
         controller: widget.controller,
-        focusNode: widget.focusNode,  // Attached focusNode here
+        focusNode: widget.focusNode, 
         maxLines: lines,
         keyboardType: widget.textInputType,
         validator: widget.validator,
@@ -74,6 +75,11 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           contentPadding: const EdgeInsets.symmetric(
             vertical: 0.0,
             horizontal: 12.0,
+          ),
+          errorStyle: TextStyle(
+            fontSize: 8.sp, 
+            height: 1.2, 
+            color: AppColors.mainAppColor,
           ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(4.0),

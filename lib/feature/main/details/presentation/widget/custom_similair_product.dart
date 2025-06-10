@@ -7,21 +7,23 @@ import 'package:settings_app/feature/main/home/presentation/widget/custom_quanti
 
 class SimilairProduct extends StatelessWidget {
   const SimilairProduct({super.key});
-
-  @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
 
     final containerWidth = screenWidth * 0.45;
-
-    final containerHeight = screenHeight * 0.3;
+    final containerHeight = containerWidth * 1.2;
+    final imageWidth = containerWidth * 0.5;
+    final buttonHorizontalPadding = containerWidth * 0.12;
+    const buttonVerticalPadding = 10.0;
+    final fontSizePrice = screenWidth * 0.045;
+    final fontSizeTitle = screenWidth * 0.022;
+    final fontSizeButton = screenWidth * 0.028;
 
     return SizedBox(
       height: containerHeight + 40,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: 10,
+        itemCount: 9,
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.only(right: 10),
@@ -43,13 +45,13 @@ class SimilairProduct extends StatelessWidget {
                       child: Stack(
                         children: [
                           Positioned(
-                            top: containerHeight * 0.18,
+                            top: containerHeight * 0.16,
                             left: 0,
                             right: 0,
                             child: Center(
                               child: Image.asset(
                                 AppAssets.offer,
-                                width: containerWidth * 0.5,
+                                width: imageWidth,
                               ),
                             ),
                           ),
@@ -63,22 +65,22 @@ class SimilairProduct extends StatelessWidget {
                                 Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    const Center(
+                                    Center(
                                       child: Text(
                                         '10%',
                                         style: TextStyle(
                                           color: Colors.white,
-                                          fontSize: 14,
+                                          fontSize: fontSizePrice * 0.8,
                                           fontWeight: FontWeight.w700,
                                         ),
                                       ),
                                     ),
                                     Center(
                                       child: Text(
-                                        'offers'.tr(),
-                                        style: const TextStyle(
+                                        "offers".tr(),
+                                        style: TextStyle(
                                           color: Colors.white,
-                                          fontSize: 12,
+                                          fontSize: fontSizePrice * 0.7,
                                           fontWeight: FontWeight.w700,
                                         ),
                                       ),
@@ -95,13 +97,13 @@ class SimilairProduct extends StatelessWidget {
                                 Icon(Icons.favorite_border, color: Colors.grey),
                           ),
                           Positioned(
-                            top: containerHeight * 0.53,
+                            top: containerHeight * 0.5,
                             right: 12,
                             left: 12,
                             child: Text(
                               '5.00_pounds'.tr(),
                               style: TextStyle(
-                                fontSize: 17,
+                                fontSize: fontSizePrice,
                                 color: AppColors.mainAppColor,
                                 fontWeight: FontWeight.w700,
                                 fontFamily: "Alexandria",
@@ -114,23 +116,43 @@ class SimilairProduct extends StatelessWidget {
                             left: 12,
                             child: Text(
                               'al_Noor_orange_juice_egyptian_2kg'.tr(),
-                              textAlign: TextAlign.right,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontWeight: FontWeight.w500,
                                 fontFamily: "Alexandria",
-                                fontSize: 9,
-                                color: Color(0xff231F20),
+                                fontSize: fontSizeTitle,
+                                color: const Color(0xff231F20),
                               ),
                             ),
                           ),
                         ],
                       ),
                     ),
-                    const Positioned(
-                      bottom: -10,
+                    Positioned(
+                      bottom: -15,
                       left: 0,
                       right: 0,
-                      child: Center(child: QuantityCounter()),
+                      child: Center(
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColors.mainAppColor,
+                            shape: const StadiumBorder(),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: buttonHorizontalPadding,
+                              vertical: buttonVerticalPadding,
+                            ),
+                          ),
+                          child: Text(
+                            'add_to_cart'.tr(),
+                            style: TextStyle(
+                              fontFamily: "Alexandria",
+                              fontSize: fontSizeButton,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -152,13 +174,13 @@ class SimilairProduct extends StatelessWidget {
                       child: Stack(
                         children: [
                           Positioned(
-                            top: containerHeight * 0.18,
+                            top: containerHeight * 0.16,
                             left: 0,
                             right: 0,
                             child: Center(
                               child: Image.asset(
                                 AppAssets.offer,
-                                width: containerWidth * 0.5,
+                                width: imageWidth,
                               ),
                             ),
                           ),
@@ -169,13 +191,13 @@ class SimilairProduct extends StatelessWidget {
                                 Icon(Icons.favorite_border, color: Colors.grey),
                           ),
                           Positioned(
-                            top: containerHeight * 0.53,
+                            top: containerHeight * 0.5,
                             right: 12,
                             left: 12,
                             child: Text(
                               '5.00_pounds'.tr(),
                               style: TextStyle(
-                                fontSize: 17,
+                                fontSize: fontSizePrice,
                                 color: AppColors.mainAppColor,
                                 fontWeight: FontWeight.w700,
                                 fontFamily: "Alexandria",
@@ -188,12 +210,11 @@ class SimilairProduct extends StatelessWidget {
                             left: 12,
                             child: Text(
                               'al_Noor_orange_juice_egyptian_2kg'.tr(),
-                              textAlign: TextAlign.right,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontWeight: FontWeight.w500,
                                 fontFamily: "Alexandria",
-                                fontSize: 9,
-                                color: Color(0xff231F20),
+                                fontSize: fontSizeTitle,
+                                color: const Color(0xff231F20),
                               ),
                             ),
                           ),
@@ -201,7 +222,7 @@ class SimilairProduct extends StatelessWidget {
                       ),
                     ),
                     Positioned(
-                      bottom: -6,
+                      bottom: -7,
                       left: 0,
                       right: 0,
                       child: Center(
@@ -210,14 +231,16 @@ class SimilairProduct extends StatelessWidget {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.mainAppColor,
                             shape: const StadiumBorder(),
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 24, vertical: 10),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: buttonHorizontalPadding,
+                              vertical: buttonVerticalPadding,
+                            ),
                           ),
                           child: Text(
                             'add_to_cart'.tr(),
                             style: TextStyle(
                               fontFamily: "Alexandria",
-                              fontSize: 10.sp,
+                              fontSize: fontSizeButton,
                               fontWeight: FontWeight.w500,
                               color: Colors.white,
                             ),

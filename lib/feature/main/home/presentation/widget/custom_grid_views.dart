@@ -63,7 +63,7 @@ class Customgridview extends StatelessWidget {
                     ),
                     Padding(
                       padding:
-                          EdgeInsets.symmetric(horizontal: screenWidth * 0.02),
+                          EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
                       child: Text(
                         '5.00_pounds'.tr(),
                         style: TextStyle(

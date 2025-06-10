@@ -101,12 +101,12 @@ class _LoginScreenState extends State<LoginScreen> {
                           Padding(
                             padding: const EdgeInsets.only(right: 16, left: 16),
                             child: CustomTextFormField(
-                              hintFontSize: 12,
+                              hintFontSize: 10,
                               controller: emailController,
                               focusNode: emailFocusNode,
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return "Please enter your phone".tr();
+                                  return "please_enter_your_password".tr();
                                 }
                                 return null;
                               },
@@ -122,12 +122,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           Padding(
                             padding: const EdgeInsets.only(right: 16, left: 16),
                             child: CustomTextFormField(
-                              hintFontSize: 12,
+                              hintFontSize: 10.sp,
                               controller: passwordController,
                               focusNode: passwordFocusNode,
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return "Please enter your password".tr();
+                                  return "password_(not_less_than_11_letters)"
+                                      .tr();
                                 }
                                 if (value.length < 7) {
                                   return "Password must be at least 7 characters"
@@ -167,7 +168,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             height: 10.h,
                           ),
                           CustomButton(
-                            text: "login".tr(),
+                            text: "log in".tr(),
                             borderRadius: 20,
                             onPressed: () {
                               if (formKey.currentState!.validate()) {
@@ -207,7 +208,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           SizedBox(height: 20.h),
                           CustomButton(
-                            text: "no_account".tr(),
+                            text: "no account".tr(),
                             borderRadius: 20,
                             onPressed: () {
                               Navigator.push(
@@ -219,7 +220,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             },
                             width: 227,
                             height: 38,
-                            fontSize: 14,
+                            fontSize: 8,
                           ),
                           SizedBox(
                             height: 20.h,
@@ -284,12 +285,20 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: ElevatedButton(
-        onPressed: () async {
+      child: GestureDetector(
+        onTap: () async {
           final isAuthenticated = await BiometricHelper.authenticate(context);
-          if (isAuthenticated) {}
+          if (isAuthenticated) {
+            ///////////////// //// // // أكشن بعد النجاح
+          }
         },
-        child: const Text("تسجيل الدخول بالبصمة"),
+        child: Center(
+          child: Image.asset(
+            'assets/images/image-removebg-preview.png',
+            width: 150,
+            height: 100,
+          ),
+        ),
       ),
     );
   }

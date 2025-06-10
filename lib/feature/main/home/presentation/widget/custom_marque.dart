@@ -21,8 +21,8 @@ class CustomMarque extends StatelessWidget {
                   .tr(),
           style: TextStyle(
             color: AppColors.mainAppColor,
-            fontSize: 15,
-            fontWeight: FontWeight.w700,
+            fontSize: 12,
+            fontWeight: FontWeight.w500,
           ),
           blankSpace: 50.0,
           velocity: 40.0,
