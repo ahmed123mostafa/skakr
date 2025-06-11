@@ -45,7 +45,7 @@
   "confirm_password": "Confirm Password",
   "sign up": "Sign Up",
   "phone_number_(not_less_than_11_digits)": "Phone number (at least 11 digits)",
-  "password_(not_less_than_8_letters)": "Password length must be minimum of 11 characters long",
+  "password_(not_less_than_11_letters": "Password length must be minimum of 11 characters long",
   "email_(optional)": "Email (optional)",
   "address": "Address",
   "governorate": "Select Governorate",

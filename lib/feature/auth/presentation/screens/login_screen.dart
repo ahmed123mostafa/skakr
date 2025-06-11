@@ -319,7 +319,7 @@ class _HomePageState extends State<HomePage> {
     if (didAuthenticate && mounted) {
       Navigator.of(context).push(
         MaterialPageRoute(builder: (ctx) => HomeScreen()),
-      );
+      ); 
     }
   }
 }

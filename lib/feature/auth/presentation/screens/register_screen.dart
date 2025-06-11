@@ -253,7 +253,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ? Alignment.topRight
                                   : Alignment.topLeft,
                               child: Text(
-                                "password_(not_less_than_8_letters)".tr(),
+                                "password_(not_less_than_11_letters)".tr(),
                                 style: TextStyle(
                                   color: const Color(
                                     0xff231F20,
