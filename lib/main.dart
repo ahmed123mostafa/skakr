@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:settings_app/core/services/bloc_observer.dart';
+import 'package:settings_app/feature/auth/presentation/widget/custom_language.dart';
 import 'package:settings_app/feature/intial/splash_screen.dart';
 import 'package:settings_app/feature/main/home/manager/cubit/home_cubit.dart';
 import 'package:device_preview/device_preview.dart'; 
@@ -13,7 +14,7 @@ void main() async {
  Bloc.observer = MyBlocObserver();
   runApp(
     DevicePreview(
-      enabled: false, 
+      enabled: true, 
       builder: (context) => EasyLocalization(
         supportedLocales: const [Locale('en'), Locale('ar')],
         path: 'assets/translation',
@@ -48,9 +49,12 @@ class MyApp extends StatelessWidget {
             theme: ThemeData(
               fontFamily: 'Alexandria', 
               useMaterial3: false,
+              
             ),
+            navigatorKey: NavigationService.navigatorKey,
+              scaffoldMessengerKey: NavigationService.scaffoldMessengerKey,
           
-            home: const SplashScreen(), 
+            home: const SplashScreen(),  
           ),
         );
       },

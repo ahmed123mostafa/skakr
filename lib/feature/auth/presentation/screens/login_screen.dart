@@ -1,16 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:settings_app/core/constant/app_assets.dart';
 import 'package:settings_app/core/constant/app_colors.dart';
 import 'package:settings_app/core/constant/custom_bottom.dart';
 import 'package:settings_app/core/constant/custom_text_field.dart';
-import 'package:settings_app/core/helper/biometric_helper.dart';
 import 'package:settings_app/feature/auth/presentation/screens/register_screen.dart';
+import 'package:settings_app/feature/auth/presentation/widget/custom_language.dart';
+import 'package:settings_app/feature/auth/presentation/widget/custom_page.dart';
 import 'package:settings_app/feature/auth/presentation/widget/wave_background_painter.dart';
 import 'package:settings_app/feature/main/home/presentation/home_view.dart';
-import 'package:settings_app/feature/main/home/presentation/screens/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -60,7 +59,59 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(height: 30.h),
+                  SizedBox(
+                    height: 20.h,
+                  ),
+                  Align(
+                    alignment: context.locale.languageCode == 'ar'
+                        ? Alignment.topLeft
+                        : Alignment.topRight,
+                    child: GestureDetector(
+                      onTap: () {
+                        NavigationService.changeLanguage();
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 25),
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 12.w, vertical: 6.h),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.1),
+                                blurRadius: 4,
+                                offset: const Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(
+                                Icons.language,
+                                color: AppColors.mainAppColor,
+                                size: 16.sp,
+                              ),
+                              SizedBox(width: 5.w),
+                              Text(
+                                context.locale.languageCode == 'ar'
+                                    ? 'En'
+                                    : 'العربيه',
+                                style: TextStyle(
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w500,
+                                  color: AppColors.mainAppColor,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 15.h),
                   Padding(
                     padding: const EdgeInsets.symmetric(
                       vertical: 8,
@@ -127,7 +178,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               focusNode: passwordFocusNode,
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return "password_(not_less_than_11_letters)"
+                                  return "password(not_less_than_8_letters)"
                                       .tr();
                                 }
                                 if (value.length < 7) {
@@ -206,7 +257,19 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
                           ),
-                          SizedBox(height: 20.h),
+                          SizedBox(height: 15.h),
+                          Center(
+                            child: Text(
+                              "don't have an account?".tr(),
+                              style: TextStyle(
+                                fontFamily: "Alexandria",
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w400,
+                                color: AppColors.mainAppColor,
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 10.h),
                           CustomButton(
                             text: "no account".tr(),
                             borderRadius: 20,
@@ -274,52 +337,3 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 }
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: GestureDetector(
-        onTap: () async {
-          final isAuthenticated = await BiometricHelper.authenticate(context);
-          if (isAuthenticated) {
-            ///////////////// //// // // أكشن بعد النجاح
-          }
-        },
-        child: Center(
-          child: Image.asset(
-            'assets/images/image-removebg-preview.png',
-            width: 150,
-            height: 100,
-          ),
-        ),
-      ),
-    );
-  }
-
-  Future<void> _goToPrivatePage() async {
-    if (!await BiometricHelper.isBiometricSupported()) {
-      Fluttertoast.showToast(msg: "الجهاز لا يدعم البصمة.");
-      return;
-    }
-
-    final availableBiometrics = await BiometricHelper.getAvailableBiometrics();
-    if (availableBiometrics.isEmpty) {
-      Fluttertoast.showToast(msg: "لا توجد بصمة مفعلة. يرجى تفعيلها.");
-      return;
-    }
-
-    final bool didAuthenticate = await BiometricHelper.authenticate(context);
-    if (didAuthenticate && mounted) {
-      Navigator.of(context).push(
-        MaterialPageRoute(builder: (ctx) => HomeScreen()),
-      ); 
-    }
-  }
-}

@@ -13,6 +13,7 @@
     "please_enter_floor_number":"من فضلك ادخال رقم الطابق",
     "please_enter_address_type":"من فضلك ادخال نوع العنوان",
     "please_enter_delivery_instructions":"من فضلك ادخال تعليمات التوصيل",
+    "enter erea":"ادخل المنطقه",
     
     
 
@@ -30,6 +31,7 @@
     "no_account": "ليس لديك حساب؟  ",
     "signup": "إنشاء حساب",
     "name": "الاسم",
+    "don't have an account?":"ليس لديك حساب؟",
     "phone_number": "رقم الهاتف",
     "country": "البلد",
     "gender": "الجنس",
@@ -40,7 +42,7 @@
     "confirm_password": "تأكيد كلمة المرور",
     "sign up": "تسجيل",
     "phone_number_(not_less_than_11_digits)": "رقم الهاتف  (لا يقل عن 11 رقم)",
-    "password_(not_less_than_11_letters)": "كلمة المرور (لا تقل عن 11 حروف  )",
+    "password(not_less_than_8_letters)": "كلمة المرور (لا تقل عن 8 حروف  )",
     "email_(optional)": "البريد الالكتروني(اختياري)",
     "address": "العنوان",
     "governorate": "المحافظة",

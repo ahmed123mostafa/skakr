@@ -220,10 +220,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               controller: passwordcontrroler,
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return "please_enter_your_password".tr();
+                                  return "password(not_less_than_8_letters)"
+                                      .tr();
                                 }
                                 if (value.length < 8) {
-                                  return "password_must_be_at_least_8_characters"
+                                  return "password(not_less_than_8_letters)"
                                       .tr();
                                 }
                                 return null;
@@ -253,7 +254,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ? Alignment.topRight
                                   : Alignment.topLeft,
                               child: Text(
-                                "password_(not_less_than_11_letters)".tr(),
+                                "password(not_less_than_8_letters)".tr(),
                                 style: TextStyle(
                                   color: const Color(
                                     0xff231F20,
@@ -318,228 +319,151 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ),
                           ),
                           SizedBox(height: 20.h),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      right: 16, left: 16),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        width: 185,
-                                        height: 50,
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 3, vertical: 5),
-                                        decoration: BoxDecoration(
-                                          color: const Color(0xffEEEEEE),
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                        ),
-                                        child: Row(
-                                          children: [
-                                            Expanded(
-                                              child: Text(
-                                                governoratecontrrler
-                                                        .text.isEmpty
-                                                    ? "governorate".tr()
-                                                    : governoratecontrrler.text,
-                                                style: TextStyle(
-                                                  fontSize: 5.sp,
-                                                  color:
-                                                      const Color(0xff231F20),
-                                                ),
-                                              ),
-                                            ),
-                                            IconButton(
-                                              onPressed: () {
-                                                showDialog(
-                                                  context: context,
-                                                  builder:
-                                                      (BuildContext context) {
-                                                    return AlertDialog(
-                                                      title: Text(
-                                                          "choose_governorate"
-                                                              .tr()),
-                                                      content: Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.min,
-                                                        children: [
-                                                          CheckboxListTile(
-                                                            title: Text(
-                                                                "cairo".tr()),
-                                                            value:
-                                                                isCairoSelected,
-                                                            onChanged:
-                                                                (bool? value) {
-                                                              setState(() {
-                                                                isCairoSelected =
-                                                                    value!;
-                                                                governoratecontrrler
-                                                                        .text =
-                                                                    "cairo"
-                                                                        .tr();
-                                                              });
-                                                            },
-                                                          ),
-                                                          CheckboxListTile(
-                                                            title: Text(
-                                                                "mansoura"
-                                                                    .tr()),
-                                                            value:
-                                                                isMansouraSelected,
-                                                            onChanged:
-                                                                (bool? value) {
-                                                              setState(() {
-                                                                isMansouraSelected =
-                                                                    value!;
-                                                                governoratecontrrler
-                                                                        .text =
-                                                                    "mansoura"
-                                                                        .tr();
-                                                              });
-                                                            },
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      actions: [
-                                                        TextButton(
-                                                          child:
-                                                              Text("ok".tr()),
-                                                          onPressed: () {
-                                                            Navigator.of(
-                                                                    context)
-                                                                .pop();
-                                                          },
-                                                        ),
-                                                      ],
-                                                    );
-                                                  },
-                                                );
-                                              },
-                                              icon: Image.asset(
-                                                  "assets/images/Polygon 11.png"),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 16, left: 16),
+                            child: Container(
+                              width: double.infinity,
+                              height: 50,
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 6, vertical: 5),
+                              decoration: BoxDecoration(
+                                color: const Color(0xffEEEEEE),
+                                borderRadius: BorderRadius.circular(4),
                               ),
-                              SizedBox(width: 5.w),
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      right: 16, left: 16),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        width: 185,
-                                        height: 50,
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 3, vertical: 5),
-                                        decoration: BoxDecoration(
-                                          color: const Color(0xffEEEEEE),
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                        ),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Expanded(
-                                              child: Text(
-                                                regioncontrrler.text.isEmpty
-                                                    ? "region".tr()
-                                                    : regioncontrrler.text,
-                                                style: TextStyle(
-                                                  fontSize: 6.sp,
-                                                  color:
-                                                      const Color(0xff231F20),
-                                                ),
-                                              ),
-                                            ),
-                                            IconButton(
-                                              onPressed: () {
-                                                showDialog(
-                                                  context: context,
-                                                  builder:
-                                                      (BuildContext context) {
-                                                    return AlertDialog(
-                                                      title: Text(
-                                                          "choose_region".tr()),
-                                                      content: Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.min,
-                                                        children: [
-                                                          CheckboxListTile(
-                                                            title: Text(
-                                                                "cairo".tr()),
-                                                            value:
-                                                                isCairoRegionSelected,
-                                                            onChanged:
-                                                                (bool? value) {
-                                                              setState(() {
-                                                                isCairoRegionSelected =
-                                                                    value!;
-                                                                regioncontrrler
-                                                                        .text =
-                                                                    "cairo"
-                                                                        .tr();
-                                                              });
-                                                            },
-                                                          ),
-                                                          CheckboxListTile(
-                                                            title: Text(
-                                                                "mansoura"
-                                                                    .tr()),
-                                                            value:
-                                                                isMansouraRegionSelected,
-                                                            onChanged:
-                                                                (bool? value) {
-                                                              setState(() {
-                                                                isMansouraRegionSelected =
-                                                                    value!;
-                                                                regioncontrrler
-                                                                        .text =
-                                                                    "mansoura"
-                                                                        .tr();
-                                                              });
-                                                            },
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      actions: [
-                                                        TextButton(
-                                                          child:
-                                                              Text("ok".tr()),
-                                                          onPressed: () {
-                                                            Navigator.of(
-                                                                    context)
-                                                                .pop();
-                                                          },
-                                                        ),
-                                                      ],
-                                                    );
-                                                  },
-                                                );
-                                              },
-                                              icon: Image.asset(
-                                                  "assets/images/Polygon 11.png"),
-                                            ),
-                                          ],
-                                        ),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      governoratecontrrler.text.isEmpty
+                                          ? "governorate".tr()
+                                          : governoratecontrrler.text,
+                                      style: TextStyle(
+                                        fontSize: 10.sp,
+                                        color: const Color(0xff231F20),
                                       ),
-                                    ],
+                                    ),
                                   ),
-                                ),
+                                  IconButton(
+                                    onPressed: () {
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                            content: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                ListTile(
+                                                  title: Center(
+                                                      child:
+                                                          Text("cairo".tr())),
+                                                  onTap: () {
+                                                    setState(() {
+                                                      governoratecontrrler
+                                                          .text = "cairo".tr();
+                                                    });
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                ),
+                                                ListTile(
+                                                  title: Center(
+                                                      child: Text(
+                                                          "mansoura".tr())),
+                                                  onTap: () {
+                                                    setState(() {
+                                                      governoratecontrrler
+                                                              .text =
+                                                          "mansoura".tr();
+                                                    });
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        },
+                                      );
+                                    },
+                                    icon: Image.asset(
+                                        "assets/images/Polygon 11.png"),
+                                  ),
+                                ],
                               ),
-                            ],
+                            ),
+                          ),
+                          SizedBox(height: 15.h),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 16, left: 16),
+                            child: Container(
+                              width: double.infinity,
+                              height: 50,
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 6, vertical: 5),
+                              decoration: BoxDecoration(
+                                color: const Color(0xffEEEEEE),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      regioncontrrler.text.isEmpty
+                                          ? "region".tr()
+                                          : regioncontrrler.text,
+                                      style: TextStyle(
+                                        fontSize: 10.sp,
+                                        color: const Color(0xff231F20),
+                                      ),
+                                    ),
+                                  ),
+                                  IconButton(
+                                    onPressed: () {
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                            content: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                ListTile(
+                                                  title: Center(
+                                                      child:
+                                                          Text("cairo".tr())),
+                                                  onTap: () {
+                                                    setState(() {
+                                                      regioncontrrler.text =
+                                                          "cairo".tr();
+                                                    });
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                ),
+                                                ListTile(
+                                                  title: Center(
+                                                      child: Text(
+                                                          "mansoura".tr())),
+                                                  onTap: () {
+                                                    setState(() {
+                                                      regioncontrrler.text =
+                                                          "mansoura".tr();
+                                                    });
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        },
+                                      );
+                                    },
+                                    icon: Image.asset(
+                                        "assets/images/Polygon 11.png"),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(right: 16, left: 16),
