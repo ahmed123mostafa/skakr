@@ -31,9 +31,6 @@ class _OfferToggleSliderState extends State<OfferToggleSlider> {
     final containerWidth = 140.w;
     final locale = context.locale.languageCode;
 
-    // تعديل المنطق هنا:
-    // لما العربية والاختيار 0 -> basket مختار
-    // لما غير العربية والاختيار 1 -> basket مختار (عشان بالانجليزي التبديل)
     bool isBasketChosen = (locale == 'ar' && isOffersSelected == 0) ||
         (locale != 'ar' && isOffersSelected == 1);
     bool isPackageChosen = !isBasketChosen;
@@ -95,7 +92,7 @@ class _OfferToggleSliderState extends State<OfferToggleSlider> {
                               fontWeight: FontWeight.w500,
                               fontFamily: "Alexandria",
                               color:
-                                  isBasketChosen ? Colors.white : Colors.black,
+                                  isBasketChosen ? Colors.black : Colors.white,
                             ),
                           ),
                         ),
@@ -109,7 +106,7 @@ class _OfferToggleSliderState extends State<OfferToggleSlider> {
                               fontWeight: FontWeight.w500,
                               fontFamily: "Alexandria",
                               color:
-                                  isPackageChosen ? Colors.white : Colors.black,
+                                  isPackageChosen ? Colors.black : Colors.white,
                             ),
                           ),
                         ),

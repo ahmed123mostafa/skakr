@@ -8,15 +8,21 @@ import 'package:settings_app/feature/main/details/presentation/widget/custom_sim
 import 'package:settings_app/feature/main/details/presentation/widget/offer_toogel_slider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class DetailsScreen extends StatelessWidget {
+class DetailsScreen extends StatefulWidget {
+  const DetailsScreen({super.key});
+
+  @override
+  State<DetailsScreen> createState() => _DetailsScreenState();
+}
+
+class _DetailsScreenState extends State<DetailsScreen> {
   final pageController = PageController();
-  DetailsScreen({super.key});
+  int? selectedQuantity = 1; // المتغير الذي سيحمل الكمية المختارة
 
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-
     double w(double width) => screenWidth * width / 375;
     double h(double height) => screenHeight * height / 812;
 
@@ -250,46 +256,59 @@ class DetailsScreen extends StatelessWidget {
                       children: [
                         const OfferToggleSlider(),
                         SizedBox(width: w(20)),
-                        Container(
-                          padding: const EdgeInsets.all(10),
-                          height: h(40),
-                          width: w(160),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(20.r),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.4),
-                                blurRadius: 4,
-                                offset: const Offset(0, 2),
-                              ),
-                            ],
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "add_to_cart".tr(),
-                                style: TextStyle(
-                                  fontFamily: "Alexandria",
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w600,
-                                  color: const Color(0xff231F20),
+                        InkWell(
+                          onTap: () async {
+                            int? result = await showDialog<int>(
+                              context: context,
+                              builder: (context) => quantityDialog(context),
+                            );
+                            if (result != null) {
+                              setState(() {
+                                selectedQuantity = result;
+                              });
+                            }
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.all(10),
+                            height: h(40),
+                            width: w(160),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(20.r),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.4),
+                                  blurRadius: 4,
+                                  offset: const Offset(0, 2),
                                 ),
-                              ),
-                              Container(
-                                width: w(30),
-                                height: h(41),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(16),
-                                    color: AppColors.mainAppColor),
-                                child: Image.asset(
-                                  "assets/images/Layer 2 (1).png",
-                                  width: 20,
-                                  height: 20,
+                              ],
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "add_to_cart".tr(),
+                                  style: TextStyle(
+                                    fontFamily: "Alexandria",
+                                    fontSize: 11.sp,
+                                    fontWeight: FontWeight.w600,
+                                    color: const Color(0xff231F20),
+                                  ),
                                 ),
-                              )
-                            ],
+                                Container(
+                                  width: w(30),
+                                  height: h(50),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(16),
+                                      color: AppColors.mainAppColor),
+                                  child: Image.asset(
+                                    "assets/images/Layer 2 (1).png",
+                                    width: 20,
+                                    height: 20,
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         )
                       ],
@@ -352,7 +371,7 @@ class DetailsScreen extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           fontFamily: "Alexandria",
-                          fontSize: 9.sp,
+                          fontSize: 8.sp,
                           fontWeight: FontWeight.w600,
                           color: AppColors.mainAppColor,
                         ),
@@ -388,7 +407,7 @@ class DetailsScreen extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           fontFamily: "Alexandria",
-                          fontSize: 9.sp,
+                          fontSize: 8.sp,
                           fontWeight: FontWeight.w600,
                           color: AppColors.mainAppColor,
                         ),
@@ -456,4 +475,118 @@ class DetailsScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget quantityDialog(BuildContext context) {
+  int quantity = 1;
+  return StatefulBuilder(
+    builder: (context, setState) {
+      return Dialog(
+        backgroundColor: Colors.transparent,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    if (quantity > 1) {
+                      setState(() => quantity--);
+                    }
+                  },
+                  child: Stack(
+                    alignment: Alignment.centerLeft,
+                    children: [
+                      CustomPaint(
+                        painter: CurvedButtonPainter(isLeft: true),
+                        size: const Size(35, 80),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.only(left: 6),
+                        child: Text(
+                          "-",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                Container(
+                  width: 50,
+                  alignment: Alignment.center,
+                  child: Text(
+                    quantity.toString().padLeft(2, '0'),
+                    style: const TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    setState(() => quantity++);
+                  },
+                  child: Stack(
+                    alignment: Alignment.centerRight,
+                    children: [
+                      CustomPaint(
+                        painter: CurvedButtonPainter(isLeft: false),
+                        size: const Size(35, 80),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.only(right: 6),
+                        child: Text(
+                          "+",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
+    },
+  );
+}
+
+class CurvedButtonPainter extends CustomPainter {
+  final bool isLeft;
+
+  CurvedButtonPainter({required this.isLeft});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()..color = const Color(0xFFC10075);
+
+    final path = Path();
+    if (isLeft) {
+      path.moveTo(size.width, 0);
+      path.quadraticBezierTo(0, size.height * 0.5, size.width, size.height);
+      path.lineTo(0, size.height);
+      path.lineTo(0, 0);
+    } else {
+      path.moveTo(0, 0);
+      path.quadraticBezierTo(size.width, size.height * 0.5, 0, size.height);
+      path.lineTo(size.width, size.height);
+      path.lineTo(size.width, 0);
+    }
+
+    path.close();
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

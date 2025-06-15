@@ -12,7 +12,7 @@ class StepperPageView extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.grey[200],
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 30),
+        padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 10),
         child: Column(
           children: [
             Padding(
@@ -44,7 +44,7 @@ class StepperPageView extends StatelessWidget {
                   ),
                   Container(
                     padding: const EdgeInsets.all(10),
-                    width: 80.w,
+                    width: 90.w,
                     height: 40.h,
                     decoration: const BoxDecoration(
                       image: DecorationImage(
