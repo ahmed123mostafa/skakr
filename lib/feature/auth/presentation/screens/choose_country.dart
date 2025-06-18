@@ -6,6 +6,10 @@ import 'package:settings_app/core/constant/custom_bottom.dart';
 import 'package:settings_app/feature/auth/presentation/screens/login_screen.dart';
 import 'package:settings_app/feature/auth/presentation/widget/wave_background_painter.dart';
 
+import '../../../../core/api/dio_concumer.dart';
+import '../../../../core/api/encrupt.dart';
+import '../../../../core/api/end_point.dart';
+
 class ChooseBranchScreen extends StatelessWidget {
   const ChooseBranchScreen({super.key});
 
@@ -67,6 +71,10 @@ class ChooseBranchScreen extends StatelessWidget {
                         CustomButton(
                           text: "cairo_branch".tr(),
                           onPressed: () {
+                            beasUrlCairoOrMa="http://51.91.6.70/TheOneAPISkakerC";
+                             privateKey="0e23682dec7c835487d08cafdd42b54e" ;
+                             publicKey="b67507de3344e373" ;
+                            sign="YjY3NTA3ZGUzMzQ0ZTM3Mzp5Nk5BaEpzT2NKQXN3YnhWamRmZEV1Q1g2K3hoeXV3aEU4YkZ4cGJYa1pRPQ==";
                             Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
@@ -85,6 +93,10 @@ class ChooseBranchScreen extends StatelessWidget {
                           text: "mansoura_Branch".tr(),
                           borderRadius: 20,
                           onPressed: () {
+                            beasUrlCairoOrMa="http://51.91.6.70/TheOneAPISkakerM";
+                            privateKey='f61d23ba29bd5d3aeabd6b0cddc7b44a' ;
+                            publicKey="4be79ac36876a821" ;
+                            sign="NGJlNzlhYzM2ODc2YTgyMTphU0Q3YTA2VzVPTDBiREowTjhWMEsycktDR0pXc2wzNmFuOGQ1bFdEMUpVPQ==";
                             Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(

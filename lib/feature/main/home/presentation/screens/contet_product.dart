@@ -2,13 +2,18 @@ import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:settings_app/core/constant/app_assets.dart';
 import 'package:settings_app/core/constant/app_colors.dart';
+import 'package:settings_app/feature/main/catagory/manager/category_cubit.dart';
+import 'package:settings_app/feature/main/catagory/manager/category_state.dart';
 import 'package:settings_app/feature/main/home/presentation/widget/custom_grid_views.dart';
 
 class ContentProduct extends StatelessWidget {
-  const ContentProduct({super.key});
+  final num categoryId;
+  final String categoryName;
+  const ContentProduct({super.key,required this.categoryName,required this.categoryId});
 
   @override
   Widget build(BuildContext context) {
@@ -16,134 +21,154 @@ class ContentProduct extends StatelessWidget {
       child: Scaffold(
         backgroundColor: const Color(0xffF1F1F1),
         body: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(
-                height: 20.h,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Row(
+          child: BlocProvider(
+            create: (context)=>CategoryCubit()..getSubCategory(mainCategoryId: categoryId)..getItemsForSubCategory(subCategoryId: categoryId),
+            child:
+
+
+            BlocBuilder<CategoryCubit,CategoryState>(
+              builder: (context,state) {
+                CategoryCubit categoryCubit=BlocProvider.of<CategoryCubit>(context);
+                return Column(
                   children: [
-                    Expanded(
-                      flex: 3,
-                      child: Container(
-                        padding: const EdgeInsets.only(right: 20),
-                        width: 107,
-                        height: 43,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: const BorderRadius.only(
-                            topRight: Radius.circular(16),
-                            bottomRight: Radius.circular(16),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            flex: 3,
+                            child: Container(
+                              padding: const EdgeInsets.only(right: 20),
+                              width: 107,
+                              height: 43,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: const BorderRadius.only(
+                                  topRight: Radius.circular(16),
+                                  bottomRight: Radius.circular(16),
+                                ),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.white.withOpacity(0.2),
+                                    spreadRadius: 4,
+                                    blurRadius: 10,
+                                    offset: const Offset(0, 6),
+                                  ),
+                                ],
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  IconButton(
+                                    icon: Icon( Icons.arrow_back,
+                                      color: AppColors.mainAppColor,),
+                                    onPressed: (){
+                                      Navigator.pop(context);
+                                    },
+
+                                  ),
+                                  SizedBox(
+                                    width: 20.w,
+                                  ),
+                                  Text(
+                                    categoryName,
+                                    style: TextStyle(
+                                      fontFamily: "Alexandria",
+                                      fontSize: 9.sp,
+                                      fontWeight: FontWeight.w600,
+                                      color: AppColors.mainAppColor,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.white.withOpacity(0.2),
-                              spreadRadius: 4,
-                              blurRadius: 10,
-                              offset: const Offset(0, 6),
-                            ),
-                          ],
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Icon(
-                              Icons.arrow_back,
-                              color: AppColors.mainAppColor,
-                            ),
-                            SizedBox(
-                              width: 20.w,
-                            ),
-                            Text(
-                              "poultry_meats_and_seafood".tr(),
-                              style: TextStyle(
-                                fontFamily: "Alexandria",
-                                fontSize: 9.sp,
-                                fontWeight: FontWeight.w600,
-                                color: AppColors.mainAppColor,
+                          Expanded(
+                            flex: 1,
+                            child: Container(
+                              width: 107,
+                              height: 43,
+                              decoration: BoxDecoration(
+                                color: const Color(0xffF1F1F1),
+                                borderRadius: BorderRadius.circular(16),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(
+                                        0.3),
+                                    spreadRadius: 2,
+                                    blurRadius: 5,
+                                    offset: const Offset(0, 3),
+                                  ),
+                                ],
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "2",
+                                    style: TextStyle(
+                                      fontFamily: "Alexandria",
+                                      fontSize: 22.sp,
+                                      fontWeight: FontWeight.w700,
+                                      color: AppColors.mainAppColor,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 5),
+                                  Image.asset(AppAssets.menuuu),
+                                ],
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
-                    Expanded(
-                      flex: 1,
-                      child: Container(
-                        width: 107,
-                        height: 43,
-                        decoration: BoxDecoration(
-                          color: const Color(0xffF1F1F1),
-                          borderRadius: BorderRadius.circular(16),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(
-                                  0.3), 
-                              spreadRadius: 2,
-                              blurRadius: 5,
-                              offset: const Offset(0, 3),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    CarouselSlider(
+                      items: List.generate(
+                        4,
+                        (index) => Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 5),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(12),
+                            child: Image.asset(
+                              AppAssets.banner2,
+                              fit: BoxFit.cover,
+                              width: double.infinity,
                             ),
-                          ],
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "2",
-                              style: TextStyle(
-                                fontFamily: "Alexandria",
-                                fontSize: 22.sp,
-                                fontWeight: FontWeight.w700,
-                                color: AppColors.mainAppColor,
-                              ),
-                            ),
-                            const SizedBox(width: 5),
-                            Image.asset(AppAssets.menuuu),
-                          ],
+                          ),
                         ),
                       ),
+                      options: CarouselOptions(
+                        height: 140.h,
+                        autoPlay: true,
+                        enlargeCenterPage: true,
+                        enableInfiniteScroll: true,
+                        scrollPhysics: const BouncingScrollPhysics(),
+                      ),
                     ),
+                    SizedBox(
+                      height: 15.h,
+                    ),
+
+                    SubCategorySelector(
+                      categoryCubit:categoryCubit ,
+                      selectedIndex: categoryCubit.subCategorySelect,
+                      onTap: (index) => categoryCubit.changeSelectedCategory(index: index),
+                    ),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    DrinkSelector(),
+                    Customgridview(categoryCubit:categoryCubit ,)
                   ],
-                ),
-              ),
-              SizedBox(
-                height: 20.h,
-              ),
-              CarouselSlider(
-                items: List.generate(
-                  4,
-                  (index) => Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 5),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
-                      child: Image.asset(
-                        AppAssets.banner2,
-                        fit: BoxFit.cover,
-                        width: double.infinity,
-                      ),
-                    ),
-                  ),
-                ),
-                options: CarouselOptions(
-                  height: 140.h,
-                  autoPlay: true,
-                  enlargeCenterPage: true,
-                  enableInfiniteScroll: true,
-                  scrollPhysics: const BouncingScrollPhysics(),
-                ),
-              ),
-              SizedBox(
-                height: 15.h,
-              ),
-              const CategorySelector(),
-              SizedBox(
-                height: 20.h,
-              ),
-              DrinkSelector(),
-              const Customgridview()
-            ],
+                );
+              }
+            ),
           ),
         ),
       ),
@@ -151,39 +176,35 @@ class ContentProduct extends StatelessWidget {
   }
 }
 
-class CategorySelector extends StatefulWidget {
-  const CategorySelector({super.key});
+class SubCategorySelector extends StatelessWidget {
+  final categoryCubit;
+  final int selectedIndex;
+  final Function(int) onTap;
 
-  @override
-  State<CategorySelector> createState() => _CategorySelectorState();
-}
-
-class _CategorySelectorState extends State<CategorySelector> {
-  final List<String> categories = [
-    'all'.tr(),
-    'poultry'.tr(),
-    'meat'.tr(),
-    'seafood'.tr()
-  ];
-  int selectedIndex = 0;
+  const SubCategorySelector({
+    super.key,
+    required this.categoryCubit,
+    required this.selectedIndex,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+
+
+    return
+      (categoryCubit.subCategoryList.length>0)?
+      SizedBox(
       height: 50,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: categories.length,
+        itemCount: categoryCubit.subCategoryList.length,
         itemBuilder: (context, index) {
           final isSelected = selectedIndex == index;
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 6.0),
             child: GestureDetector(
-              onTap: () {
-                setState(() {
-                  selectedIndex = index;
-                });
-              },
+              onTap: () => onTap(index),
               child: Container(
                 height: 40,
                 padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -193,16 +214,16 @@ class _CategorySelectorState extends State<CategorySelector> {
                   borderRadius: BorderRadius.circular(20),
                   boxShadow: isSelected
                       ? [
-                          const BoxShadow(
-                            color: Colors.black26,
-                            blurRadius: 4,
-                            offset: Offset(0, 2),
-                          )
-                        ]
+                    const BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 4,
+                      offset: Offset(0, 2),
+                    )
+                  ]
                       : [],
                 ),
                 child: Text(
-                  categories[index],
+                  categoryCubit.subCategoryList[index].categoryArName??'',
                   style: TextStyle(
                     color: isSelected ? Colors.white : AppColors.mainAppColor,
                     fontWeight: FontWeight.w500,
@@ -215,7 +236,7 @@ class _CategorySelectorState extends State<CategorySelector> {
           );
         },
       ),
-    );
+    ):const SizedBox();
   }
 }
 

@@ -3,7 +3,7 @@ import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:settings_app/core/api/api_concumer.dart';
 import 'package:settings_app/core/api/end_point.dart';
 import 'package:settings_app/core/network/secure_storage.dart';
-
+var sign;
 class DioConsumer extends ApiConsumer {
   final Dio dio;
 
@@ -39,8 +39,8 @@ class DioConsumer extends ApiConsumer {
     final token = await SecureStorageService.read(SecureStorageService.token);
     return {
       'Accept-Language': 'ar',
-      if (token != null)
-        'Authorization': 'Bearer $token',
+      //if (token != null)
+      'Authorization':"Basic $sign"
     };
   }
 

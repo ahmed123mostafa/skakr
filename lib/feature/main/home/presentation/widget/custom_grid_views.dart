@@ -4,9 +4,11 @@ import 'package:settings_app/core/constant/app_assets.dart';
 import 'package:settings_app/core/constant/app_colors.dart';
 import 'package:settings_app/feature/main/details/presentation/screens/details_screen.dart';
 
-class Customgridview extends StatelessWidget {
-  const Customgridview({super.key});
+import '../../../catagory/manager/category_cubit.dart';
 
+class Customgridview extends StatelessWidget {
+  Customgridview({super.key,required this.categoryCubit});
+  CategoryCubit? categoryCubit;
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -17,7 +19,7 @@ class Customgridview extends StatelessWidget {
       child: GridView.builder(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
-        itemCount: 10,
+        itemCount: categoryCubit?.itemsSubCategoryList.length??0,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           crossAxisSpacing: screenWidth * 0.05,
@@ -47,14 +49,14 @@ class Customgridview extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => DetailsScreen(),
+                            builder: (context) => DetailsScreen(productId:categoryCubit!.itemsSubCategoryList[index].productId ,),
                           ),
                         );
                       },
                       child: Padding(
                         padding: EdgeInsets.all(screenWidth * 0.04),
-                        child: Image.asset(
-                          AppAssets.offer,
+                        child: Image.network(
+                          categoryCubit!.itemsSubCategoryList[index].productImage.toString(),
                           width: double.infinity,
                           height: screenHeight * 0.10,
                           fit: BoxFit.contain,
@@ -65,7 +67,7 @@ class Customgridview extends StatelessWidget {
                       padding:
                           EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
                       child: Text(
-                        '5.00_pounds'.tr(),
+                        '${categoryCubit?.itemsSubCategoryList[index].price??0}',
                         style: TextStyle(
                           fontSize: screenWidth * 0.045,
                           color: AppColors.mainAppColor,
@@ -79,7 +81,8 @@ class Customgridview extends StatelessWidget {
                           horizontal: screenWidth * 0.03,
                           vertical: screenHeight * 0.005),
                       child: Text(
-                        'al_Noor_orange_juice_egyptian_2kg'.tr(),
+
+                        categoryCubit?.itemsSubCategoryList[index].productArName??'',
                         textAlign: TextAlign.right,
                         style: TextStyle(
                           fontWeight: FontWeight.w500,

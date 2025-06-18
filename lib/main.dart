@@ -6,7 +6,9 @@ import 'package:settings_app/core/services/bloc_observer.dart';
 import 'package:settings_app/feature/auth/presentation/widget/custom_language.dart';
 import 'package:settings_app/feature/intial/splash_screen.dart';
 import 'package:settings_app/feature/main/home/manager/cubit/home_cubit.dart';
-import 'package:device_preview/device_preview.dart'; 
+import 'package:device_preview/device_preview.dart';
+
+import 'feature/main/catagory/manager/category_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,7 +39,11 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return MultiBlocProvider(
           providers: [
-            BlocProvider(create: (context) => HomeCubit()),
+            BlocProvider(create: (context) => HomeCubit()..getNewsMarquee()..getBannerOneImage()..getBiggestDiscountProducts()..getNewProduct()..getBestSellers()..getBannerTwoImage()),
+            BlocProvider(
+              create: (context)=>CategoryCubit()..getMainCategory(),
+            ),
+
           ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,

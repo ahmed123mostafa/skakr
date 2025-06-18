@@ -19,18 +19,18 @@ class OrderAgain extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: screenHeight * 0.025), // 2.5% من ارتفاع الشاشة
+              SizedBox(height: screenHeight * 0.025),
               Padding(
                 padding: EdgeInsets.symmetric(
-                    horizontal: screenWidth * 0.05), // 5% من العرض
+                    horizontal: screenWidth * 0.05),
                 child: Row(
                   children: [
                     Expanded(
                       flex: 3,
                       child: Container(
                         padding: EdgeInsets.only(right: screenWidth * 0.05),
-                        width: screenWidth * 0.4, // 40% من العرض
-                        height: screenHeight * 0.06, // 6% من ارتفاع الشاشة
+                        width: screenWidth * 0.4,
+                        height: screenHeight * 0.06,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: const BorderRadius.only(
@@ -59,7 +59,7 @@ class OrderAgain extends StatelessWidget {
                               style: TextStyle(
                                 fontFamily: "Alexandria",
                                 fontSize:
-                                    screenWidth * 0.045, // حجم خط نسبي للعرض
+                                    screenWidth * 0.045,
                                 fontWeight: FontWeight.w600,
                                 color: AppColors.mainAppColor,
                               ),
@@ -106,7 +106,7 @@ class OrderAgain extends StatelessWidget {
                   ],
                 ),
               ),
-              const Customgridview(),
+            // const Customgridview(),
             ],
           ),
         ),
