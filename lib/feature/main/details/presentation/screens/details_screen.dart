@@ -12,7 +12,6 @@ import 'package:settings_app/feature/main/details/presentation/widget/custom_sim
 import 'package:settings_app/feature/main/details/presentation/widget/offer_toogel_slider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import '../../../home/manager/cubit/home_cubit.dart';
 import '../../../home/presentation/widget/product_horizontal_card.dart';
 import '../../manager/product_details_cubit.dart';
 import '../../manager/product_details_state.dart';
@@ -165,7 +164,7 @@ class DetailsScreen extends StatelessWidget {
                                         return
 
                                           Image.network(
-                                            detailsCubit.productDetailsList?[0].productUnitImages?[index].imagePath??'',
+                                            detailsCubit.productDetailsList[0].productUnitImages?[index].imagePath??'',
                                             fit: BoxFit.fill,
                                           );
                                       }),
@@ -196,7 +195,7 @@ class DetailsScreen extends StatelessWidget {
                                     child: Text(
                                       isArabic?
                                       detailsCubit.productDetailsList[0].productArName??'':
-                                     detailsCubit.productDetailsList?[0].productEnName??'',
+                                     detailsCubit.productDetailsList[0].productEnName??'',
                                       style: TextStyle(
                                         fontFamily: "Alexandria",
                                         fontSize: 16.sp,

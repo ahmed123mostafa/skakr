@@ -2,8 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:settings_app/core/constant/app_assets.dart';
 import 'package:settings_app/core/constant/app_colors.dart';
-import 'package:settings_app/feature/main/details/presentation/screens/details_screen.dart';
-import 'package:settings_app/feature/main/home/presentation/widget/custom_grid_views.dart';
 
 class OrderAgain extends StatelessWidget {
   const OrderAgain({super.key});

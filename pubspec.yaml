@@ -53,6 +53,8 @@ dependencies:
   conditional_builder_null_safety: ^0.0.6
   cached_network_image: ^3.4.1
   skeletonizer: ^2.0.1
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
 
   
 

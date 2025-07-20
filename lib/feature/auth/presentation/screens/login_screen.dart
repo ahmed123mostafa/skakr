@@ -65,35 +65,34 @@ class _LoginScreenState extends State<LoginScreen> {
               if(state is LoginViewStateSuccess)
               {
 
-              if (state.dataUser != null) {
-              print(state.dataUser);
-              print(state.dataUser.arabicName);
+            print(state.dataUser);
+            print(state.dataUser.arabicName);
 
-              await SecureStorageService.write(SecureStorageService.mobile, state.dataUser.customerPhone.toString());
-              await SecureStorageService.write(SecureStorageService.name, state.dataUser.arabicName.toString());
-              await SecureStorageService.write(SecureStorageService.token, state.dataUser.customerId.toString());
+            await SecureStorageService.write(SecureStorageService.mobile, state.dataUser.customerPhone.toString());
+            await SecureStorageService.write(SecureStorageService.name, state.dataUser.arabicName.toString());
+            await SecureStorageService.write(SecureStorageService.token, state.dataUser.customerId.toString());
 
-              CustomerID = await SecureStorageService.read(SecureStorageService.token);
-              customerPhone = await SecureStorageService.read(SecureStorageService.mobile);
-              customerName = await SecureStorageService.read(SecureStorageService.name);
+            CustomerID = await SecureStorageService.read(SecureStorageService.token);
+            customerPhone = await SecureStorageService.read(SecureStorageService.mobile);
+            customerName = await SecureStorageService.read(SecureStorageService.name);
 
-              Fluttertoast.showToast(
-              msg: 'login_success'.tr(),
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIosWeb: 1,
-              backgroundColor: Colors.green,
-              textColor: Colors.white,
-              fontSize: 16.0,
-              );
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const HomeView(),
-                ),
-              );
+            Fluttertoast.showToast(
+            msg: 'login_success'.tr(),
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.green,
+            textColor: Colors.white,
+            fontSize: 16.0,
+            );
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const HomeView(),
+              ),
+            );
 
-              }}
+            }
 
               if (state is LoginViewStateError) {
                 Fluttertoast.showToast(

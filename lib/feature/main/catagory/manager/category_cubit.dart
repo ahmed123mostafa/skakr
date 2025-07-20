@@ -1,10 +1,12 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/api/dio_concumer.dart';
 import '../../../../core/api/encrupt.dart';
 import '../../../../core/api/end_point.dart';
+import '../model/brand_model.dart';
 import '../model/main_category_model.dart';
 import '../model/product_model.dart';
 import '../model/sub_category_model.dart';
@@ -73,6 +75,11 @@ print('********************');
     emit(ChangeSubCategory());
   }
 
+  int brandSelect=-1;
+  void changeSelectedBrand({required int index}) {
+    brandSelect=index;
+    emit(ChangeSubCategory());
+  }
 
 
   Map<String, bool> itemsForSubCategoryFavorite = {};
@@ -86,7 +93,7 @@ print('********************');
     ).then((value) {
 
 
-
+      itemsSubCategoryList.clear();
         final decryptedText = decrypt(value, privateKey, publicKey);
         print(decryptedText);
 
@@ -110,6 +117,71 @@ print('********************');
       print(
           'Error In Function get Items For Sub Category This Error ${error.toString()}');
       emit(GetItemsForSubCategoryError());
+    });
+  }
+
+
+
+  List<BrandResponseModel> brandList = [];
+
+  Future<void> getBrandsBySubCategory({required  subCategoryId}) async {
+    emit(GetBrandsLoading());
+    await DioConsumer(dio: Dio()).get(
+      EndPoint.getBrandsBySubCategory(subCategory: subCategoryId),
+      useCache: true,
+      cacheDuration: const Duration(minutes: 10),
+    ).then((value) {
+      final decryptedText = decrypt(value, privateKey, publicKey);
+      print(decryptedText);
+      print('********************');
+
+      List<dynamic> jsonList = jsonDecode(decryptedText);
+    brandList = jsonList.map((json) => BrandResponseModel.fromJson(json)).toList();
+log(decryptedText);
+      emit(GetBrandsSuccess());
+    }).catchError((error) {
+      print('Error In Function Get Brands By SubCategory: ${error.toString()}');
+      emit(GetBrandsError());
+    });
+  }
+
+
+  Map<String, bool> itemsForBrandFavorite = {};
+
+  Future<void> getItemsForBrandCategory({required  categoryId,required brandId}) async {
+    emit(GetItemsForBrandLoading());
+    await DioConsumer(dio: Dio()).get(
+      EndPoint.getProductByBrand(categoryId: categoryId,brandId: brandId),
+      useCache: true,
+      cacheDuration: const Duration(minutes: 10),
+    ).then((value) {
+print('--------------------------*******************---------');
+print(value);
+      itemsSubCategoryList.clear();
+      final decryptedText = decrypt(value, privateKey, publicKey);
+print('--------------------------***********888888********---------');
+      print(decryptedText);
+
+
+      List<dynamic> jsonList = jsonDecode(decryptedText);
+
+
+      itemsSubCategoryList = jsonList.map((json) => ProductModel.fromJson(json)).toList();
+
+      for (var element in itemsSubCategoryList) {
+        itemsForSubCategoryFavorite.addAll({
+          element.barCode:element.isFavorite,
+        });
+      }
+
+      emit(GetItemsForBrandSuccess());
+
+
+
+    }).catchError((error) {
+      print(
+          'Error In Function get Items For Get Items For Brand  This Error ${error.toString()}');
+      emit(GetItemsForBrandError());
     });
   }
 }

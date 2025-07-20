@@ -1,10 +1,16 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:settings_app/core/constant/app_assets.dart';
 import 'package:settings_app/core/constant/app_colors.dart';
+import 'package:settings_app/feature/main/menu/manager/cart_cubit.dart';
+import 'package:settings_app/feature/main/menu/manager/chat_state.dart';
 import 'package:settings_app/feature/main/menu/presentation/screens/new_add_address.dart';
 import 'package:settings_app/feature/main/payment/presentation/screens/choose_delivery_time.dart';
+
+import '../../model/cart_item_model.dart';
 
 class MenueCart extends StatefulWidget {
   const MenueCart({super.key});
@@ -311,142 +317,222 @@ class _MenueCartState extends State<MenueCart> {
                 ),
               ),
               SizedBox(height: 12.h),
-              ListView.separated(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: 4,
-                separatorBuilder: (_, __) => SizedBox(height: 10.h),
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(right: 12, left: 12),
-                    child: Container(
-                      padding: EdgeInsets.all(12.w),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(8.r),
-                      ),
-                      child: Row(
-                        children: [
-                          Image.asset(
-                            AppAssets.apple,
-                            width: 70.w,
-                            height: 84.h,
-                            fit: BoxFit.cover,
+              BlocBuilder <CartCubit,CartState>(
+                builder: (context,state) {
+                  final cartCubit = context.read<CartCubit>();
+                  final cartItems = cartCubit.cartItems;
+
+                  return ListView.separated(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: cartItems.length,
+                    separatorBuilder: (_, __) => SizedBox(height: 10.h),
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.only(right: 12, left: 12),
+                        child: Container(
+                          padding: EdgeInsets.all(12.w),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8.r),
                           ),
-                          SizedBox(width: 10.w),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "imported_green_apples_1kg".tr(),
-                                  style: TextStyle(
-                                    color: const Color(0xff231F20),
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 13.sp,
+                          child: Row(
+                            children: [
+                              CachedNetworkImage(
+                                width: 70.w,
+                                height: 84.h,
+                                fit: BoxFit.cover,
+                                placeholder:
+                                    (context, url) => Padding(
+                                  padding:
+                                  const EdgeInsets.all(
+                                    8.0,
+                                  ),
+                                  child: Center(
+                                    child: CircularProgressIndicator(
+                                      value: 1.0,
+                                      color:
+                                      AppColors
+                                          .mainAppColor,
+                                    ),
                                   ),
                                 ),
-                                SizedBox(height: 20.h),
-                                Row(
+                                errorWidget:
+                                    (context, url, error) =>
+                                const Icon(Icons.error),
+                                imageUrl: cartItems[index].image,
+
+                              ),
+
+                              SizedBox(width: 10.w),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      "price:".tr(),
+                                cartItems[index].nameAr??'',
                                       style: TextStyle(
-                                        fontSize: 11.sp,
                                         color: const Color(0xff231F20),
-                                        fontWeight: FontWeight.w500,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 13.sp,
                                       ),
                                     ),
-                                    SizedBox(width: 8.w),
-                                    Text(
-                                      "20 pounds".tr(),
-                                      style: TextStyle(
-                                        fontSize: 15.sp,
-                                        fontWeight: FontWeight.w400,
-                                        color: AppColors.mainAppColor,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Text(
-                                      "total:".tr(),
-                                      style: TextStyle(
-                                        fontSize: 11.sp,
-                                        color: const Color(0xff231F20),
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                    SizedBox(width: 8.w),
-                                    Text(
-                                      "20 pounds".tr(),
-                                      style: TextStyle(
-                                        fontSize: 15.sp,
-                                        fontWeight: FontWeight.w400,
-                                        color: AppColors.mainAppColor,
-                                      ),
-                                    ),
-                                    const Spacer(),
+                                    SizedBox(height: 20.h),
                                     Row(
                                       children: [
-                                        IconButton(
-                                          onPressed: () {
-                                            setState(() {
-                                              quantities[index]++;
-                                            });
-                                          },
-                                          icon: CircleAvatar(
-                                            radius: 13.r,
-                                            backgroundColor:
-                                                AppColors.mainAppColor,
-                                            child: Icon(
-                                              Icons.add,
-                                              color: Colors.white,
-                                              size: 20.sp,
-                                            ),
+                                        Text(
+                                          "price:".tr(),
+                                          style: TextStyle(
+                                            fontSize: 11.sp,
+                                            color: const Color(0xff231F20),
+                                            fontWeight: FontWeight.w500,
                                           ),
                                         ),
+                                        SizedBox(width: 8.w),
                                         Text(
-                                          '${quantities[index]}',
+
+                                          '${cartItems[index].priceAfterDiscount.toStringAsFixed(2)} ${"pounds".tr()}'
+                                           ,
                                           style: TextStyle(
-                                              fontSize: 14.sp,
-                                              color: AppColors.mainAppColor),
-                                        ),
-                                        IconButton(
-                                          onPressed: () {
-                                            if (quantities[index] > 1) {
-                                              setState(() {
-                                                quantities[index]--;
-                                              });
-                                            }
-                                          },
-                                          icon: CircleAvatar(
-                                            radius: 13.r,
-                                            backgroundColor:
-                                                AppColors.mainAppColor,
-                                            child: Icon(
-                                              Icons.remove,
-                                              color: Colors.white,
-                                              size: 20.sp,
-                                            ),
+                                            fontSize: 15.sp,
+                                            fontWeight: FontWeight.w400,
+                                            color: AppColors.mainAppColor,
                                           ),
                                         ),
                                       ],
                                     ),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          "total:".tr(),
+                                          style: TextStyle(
+                                            fontSize: 11.sp,
+                                            color: const Color(0xff231F20),
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                        SizedBox(width: 8.w),
+                                        BlocBuilder<CartCubit,CartState>(
+                                          builder: (context,state) {
+                                            final cartCubit = context.read<CartCubit>();
+
+                                            final itemCount = cartCubit.getItemCount(
+                                              productId: cartItems[index].productId,
+                                              nameAr: cartItems[index].nameAr,
+                                              nameEn: cartItems[index].nameEn,
+                                              customerQuantity: cartItems[index].customerQuantity,
+                                              stockQuantity: cartItems[index].stockQuantity,
+                                              barcode: cartItems[index].barcode,
+                                              image: cartItems[index].image,
+                                              price: cartItems[index].priceBeforeDiscount,
+                                              priceAfterDiscount: cartItems[index].priceAfterDiscount,
+                                            );
+                                            return Text( '${(itemCount*cartItems[index].priceAfterDiscount).toStringAsFixed(2)} ${"pounds".tr()}'??'' ,
+                                              style: TextStyle(
+                                                fontSize: 15.sp,
+                                                fontWeight: FontWeight.w400,
+                                                color: AppColors.mainAppColor,
+                                              ),
+                                            );
+                                          }
+                                        ),
+                                        const Spacer(),
+                                        BlocBuilder<CartCubit, CartState>(
+                                          builder: (context, state) {
+                                            final cartCubit = context.read<CartCubit>();
+
+                                            final itemCount = cartCubit.getItemCount(
+                                              productId: cartItems[index].productId,
+                                              nameAr: cartItems[index].nameAr,
+                                              nameEn: cartItems[index].nameEn,
+                                              customerQuantity: cartItems[index].customerQuantity,
+                                              stockQuantity: cartItems[index].stockQuantity,
+                                              barcode: cartItems[index].barcode,
+                                              image: cartItems[index].image,
+                                              price: cartItems[index].priceBeforeDiscount,
+                                              priceAfterDiscount: cartItems[index].priceAfterDiscount,
+                                            );
+
+                                            return Row(
+                                              children: [
+                                                IconButton(
+                                                  onPressed: () {
+                                                    if (itemCount > 1) {
+                                                      cartCubit.removeItem(cartItems[index].barcode);
+                                                    }
+                                                  },
+                                                  icon: CircleAvatar(
+                                                    radius: 13.r,
+                                                    backgroundColor: AppColors.mainAppColor,
+                                                    child: Icon(
+                                                      Icons.remove,
+                                                      color: Colors.white,
+                                                      size: 20.sp,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Text(
+                                                  '$itemCount',
+                                                  style: TextStyle(
+                                                    fontSize: 14.sp,
+                                                    color: AppColors.mainAppColor,
+                                                  ),
+                                                ),
+                                                IconButton(
+                                                  onPressed: () {
+                                                    if (
+                                                    (cartItems[index].stockQuantity > 0 && cartItems[index].customerQuantity <= 0 && itemCount < cartItems[index].stockQuantity) ||
+                                                        (cartItems[index].customerQuantity > 0 && itemCount < cartItems[index].customerQuantity) ||
+                                                        (cartItems[index].stockQuantity <= 0 && cartItems[index].customerQuantity > 0 && itemCount < cartItems[index].customerQuantity) ||
+                                                        (cartItems[index].stockQuantity <= 0 && itemCount < cartItems[index].customerQuantity) ||
+                                                        (cartItems[index].customerQuantity == 0)
+                                                    ) {
+                                                      cartCubit.addItem(
+                                                        CartItem(
+                                                          productId: cartItems[index].productId,
+                                                          nameAr: cartItems[index].nameAr,
+                                                          nameEn: cartItems[index].nameEn,
+                                                          barcode: cartItems[index].barcode,
+                                                          priceBeforeDiscount: cartItems[index].priceBeforeDiscount,
+                                                          priceAfterDiscount: cartItems[index].priceAfterDiscount,
+                                                          image: cartItems[index].image,
+                                                          stockQuantity: cartItems[index].stockQuantity,
+                                                          customerQuantity: cartItems[index].customerQuantity,
+                                                          quantity: 1,
+                                                        ),
+                                                      );
+                                                    }
+                                                  },
+                                                  icon: CircleAvatar(
+                                                    radius: 13.r,
+                                                    backgroundColor: AppColors.mainAppColor,
+                                                    child: Icon(
+                                                      Icons.add,
+                                                      color: Colors.white,
+                                                      size: 20.sp,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        )
+
+                                      ],
+                                    ),
                                   ],
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    ),
+                        ),
+                      );
+                    },
                   );
-                },
+                }
               ),
               SizedBox(height: 30.h),
-              OrderMinimumWidget(),
+              const OrderMinimumWidget(),
               SizedBox(height: 20.h),
               Align(
                 alignment: Alignment.bottomRight,
@@ -457,12 +543,17 @@ class _MenueCartState extends State<MenueCart> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            '300 pounds'.tr(),
-                            style: TextStyle(
-                                fontSize: 25.sp,
-                                color: AppColors.mainAppColor,
-                                fontWeight: FontWeight.w600),
+                          BlocBuilder<CartCubit,CartState>(
+                              builder: (context,state) {
+                                final cartCubit = context.read<CartCubit>();
+                              return Text(
+                                '${cartCubit.calculateTotalPrice().toStringAsFixed(2)} ${"pounds".tr()}',
+                                style: TextStyle(
+                                    fontSize: 25.sp,
+                                    color: AppColors.mainAppColor,
+                                    fontWeight: FontWeight.w600),
+                              );
+                            }
                           ),
                           Text(
                             'subtotal'.tr(),
@@ -484,7 +575,7 @@ class _MenueCartState extends State<MenueCart> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        const DeliveryTimeScreen()));
+                                       DeliveryTimeScreen()));
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.mainAppColor,
@@ -518,6 +609,8 @@ class _MenueCartState extends State<MenueCart> {
 }
 
 class OrderMinimumWidget extends StatelessWidget {
+  const OrderMinimumWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -568,13 +661,19 @@ class OrderMinimumWidget extends StatelessWidget {
                     ),
                   ),
                   const Spacer(),
-                  Text(
-                    "3000 pounds".tr(),
-                    style: TextStyle(
-                      fontSize: 12.sp,
-                      color: AppColors.mainAppColor,
-                      fontWeight: FontWeight.w700,
-                    ),
+                  BlocBuilder<CartCubit,CartState>(
+                    builder: (context,state) {
+                      final cartCubit = context.read<CartCubit>();
+                      return Text(
+                        '${cartCubit.calculateTotalPrice().toStringAsFixed(2)} ${"pounds".tr()}',
+
+                        style: TextStyle(
+                          fontSize: 12.sp,
+                          color: AppColors.mainAppColor,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      );
+                    }
                   ),
                 ],
               ),

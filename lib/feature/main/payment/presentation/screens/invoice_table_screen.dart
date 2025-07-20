@@ -108,7 +108,7 @@ class InvoiceScreen extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => MyPreviousOrders()));
+                            builder: (context) => const MyPreviousOrders()));
                   }),
               SizedBox(
                 height: 10.h,
@@ -119,7 +119,7 @@ class InvoiceScreen extends StatelessWidget {
                   text: "home page".tr(),
                   onPressed: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => HomeScreen()));
+                        MaterialPageRoute(builder: (context) => const HomeScreen()));
                   }),
               const SizedBox(height: 24),
               Center(

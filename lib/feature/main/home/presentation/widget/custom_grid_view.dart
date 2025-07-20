@@ -2,14 +2,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:settings_app/core/constant/app_assets.dart';
-import 'package:settings_app/core/constant/app_colors.dart';
 import 'package:settings_app/feature/main/catagory/manager/category_cubit.dart';
 import 'package:settings_app/feature/main/catagory/manager/category_state.dart';
 
 import 'package:settings_app/feature/main/home/presentation/screens/contet_product.dart';
 
-import '../../../catagory/model/main_category_model.dart';
 import '../../../catagory/presentation/screens/widget/custom_main_category.dart';
 
 

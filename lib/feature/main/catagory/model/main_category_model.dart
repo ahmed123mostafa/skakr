@@ -1,13 +1,13 @@
 class MainCategoryModel {
   int? parentCategoryId;
-  Null parentCategoryCode;
-  Null parentCategoryArName;
-  Null? parentCategoryEnName;
+  var parentCategoryCode;
+  var parentCategoryArName;
+  var parentCategoryEnName;
   int? categoryId;
   String? categoryCode;
   String? categoryArName;
   String? categoryEnName;
-  Null? notes;
+  var notes;
   bool? addCategoryToClinics;
   bool? addCategoryToRest;
   bool? addCategoryToSalon;
@@ -54,23 +54,23 @@ class MainCategoryModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['ParentCategoryId'] = this.parentCategoryId;
-    data['ParentCategoryCode'] = this.parentCategoryCode;
-    data['ParentCategoryArName'] = this.parentCategoryArName;
-    data['ParentCategoryEnName'] = this.parentCategoryEnName;
-    data['CategoryId'] = this.categoryId;
-    data['CategoryCode'] = this.categoryCode;
-    data['CategoryArName'] = this.categoryArName;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['ParentCategoryId'] = parentCategoryId;
+    data['ParentCategoryCode'] = parentCategoryCode;
+    data['ParentCategoryArName'] = parentCategoryArName;
+    data['ParentCategoryEnName'] = parentCategoryEnName;
+    data['CategoryId'] = categoryId;
+    data['CategoryCode'] = categoryCode;
+    data['CategoryArName'] = categoryArName;
     data['CategoryEnName'] = categoryEnName;
     data['Notes'] = notes;
-    data['AddCategoryToClinics'] = this.addCategoryToClinics;
-    data['AddCategoryToRest'] = this.addCategoryToRest;
-    data['AddCategoryToSalon'] = this.addCategoryToSalon;
-    data['InvisibleCategory'] = this.invisibleCategory;
-    data['StopedCategory'] = this.stopedCategory;
-    data['ClinicCategory'] = this.clinicCategory;
-    data['CategoryImage'] = this.categoryImage;
+    data['AddCategoryToClinics'] = addCategoryToClinics;
+    data['AddCategoryToRest'] = addCategoryToRest;
+    data['AddCategoryToSalon'] = addCategoryToSalon;
+    data['InvisibleCategory'] = invisibleCategory;
+    data['StopedCategory'] = stopedCategory;
+    data['ClinicCategory'] = clinicCategory;
+    data['CategoryImage'] = categoryImage;
     return data;
   }
 }

@@ -13,14 +13,13 @@ import 'package:settings_app/feature/main/home/presentation/widget/custom_grid_v
 import 'package:settings_app/feature/main/home/presentation/widget/custom_marque.dart';
 import 'package:settings_app/feature/main/home/presentation/widget/custom_product_cart.dart';
 
+import '../../../menu/manager/cart_cubit.dart';
+import '../../../menu/manager/chat_state.dart';
 import '../../manager/cubit/home_cubit.dart';
-import '../widget/custom_best_seller.dart';
-import '../widget/custom_most_discount.dart';
-import '../widget/custom_new_arrival.dart';
 import '../widget/product_horizontal_card.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({super.key});
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -126,15 +125,25 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
-                              "2",
-                              style: TextStyle(
-                                fontFamily: "Alexandria",
-                                fontSize: 22.sp,
-                                fontWeight: FontWeight.w700,
-                                color: AppColors.mainAppColor,
-                              ),
+                            BlocBuilder<CartCubit, CartState>(
+                              builder: (context, state) {
+                                final cubit= context.watch<CartCubit>();
+                                return
+
+                                  Text(
+                                    '${cubit.cartItems.isNotEmpty ?cubit.cartItems.length: 0}',
+                                    style: TextStyle(
+                                      fontFamily: "Alexandria",
+                                      fontSize: 22.sp,
+                                      fontWeight: FontWeight.w700,
+                                      color: AppColors.mainAppColor,
+                                    ),
+                                  );
+
+                              },
                             ),
+
+
                             const SizedBox(width: 5),
                             Image.asset(AppAssets.menuuu),
                           ],
@@ -157,7 +166,7 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(
                 height: 15.h,
               ),
-               ContentGrid(),
+               const ContentGrid(),
               const CarsodalSliderTwo(),
               SizedBox(
                 height: 20.h,
@@ -205,7 +214,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
               ),
-              ProductCard(),
+              const ProductCard(),
               // Padding(
               //   padding: const EdgeInsets.all(8),
               //   child: Row(

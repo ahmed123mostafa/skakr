@@ -1,14 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:settings_app/feature/main/menu/manager/cart_cubit.dart';
+import 'package:settings_app/feature/main/menu/manager/chat_state.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../../../core/constant/app_assets.dart';
 import '../../../../../core/constant/app_colors.dart';
 import '../../../catagory/model/product_model.dart';
-import '../../manager/cubit/home_cubit.dart';
+import '../../../menu/model/cart_item_model.dart';
 import '../screens/order_again.dart';
 
 class ProductHorizontalCard extends StatelessWidget {
@@ -207,36 +209,142 @@ class ProductHorizontalCard extends StatelessWidget {
                             ],
                           ),
                         ),
-                        Positioned(
-                          bottom: -15,
-                          left: 0,
-                          right: 0,
-                          child: Center(
-                            child: ElevatedButton(
-                              onPressed: () {
+                        BlocBuilder<CartCubit, CartState>(
+                          builder: (context, state) {
+                            final cartCubit = context.read<CartCubit>();
+                            final productItem = product[index];
 
+                            final itemCount = cartCubit.getItemCount(
+                              productId: productItem.productId,
+                              nameAr: productItem.productArName,
+                              nameEn: productItem.productEnName,
+                              customerQuantity: productItem.stockQuantity,
+                              stockQuantity: productItem.stockQuantity,
+                              barcode: productItem.barCode,
+                              image: productItem.productImage ?? '',
+                              price: productItem.priceAfterDiscount,
+                              priceAfterDiscount: productItem.priceAfterDiscount,
+                            );
 
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: AppColors.mainAppColor,
-                                shape: const StadiumBorder(),
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: buttonHorizontalPadding,
-                                  vertical: buttonVerticalPadding,
+                            final isInCart = itemCount > 0;
+
+                            return Positioned(
+                              bottom:isInCart?0: -15,
+                              left: 0,
+                              right: 0,
+                              child: Center(
+                                child: isInCart
+                                    ? Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    IconButton(
+                                      onPressed: () {
+                                        if (itemCount > 1) {
+                                          cartCubit.removeItem(productItem.barCode);
+                                        }
+                                      },
+                                      icon: CircleAvatar(
+                                        radius: 13.r,
+                                        backgroundColor: AppColors.mainAppColor,
+                                        child: Icon(
+                                          Icons.remove,
+                                          color: Colors.white,
+                                          size: 20.sp,
+                                        ),
+                                      ),
+                                    ),
+                                    Text(
+                                      '$itemCount',
+                                      style: TextStyle(
+                                        fontSize: 14.sp,
+                                        color: AppColors.mainAppColor,
+                                      ),
+                                    ),
+                                    IconButton(
+                                      onPressed: () {
+                                        final canAdd = (
+                                            (productItem.stockQuantity > 0 &&
+                                                productItem.stockQuantity <= 0 &&
+                                                itemCount < productItem.stockQuantity) ||
+                                                ( productItem.stockQuantity > 0 &&
+                                                    itemCount <  productItem.stockQuantity) ||
+                                                (productItem.stockQuantity <= 0 &&
+                                                    productItem.stockQuantity > 0 &&
+                                                    itemCount <  productItem.stockQuantity) ||
+                                                (productItem.stockQuantity <= 0 &&
+                                                    itemCount <  productItem.stockQuantity) ||
+                                                ( productItem.stockQuantity == 0)
+                                        );
+
+                                        if (canAdd) {
+                                          cartCubit.addItem(
+                                            CartItem(
+                                              productId: productItem.productId,
+                                              nameAr: productItem.productArName,
+                                              nameEn: productItem.productEnName,
+                                              barcode: productItem.barCode,
+                                              priceBeforeDiscount: productItem.priceAfterDiscount,
+                                              priceAfterDiscount: productItem.priceAfterDiscount,
+                                              image: productItem.productImage ?? '',
+                                              stockQuantity: productItem.stockQuantity,
+                                              customerQuantity: productItem.stockQuantity,
+                                              quantity: 1,
+                                            ),
+                                          );
+                                        }
+                                      },
+                                      icon: CircleAvatar(
+                                        radius: 13.r,
+                                        backgroundColor: AppColors.mainAppColor,
+                                        child: Icon(
+                                          Icons.add,
+                                          color: Colors.white,
+                                          size: 20.sp,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                                    : ElevatedButton(
+                                  onPressed: () {
+                                    cartCubit.addItem(
+                                      CartItem(
+                                        productId: productItem.productId,
+                                        nameAr: productItem.productArName,
+                                        nameEn: productItem.productEnName,
+                                        barcode: productItem.barCode,
+                                        priceBeforeDiscount: productItem.priceAfterDiscount,
+                                        priceAfterDiscount: productItem.priceAfterDiscount,
+                                        image: productItem.productImage ?? '',
+                                        stockQuantity: productItem.stockQuantity,
+                                        customerQuantity: productItem.stockQuantity,
+                                        quantity: productItem.stockQuantity.toInt(),
+                                      ),
+                                    );
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: AppColors.mainAppColor,
+                                    shape: const StadiumBorder(),
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: buttonHorizontalPadding,
+                                      vertical: buttonVerticalPadding,
+                                    ),
+                                  ),
+                                  child: Text(
+                                    'add_to_cart'.tr(),
+                                    style: TextStyle(
+                                      fontFamily: "Alexandria",
+                                      fontSize: fontSizeButton,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.white,
+                                    ),
+                                  ),
                                 ),
                               ),
-                              child: Text(
-                                'add_to_cart'.tr(),
-                                style: TextStyle(
-                                  fontFamily: "Alexandria",
-                                  fontSize: fontSizeButton,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
+                            );
+                          },
+                        )
+
                       ],
                     ),
                     //const SizedBox(width: 12),

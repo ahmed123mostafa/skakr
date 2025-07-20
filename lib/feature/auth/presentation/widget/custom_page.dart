@@ -48,7 +48,7 @@ class _HomePageState extends State<HomePage> {
     final bool didAuthenticate = await BiometricHelper.authenticate(context);
     if (didAuthenticate && mounted) {
       Navigator.of(context).push(
-        MaterialPageRoute(builder: (ctx) => HomeScreen()),
+        MaterialPageRoute(builder: (ctx) => const HomeScreen()),
       );
     }
   }

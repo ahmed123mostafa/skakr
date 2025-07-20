@@ -2,7 +2,7 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class SecureStorageService {
-  static var _storage =   FlutterSecureStorage();
+  static const _storage =   FlutterSecureStorage();
 
   static const String token = "token";
   static const String mobile = "mobile";

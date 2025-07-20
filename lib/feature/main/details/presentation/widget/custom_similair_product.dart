@@ -1,12 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:settings_app/core/constant/app_assets.dart';
 import 'package:settings_app/core/constant/app_colors.dart';
-import 'package:settings_app/feature/main/home/presentation/widget/custom_quantity_counter.dart';
 
 class SimilairProduct extends StatelessWidget {
   const SimilairProduct({super.key});
+  @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
 

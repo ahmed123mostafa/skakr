@@ -2,6 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:settings_app/core/services/bloc_observer.dart';
 import 'package:settings_app/feature/auth/presentation/widget/custom_language.dart';
 import 'package:settings_app/feature/intial/splash_screen.dart';
@@ -9,11 +11,12 @@ import 'package:settings_app/feature/main/home/manager/cubit/home_cubit.dart';
 import 'package:device_preview/device_preview.dart';
 
 import 'feature/main/catagory/manager/category_cubit.dart';
+import 'feature/main/menu/manager/cart_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
- Bloc.observer = MyBlocObserver();
+ Bloc.observer = MyBlocObserver();  await Hive.initFlutter();
   runApp(
     DevicePreview(
       enabled: true, 
@@ -42,7 +45,10 @@ class MyApp extends StatelessWidget {
             BlocProvider(create: (context) => HomeCubit()..getNewsMarquee()..getBannerOneImage()..getBiggestDiscountProducts()..getNewProduct()..getBestSellers()..getBannerTwoImage()),
             BlocProvider(
               create: (context)=>CategoryCubit()..getMainCategory(),
+            ), BlocProvider(
+              create: (context)=>CartCubit(),
             ),
+
 
           ],
           child: MaterialApp(

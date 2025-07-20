@@ -6,7 +6,7 @@ import 'package:settings_app/feature/main/list/presentation/screens/prevuis_orde
 import 'package:settings_app/feature/main/payment/presentation/screens/invoice_table_screen.dart';
 
 class MyPreviousOrders extends StatelessWidget {
-  MyPreviousOrders({super.key});
+  const MyPreviousOrders({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -135,7 +135,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
         ),
         Expanded(
             child: selectedIndex == 0
-                ? BuildCurrentOrder()
+                ? const BuildCurrentOrder()
                 : const BuilPrevuisOrder()),
       ],
     );
@@ -328,6 +328,8 @@ class BuilPrevuisOrder extends StatelessWidget {
 }
 
 class BuildCurrentOrder extends StatelessWidget {
+  const BuildCurrentOrder({super.key});
+
   @override
   Widget build(BuildContext context) {
     return const StepperPageView();
@@ -347,7 +349,7 @@ class MyOrdersListScreen extends StatelessWidget {
       itemBuilder: (context, index) {
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: Container(
+          child: SizedBox(
             height: 280.h,
             child: Stack(
               children: [

@@ -17,6 +17,13 @@ class EndPoint {
   static String subCategory ({required num mainCategoryId}) => "/Category/GetCategoryByParentId?Parent=$mainCategoryId";
  static String getProductsBySubCategory ({required num subCategoryId}) => "/Product/GetProductsByCategory?categoryId=$subCategoryId&pageNumber=1&pageSize=200000&CustomerPhone=01224739338";
 static String getProductById ({required num productId}) => "/Product/GetProductById?ProductId=$productId&CustomerPhone=01224739338";
+static String getProductByBrand ({required var categoryId,required var brandId}) => "/Product/GetBrandsByCatgory?categoryId=$categoryId&pageNumber=1&pageSize=10&CustomerPhone=01224739338&BrandID=$brandId";
+
+
+static String getBrandsBySubCategory ({required  subCategory}) => "/Product/GetBrandsByCatgory?categoryId=$subCategory&pageNumber=1&pageSize=100000&CustomerPhone=CustomerPhone=94440596";
+
+  static const String aboutUS = "/AboutUs";
+  static const String privacyAndPlo = "/Privacy";
 
 
   ///
@@ -56,4 +63,13 @@ static String getProductById ({required num productId}) => "/Product/GetProductB
   static String finnance = "$baseUrl/Member/bondsSummaryByYear";
   static String cancel = "$baseUrl/Member/cancelInvitation/";
   static String reschudle = "$baseUrl/Member/invitation/reschedule";
+
+  //Add Order
+  static String deliveryTimes = "$baseUrl/DeliveringTimes";
+  static String tomorrowDeliveryTimes= "$baseUrl/DeliveringTimes/TomorowDeliveringTimes";
+
+
+
+
+
 }

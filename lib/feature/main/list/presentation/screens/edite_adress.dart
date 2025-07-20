@@ -288,6 +288,7 @@ class _EditeAddressState extends State<EditeAddress> {
                         if (value!.isEmpty) {
                           return "Please enter your address details";
                         }
+                        return null;
                       },
                       hintText:
                           "mansoura_talkha_corner_of_agriculture_street_al-Maghazi_tower"

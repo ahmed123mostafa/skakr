@@ -5,8 +5,9 @@ import 'package:settings_app/core/constant/app_assets.dart';
 import 'package:settings_app/core/constant/app_colors.dart';
 import 'package:settings_app/core/constant/custom_bottom.dart';
 import 'package:settings_app/feature/main/list/presentation/screens/frequently_question.dart';
-import 'package:settings_app/feature/main/list/presentation/screens/policy_privacy.dart';
-import 'package:settings_app/feature/main/list/presentation/screens/who_are_screen.dart';
+
+import '../../Privacy_Policy/screen/privacy_policy_screen.dart';
+import '../../about_us/screen/about_us_screen.dart';
 
 
 class ListScreen extends StatefulWidget {
@@ -65,7 +66,7 @@ class _ListScreenState extends State<ListScreen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const WhoAreScreen()));
+                            builder: (context) => const AboutUsScreen()));
                   },
                   child: Container(
                     padding: const EdgeInsets.all(10),
@@ -142,7 +143,7 @@ class _ListScreenState extends State<ListScreen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => PolicyAndPrivacy()));
+                            builder: (context) => PrivacyPolicyScreen()));
                   },
                   child: Container(
                     padding: const EdgeInsets.all(10),

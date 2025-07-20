@@ -1,6 +1,4 @@
-import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -22,7 +20,7 @@ class ContentProduct extends StatelessWidget {
         backgroundColor: const Color(0xffF1F1F1),
         body: SingleChildScrollView(
           child: BlocProvider(
-            create: (context)=>CategoryCubit()..getSubCategory(mainCategoryId: categoryId)..getItemsForSubCategory(subCategoryId: categoryId),
+            create: (context)=>CategoryCubit()..getSubCategory(mainCategoryId: categoryId)..getItemsForSubCategory(subCategoryId: categoryId)..getBrandsBySubCategory(subCategoryId: categoryId),
             child:
 
 
@@ -108,7 +106,7 @@ class ContentProduct extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    "2",
+                                    "4",
                                     style: TextStyle(
                                       fontFamily: "Alexandria",
                                       fontSize: 22.sp,
@@ -125,32 +123,7 @@ class ContentProduct extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(
-                      height: 20.h,
-                    ),
-                    CarouselSlider(
-                      items: List.generate(
-                        4,
-                        (index) => Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 5),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: Image.asset(
-                              AppAssets.banner2,
-                              fit: BoxFit.cover,
-                              width: double.infinity,
-                            ),
-                          ),
-                        ),
-                      ),
-                      options: CarouselOptions(
-                        height: 140.h,
-                        autoPlay: true,
-                        enlargeCenterPage: true,
-                        enableInfiniteScroll: true,
-                        scrollPhysics: const BouncingScrollPhysics(),
-                      ),
-                    ),
+
                     SizedBox(
                       height: 15.h,
                     ),
@@ -163,7 +136,10 @@ class ContentProduct extends StatelessWidget {
                     SizedBox(
                       height: 20.h,
                     ),
-                    DrinkSelector(),
+                    DrinkSelector(categoryCubit:categoryCubit ,
+                        categoryId: categoryId,
+                        selectedIndex: categoryCubit.brandSelect,
+                     ),
                     Customgridview(categoryCubit:categoryCubit ,)
                   ],
                 );
@@ -177,7 +153,7 @@ class ContentProduct extends StatelessWidget {
 }
 
 class SubCategorySelector extends StatelessWidget {
-  final categoryCubit;
+  final CategoryCubit categoryCubit;
   final int selectedIndex;
   final Function(int) onTap;
 
@@ -193,7 +169,7 @@ class SubCategorySelector extends StatelessWidget {
 
 
     return
-      (categoryCubit.subCategoryList.length>0)?
+      (categoryCubit.subCategoryList.isNotEmpty)?
       SizedBox(
       height: 50,
       child: ListView.builder(
@@ -204,7 +180,16 @@ class SubCategorySelector extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 6.0),
             child: GestureDetector(
-              onTap: () => onTap(index),
+              onTap: () {
+                categoryCubit.changeSelectedCategory(index: index);
+                categoryCubit.getItemsForSubCategory(subCategoryId:  categoryCubit.subCategoryList[index].categoryId);
+
+
+
+
+                categoryCubit.getBrandsBySubCategory(subCategoryId:  categoryCubit.subCategoryList[index].categoryId);
+
+              },
               child: Container(
                 height: 40,
                 padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -222,7 +207,9 @@ class SubCategorySelector extends StatelessWidget {
                   ]
                       : [],
                 ),
-                child: Text(
+                child:
+
+                Text(
                   categoryCubit.subCategoryList[index].categoryArName??'',
                   style: TextStyle(
                     color: isSelected ? Colors.white : AppColors.mainAppColor,
@@ -240,57 +227,61 @@ class SubCategorySelector extends StatelessWidget {
   }
 }
 
-class DrinkSelector extends StatefulWidget {
-  @override
-  _DrinkSelectorState createState() => _DrinkSelectorState();
-}
+class DrinkSelector extends StatelessWidget {
+  final CategoryCubit categoryCubit;
+  final int selectedIndex;
+  var categoryId;
 
-class _DrinkSelectorState extends State<DrinkSelector> {
-  int selectedIndex = 0;
+ DrinkSelector({
+    super.key,
+    required this.categoryCubit,
+    required this.selectedIndex,
+required this.categoryId
+  });
 
-  final List<Map<String, String>> drinks = [
-    {'image': 'assets/images/Group 64.png'},
-    {'image': 'assets/images/Layer 1.png'},
-    {'image': 'assets/images/Group 67.png'},
-    {'image': 'assets/images/Layer 1 (1).png'},
-    {'image': 'assets/images/Group 65 (1).png'},
-    {'image': 'assets/images/شعار_مشروب_ريد_بل.svg 1.png'},
-  ];
+
+
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(
-          height: 80,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: drinks.length,
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () => setState(() => selectedIndex = index),
-                child: Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 8),
-                  padding: const EdgeInsets.all(3),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: selectedIndex == index
-                          ? AppColors.mainAppColor
-                          : Colors.transparent,
-                      width: 3,
-                    ),
-                  ),
-                  child: CircleAvatar(
-                    backgroundImage: AssetImage(drinks[index]['image']!),
-                    radius: 25,
-                  ),
-                ),
-              );
+    return
+      (categoryCubit.brandList[0].brands.isEmpty)?const SizedBox():
+      SizedBox(
+      height: 80,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: categoryCubit.brandList[0].brands.length,
+        itemBuilder: (context, index) {
+          return GestureDetector(
+            onTap: () {
+
+              categoryCubit.changeSelectedBrand(index: index);
+              categoryCubit.brandSelect=-1;
+              categoryCubit.getItemsForBrandCategory(categoryId: categoryId,brandId: categoryCubit.brandList[0].brands[index].fabricID);
+
+
             },
-          ),
-        ),
-      ],
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 8),
+              padding: const EdgeInsets.all(3),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: selectedIndex == index
+                      ? AppColors.mainAppColor
+                      : Colors.transparent,
+                  width: 3,
+                ),
+              ),
+              child: CircleAvatar(
+                backgroundImage: NetworkImage(categoryCubit.brandList[0].brands[index].fabricImage),
+                radius: 25,
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 }
+

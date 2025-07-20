@@ -4,6 +4,8 @@ import 'package:settings_app/core/constant/app_assets.dart';
 import 'package:settings_app/core/constant/app_colors.dart';
 
 class ProductCard extends StatelessWidget {
+  const ProductCard({super.key});
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;

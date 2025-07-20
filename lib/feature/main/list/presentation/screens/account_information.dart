@@ -6,11 +6,14 @@ import 'package:settings_app/core/constant/app_colors.dart';
 import 'package:settings_app/feature/auth/presentation/screens/login_screen.dart';
 import 'package:settings_app/feature/main/favourite/presentation/screens/favourites_card.dart';
 import 'package:settings_app/feature/main/list/presentation/screens/frequently_question.dart';
-import 'package:settings_app/feature/main/list/presentation/screens/policy_privacy.dart';
+
 import 'package:settings_app/feature/main/list/presentation/screens/prevuis_order/screen/previous_order.dart';
 import 'package:settings_app/feature/main/list/presentation/screens/profile_screen.dart';
 import 'package:settings_app/feature/main/list/presentation/screens/saved_address.dart';
-import 'package:settings_app/feature/main/list/presentation/screens/who_are_screen.dart';
+
+import '../../Privacy_Policy/screen/privacy_policy_screen.dart';
+import '../../about_us/screen/about_us_screen.dart';
+
 
 class AccountInformation extends StatefulWidget {
   const AccountInformation({super.key});
@@ -86,7 +89,7 @@ class _AccountInformationState extends State<AccountInformation> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => MyPreviousOrders()));
+                                  builder: (context) => const MyPreviousOrders()));
                         },
                         child: Container(
                           padding: const EdgeInsets.all(10),
@@ -156,7 +159,7 @@ class _AccountInformationState extends State<AccountInformation> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const WhoAreScreen()));
+                                  builder: (context) => const AboutUsScreen()));
                         },
                         child: Container(
                           padding: const EdgeInsets.all(10),
@@ -225,7 +228,7 @@ class _AccountInformationState extends State<AccountInformation> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => PolicyAndPrivacy()));
+                                  builder: (context) => PrivacyPolicyScreen()));
                         },
                         child: Container(
                           padding: const EdgeInsets.all(10),

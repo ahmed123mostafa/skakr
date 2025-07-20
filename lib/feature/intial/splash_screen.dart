@@ -11,7 +11,7 @@ class SplashScreen extends StatelessWidget {
     Future.delayed(const Duration(seconds: 5), () {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => ChooseBranchScreen()),
+        MaterialPageRoute(builder: (context) => const ChooseBranchScreen()),
       );
     });
 

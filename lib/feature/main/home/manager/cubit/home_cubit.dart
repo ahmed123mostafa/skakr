@@ -9,7 +9,6 @@ import 'package:settings_app/feature/main/home/presentation/screens/home_screen.
 import 'package:settings_app/feature/main/list/presentation/screens/account_information.dart';
 import 'package:settings_app/feature/main/menu/presentation/screens/menue_cart.dart';
 
-import '../../../../../core/api/api_concumer.dart';
 import '../../../../../core/api/dio_concumer.dart';
 import '../../../../../core/api/encrupt.dart';
 import '../../../../../core/api/end_point.dart';
@@ -25,7 +24,7 @@ class HomeCubit extends Cubit<HomeState> {
   int currentIndex = 0;
 
   List<Widget> screen = [
-    HomeScreen(),
+    const HomeScreen(),
     const CatagoryScreen(),
     const MenueCart(),
     const FavouritesCard(),

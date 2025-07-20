@@ -37,7 +37,7 @@ class BiometricHelper {
       }
 
       return didAuthenticate;
-    } on Exception catch (e) {
+    } on Exception {
       if (context.mounted) {
         Fluttertoast.showToast(
           msg: "فشل التحقق بالبصمة، حاول مرة أخرى!",
