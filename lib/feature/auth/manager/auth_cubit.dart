@@ -2,6 +2,8 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/api/dio_concumer.dart';
@@ -30,9 +32,9 @@ class AuthCubit extends Cubit<AuthState> {
       dynamic jsonString = jsonEncode(decryptedText);
       print(jsonString);
       print(jsonString.runtimeType);
-      if (value.data == "cXmUR9z1mAe20wCqm1ZR3Q==") {
+      if (value == "cXmUR9z1mAe20wCqm1ZR3Q==") {
         print('ggggggggggg');
-        emit(LoginViewStateError(value.data));
+        emit(LoginViewStateError(value));
       }
       else {
         print(decryptedText);
@@ -51,5 +53,85 @@ class AuthCubit extends Cubit<AuthState> {
     );
   }
 
+  Future<void> registerUser({
+    required String firstName,
+    required String nameAddress,
 
+    required String detailsAddress,
+
+    required dynamic districtName,
+    required dynamic regionName,
+
+    required String lastName,required String companyName,required String password ,required String phone})
+  async {
+ //   token = await FirebaseMessaging.instance.getToken();
+    emit(RegisterViewStateLoading());
+
+    String encryptedData = encryptData(
+        {
+          "ArabicName":firstName,
+          "CustomerLastName":lastName,
+          // "MobilePhone":phone,
+          "email":companyName,  // backend
+          "PassWord":password,
+          "Token" :'token',
+          "customerphone":phone,
+          "DistrictName":"$districtName",
+          "RegionName":"$regionName",
+          "AddressNotes":detailsAddress,
+          "Gada":nameAddress  ,
+          //backend
+
+        },
+        privateKey, publicKey);
+    print("Encrypted Data: $encryptedData");
+    final decryptedText = decrypt(encryptedData, privateKey, publicKey);
+    print(decryptedText);
+    String jsonData = jsonEncode(encryptedData);
+
+    await DioConsumer(dio: Dio()).post(
+        EndPoint.register,
+       data: jsonData ,
+
+
+       ).then((value){
+      print(value);
+      print('Success Register');
+      final decryptedText = decrypt(value, privateKey, publicKey);
+      print(decryptedText);
+      if (decryptedText == 'This customer exists.') {
+        print('******************* العميل موجود من قبل **********************');
+        emit(RegisterViewStateError(decryptedText));
+      }
+      else
+      {
+        emit(RegisterViewStateSuccess());
+      }
+
+    }).catchError((error){
+
+      print('This is Error in RegisterNewUser '+error.toString());
+      emit(RegisterViewStateError(error.toString()));
+    });
+
+  }
+
+  bool isPassword=true;
+  bool isPasswordConfirm=true;
+  IconData subfix= Icons.visibility_off;
+  IconData subfixConfirm= Icons.visibility_off;
+
+
+  void changIconPassword()
+  {
+    isPassword=!isPassword;
+    subfix=isPassword?Icons.visibility_off:Icons.visibility;
+    emit(ChangeIconPasswordSuccess());
+  }
+  void changIconPasswordConfirm()
+  {
+    isPasswordConfirm=!isPasswordConfirm;
+    subfixConfirm=isPasswordConfirm?Icons.visibility_off:Icons.visibility;
+    emit(ChangeIconPasswordSuccess());
+  }
 }

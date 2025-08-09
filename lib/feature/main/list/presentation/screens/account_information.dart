@@ -9,7 +9,7 @@ import 'package:settings_app/feature/main/list/presentation/screens/frequently_q
 
 import 'package:settings_app/feature/main/list/presentation/screens/prevuis_order/screen/previous_order.dart';
 import 'package:settings_app/feature/main/list/presentation/screens/profile_screen.dart';
-import 'package:settings_app/feature/main/list/presentation/screens/saved_address.dart';
+import 'package:settings_app/feature/main/list/saved_address/screen/saved_address.dart';
 
 import '../../Privacy_Policy/screen/privacy_policy_screen.dart';
 import '../../about_us/screen/about_us_screen.dart';

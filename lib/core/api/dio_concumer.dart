@@ -72,7 +72,7 @@ class DioConsumer extends ApiConsumer {
   }
 
   @override
-  Future post(
+  Future  post(
       String path, {
         Object? data,
         bool isFromData = false,

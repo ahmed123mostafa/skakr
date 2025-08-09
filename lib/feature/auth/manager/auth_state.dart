@@ -16,3 +16,20 @@ class LoginViewStateError extends AuthState{
 }
 
 class ChangeIconPasswordSuccess extends AuthState{}
+
+
+
+class RegisterViewStateLoading extends AuthState{}
+class RegisterViewStateSuccess extends AuthState{
+
+  // UserRegisterModel? userRegisterModelModel;
+  RegisterViewStateSuccess(
+      // this.userRegisterModelModel
+      );
+}
+class RegisterViewStateError extends AuthState{
+
+  final String error;
+  RegisterViewStateError(this.error);
+}
+

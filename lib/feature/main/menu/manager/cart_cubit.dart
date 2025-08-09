@@ -23,7 +23,7 @@ class CartCubit extends Cubit<CartState> {
 print(loadedList);
       if (loadedList != null) {
         _cartItems.clear();
-        // تحويل كل عنصر من Map إلى CartItem باستخدام fromJson
+
         _cartItems.addAll(loadedList.map((e) => CartItem.fromJson(Map<String, dynamic>.from(e))));
 
       }

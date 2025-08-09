@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,7 +10,11 @@ import 'package:settings_app/feature/main/menu/manager/cart_cubit.dart';
 import 'package:settings_app/feature/main/menu/manager/chat_state.dart';
 import 'package:settings_app/feature/main/menu/presentation/screens/new_add_address.dart';
 import 'package:settings_app/feature/main/payment/presentation/screens/choose_delivery_time.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
+import '../../../list/saved_address/manager/saved_address_state.dart';
+import '../../../list/saved_address/manager/saved_sddress_cubit.dart';
+import '../../../list/saved_address/model/all_address_model.dart';
 import '../../model/cart_item_model.dart';
 
 class MenueCart extends StatefulWidget {
@@ -50,269 +55,217 @@ class _MenueCartState extends State<MenueCart> {
                 ),
               ),
               SizedBox(height: 20.h),
-              Padding(
-                padding: const EdgeInsets.only(right: 12, left: 12),
-                child: Container(
-                  padding: EdgeInsets.all(12.w),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.r),
-                    color: Colors.white,
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.location_pin,
-                        color: AppColors.mainAppColor,
-                        size: 30,
-                      ),
-                      SizedBox(width: 8.w),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              showModalBottomSheet(
-                                context: context,
-                                isScrollControlled: true,
-                                builder: (context) {
-                                  return SingleChildScrollView(
-                                    child: ConstrainedBox(
-                                      constraints: BoxConstraints(
-                                        maxHeight:
-                                            MediaQuery.of(context).size.height *
-                                                0.8,
-                                        maxWidth:
-                                            MediaQuery.of(context).size.width,
-                                      ),
-                                      child: Padding(
-                                        padding: EdgeInsets.all(16.w),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      'choose address'.tr(),
-                                                      style: TextStyle(
-                                                        color: AppColors
-                                                            .mainAppColor,
-                                                        fontSize: 14.sp,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                      ),
-                                                    ),
-                                                    SizedBox(height: 5.h),
-                                                    InkWell(
-                                                      onTap: () {
-                                                        Navigator.push(
-                                                            context,
-                                                            MaterialPageRoute(
-                                                                builder:
-                                                                    (context) =>
-                                                                        const NewAddAddress()));
-                                                      },
-                                                      child: Text(
-                                                        'add new address'.tr(),
-                                                        style: TextStyle(
-                                                          color: AppColors
-                                                              .mainAppColor,
-                                                          fontSize: 12.sp,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                const Spacer(),
-                                                InkWell(
-                                                  onTap: () {
-                                                    Navigator.pop(context);
-                                                  },
-                                                  child: Image.asset(
-                                                    "assets/images/Vector (27).png",
-                                                    width: 25,
-                                                    height: 25,
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                            SizedBox(height: 5.h),
-                                            Divider(
-                                              color: AppColors.mainAppColor,
-                                              height: 30.h,
-                                            ),
-                                            Text(
-                                              'an address already exists'.tr(),
-                                              style: TextStyle(
-                                                fontSize: 14.sp,
-                                                fontWeight: FontWeight.bold,
-                                                color: const Color(0xff231F20),
-                                              ),
-                                            ),
-                                            SizedBox(height: 10.h),
-                                            Padding(
-                                              padding: const EdgeInsets.all(12),
-                                              child: Container(
-                                                padding:
-                                                    const EdgeInsets.all(15),
-                                                decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            16),
-                                                    border: Border.all(
-                                                      color: AppColors
-                                                          .mainAppColor,
-                                                    )),
-                                                child: Column(
-                                                  children: [
-                                                    Row(
-                                                      children: [
-                                                        Row(
-                                                          children: [
-                                                            Text(
-                                                              "house".tr(),
-                                                              style: TextStyle(
-                                                                color: AppColors
-                                                                    .mainAppColor,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                fontSize: 12.sp,
-                                                              ),
-                                                            ),
-                                                            SizedBox(
-                                                                width: 10.w),
-                                                            Text(
-                                                              "(main_title)"
-                                                                  .tr(),
-                                                              style: TextStyle(
-                                                                color: const Color(
-                                                                    0xff231F20),
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                fontSize: 6.sp,
-                                                              ),
-                                                            )
-                                                          ],
-                                                        ),
-                                                        const Spacer(),
-                                                        Icon(
-                                                          Icons
-                                                              .check_circle_outline,
-                                                          color: AppColors
-                                                              .mainAppColor,
-                                                        )
-                                                      ],
-                                                    ),
-                                                    SizedBox(height: 8.h),
-                                                    Row(
-                                                      children: [
-                                                        Image.asset(
-                                                            "assets/images/Layer_2_copy_11 (1).png"),
-                                                        SizedBox(width: 5.w),
-                                                        Text(
-                                                          "mohamed samir".tr(),
-                                                          style: TextStyle(
-                                                            color: AppColors
-                                                                .mainAppColor,
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                            fontSize: 12.sp,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    SizedBox(height: 7.h),
-                                                    Row(
-                                                      children: [
-                                                        Image.asset(
-                                                            "assets/images/Group (8).png"),
-                                                        SizedBox(width: 5.w),
-                                                        Text(
-                                                          "01096397289",
-                                                          style: TextStyle(
-                                                            color: const Color(
-                                                                0xff0A9223),
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                            fontSize: 12.sp,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    SizedBox(height: 7.h),
-                                                    Row(
-                                                      children: [
-                                                        Icon(
-                                                          Icons.location_on,
-                                                          color: AppColors
-                                                              .mainAppColor,
-                                                        ),
-                                                        SizedBox(width: 5.w),
-                                                        Expanded(
-                                                          child: Text(
-                                                            "mansoura_talkha_corner_of_agriculture_street_al-Maghazi_tower"
-                                                                .tr(),
-                                                            style: TextStyle(
-                                                              color: const Color(
-                                                                  0xff231F20),
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w400,
-                                                              fontSize: 12.sp,
-                                                            ),
-                                                            maxLines: 2,
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            )
-                                          ],
+              InkWell(
+                onTap: () {
+                  showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    builder: (context) {
+                      return SingleChildScrollView(
+                        child: ConstrainedBox(
+                          constraints: BoxConstraints(
+                            maxHeight:
+                            MediaQuery.of(context).size.height *
+                                0.8,
+                            maxWidth:
+                            MediaQuery.of(context).size.width,
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.all(16.w),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment:
+                              CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'choose address'.tr(),
+                                          style: TextStyle(
+                                            color: AppColors
+                                                .mainAppColor,
+                                            fontSize: 14.sp,
+                                            fontWeight:
+                                            FontWeight.w600,
+                                          ),
                                         ),
-                                      ),
+                                        SizedBox(height: 5.h),
+                                        InkWell(
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder:
+                                                        (context) =>
+                                                    const NewAddAddress()));
+                                          },
+                                          child: Text(
+                                            'add new address'.tr(),
+                                            style: TextStyle(
+                                              color: AppColors
+                                                  .mainAppColor,
+                                              fontSize: 12.sp,
+                                              fontWeight:
+                                              FontWeight.w500,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  );
-                                },
-                              );
-                            },
-                            child: Text(
-                              'delivery_to:home'.tr(),
-                              style: TextStyle(
-                                color: AppColors.mainAppColor,
-                                fontSize: 10.sp,
+                                    const Spacer(),
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: Image.asset(
+                                        "assets/images/Vector (27).png",
+                                        width: 25,
+                                        height: 25,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                SizedBox(height: 5.h),
+                                Divider(
+                                  color: AppColors.mainAppColor,
+                                  height: 30.h,
+                                ),
+                                Text(
+                                  'an address already exists'.tr(),
+                                  style: TextStyle(
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: const Color(0xff231F20),
+                                  ),
+                                ),
+                                SizedBox(height: 10.h),
+                                BlocBuilder<SavedAddressCubit,SavedAddressState>(
+
+                                    builder: (context,state) {
+                                      return Expanded(
+                                          child:
+                                          ConditionalBuilder
+                                            (condition: state is !GetGAllAddressLoading && state is !GetGAllAddressError ,
+                                              builder: (context){
+
+                                                return ListView.builder(
+
+                                                  itemCount: context.read<SavedAddressCubit>().allAddressList.length,
+                                                  itemBuilder: (context, index) {
+                                                    AllAddressModel address=context.read<SavedAddressCubit>().allAddressList[index];
+                                                    return
+
+                                                      InkWell(
+                                                        onTap: (){
+                                                          context.read<SavedAddressCubit>().changeSelectedAddress(index);
+                                                          context.read<SavedAddressCubit>().addressSelect=address;
+                                                          Navigator.pop(context);
+                                                        },
+                                                        child: AddressCard(
+                                                          isSelected:context.read<SavedAddressCubit>().selectAddress==index? true:false,
+                                                          title:address.addressNotes!=null?address.addressNotes.toString():'',
+                                                          subtitle:address.mainAddress==1?'(main_title)'.tr():'',
+                                                          customerName:'${address.arabicName??''} ${address.lastName??''}',
+                                                          customerPhone:  address.customerPhone??'',
+                                                          address: address.customerAddress??'',
+                                                        ),
+                                                      );
+
+
+                                                  },
+                                                );
+                                              },
+                                              fallback:(context){
+                                                return  Skeletonizer(
+                                                  enabled: true,
+                                                  child:
+                                                  AddressCard(
+                                                    isSelected: true,
+                                                    title: "house",
+                                                    subtitle: "(main_title)",
+                                                    customerName: "mohamed samir",
+                                                    customerPhone: "01096397289",
+                                                    address: "mansoura_talkha_corner_of_agriculture_street_al-Maghazi_tower",
+                                                  ),
+                                                );
+
+                                              })
+
+                                      );
+                                    }
+                                )
+
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 12, left: 12),
+                  child: Container(
+                    padding: EdgeInsets.all(12.w),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8.r),
+                      color: Colors.white,
+                    ),
+                    child: Column(
+                      children: [
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Icon(
+                              Icons.location_pin,
+                              color: AppColors.mainAppColor,
+                              size: 30,
+                            ),
+                            SizedBox(width: 8.w),
+                            Expanded(
+                              child: BlocBuilder<SavedAddressCubit,SavedAddressState>(
+                                  builder: (context,state) {
+                                    return Text(
+                                      'delivery_to:${ (context.read<SavedAddressCubit>().addressSelect?.addressNotes??'').tr()}'.tr(),
+                                      style: TextStyle(
+                                        color: AppColors.mainAppColor,
+                                        fontSize: 10.sp,
+                                      ),
+                                    );
+                                  }
                               ),
                             ),
-                          ),
-                          SizedBox(height: 3.h),
-                          Text(
-                            'azzhar_street 2,hawalli,nasr city'.tr(),
-                            style: TextStyle(
-                              color: AppColors.mainAppColor,
-                              fontSize: 10.sp,
+                            SizedBox(height: 3.h),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: BlocBuilder<SavedAddressCubit, SavedAddressState>(
+                                  builder: (context, state) {
+                                    return Text(
+                                      (context.read<SavedAddressCubit>().addressSelect?.customerAddress ?? '').tr(),
+                                      style: TextStyle(
+                                        color: AppColors.mainAppColor,
+                                        fontSize: 10.sp,
+                                      ),
+
+                                    );
+                                  }
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                      const Spacer(),
-                      Icon(
-                        Icons.arrow_forward_ios_outlined,
-                        color: AppColors.mainAppColor,
-                      )
-                    ],
+                            Icon(
+                              Icons.arrow_forward_ios_outlined,
+                              color: AppColors.mainAppColor,
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -686,6 +639,132 @@ class OrderMinimumWidget extends StatelessWidget {
                   color: Colors.black,
                   fontWeight: FontWeight.w700,
                 ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class AddressCard extends StatelessWidget {
+  final String title;
+  final String subtitle;
+  final String customerName;
+  final String customerPhone;
+  final String address;
+  bool isSelected=false;
+
+ AddressCard({
+    Key? key,
+    required this.title,
+    required this.subtitle,
+    required this.customerName,
+    required this.customerPhone,
+    required this.address,
+    required this.isSelected
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 3,horizontal: 6),
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+          side: BorderSide(
+            color:(isSelected!)? AppColors
+                .mainAppColor:Colors.white,
+          )
+        ),
+        elevation: 4,
+        child: Padding(
+          padding: const EdgeInsets.all(15),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        title.tr(),
+                        style: TextStyle(
+                          color: AppColors.mainAppColor,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 12.sp,
+                        ),
+                      ),
+                      SizedBox(width: 10.w),
+                      Text(
+                        subtitle.tr(),
+                        style: TextStyle(
+                          color: const Color(0xff231F20),
+                          fontWeight: FontWeight.w500,
+                          fontSize: 6.sp,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const Spacer(),
+                  if(isSelected!)
+                  Icon(
+                    Icons.check_circle_outline,
+                    color: AppColors.mainAppColor,
+                  ),
+                ],
+              ),
+              SizedBox(height: 8.h),
+              Row(
+                children: [
+                  Image.asset("assets/images/Layer_2_copy_11 (1).png"),
+                  SizedBox(width: 5.w),
+                  Text(
+                    customerName.tr(),
+                    style: TextStyle(
+                      color: AppColors.mainAppColor,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 12.sp,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 7.h),
+              Row(
+                children: [
+                  Image.asset("assets/images/Group (8).png"),
+                  SizedBox(width: 5.w),
+                  Text(
+                    customerPhone,
+                    style: TextStyle(
+                      color: const Color(0xff0A9223),
+                      fontWeight: FontWeight.w400,
+                      fontSize: 12.sp,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 7.h),
+              Row(
+                children: [
+                  Icon(
+                    Icons.location_on,
+                    color: AppColors.mainAppColor,
+                  ),
+                  SizedBox(width: 5.w),
+                  Expanded(
+                    child: Text(
+                      address.tr(),
+                      style: TextStyle(
+                        color: const Color(0xff231F20),
+                        fontWeight: FontWeight.w400,
+                        fontSize: 12.sp,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

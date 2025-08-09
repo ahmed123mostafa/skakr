@@ -238,7 +238,7 @@ class _NewAddAddressState extends State<NewAddAddress> {
                                           });
                                           Navigator.of(context).pop();
                                         },
-                                        
+
                                       ),
                                     ],
                                   ),

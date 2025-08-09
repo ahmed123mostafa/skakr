@@ -9,6 +9,7 @@ import 'package:settings_app/feature/auth/presentation/widget/custom_language.da
 import 'package:settings_app/feature/intial/splash_screen.dart';
 import 'package:settings_app/feature/main/home/manager/cubit/home_cubit.dart';
 import 'package:device_preview/device_preview.dart';
+import 'package:settings_app/feature/main/list/saved_address/manager/saved_sddress_cubit.dart' show SavedAddressCubit;
 
 import 'feature/main/catagory/manager/category_cubit.dart';
 import 'feature/main/menu/manager/cart_cubit.dart';
@@ -43,6 +44,7 @@ class MyApp extends StatelessWidget {
         return MultiBlocProvider(
           providers: [
             BlocProvider(create: (context) => HomeCubit()..getNewsMarquee()..getBannerOneImage()..getBiggestDiscountProducts()..getNewProduct()..getBestSellers()..getBannerTwoImage()),
+            BlocProvider(create: (context) => SavedAddressCubit()..getAllAddress()),
             BlocProvider(
               create: (context)=>CategoryCubit()..getMainCategory(),
             ), BlocProvider(

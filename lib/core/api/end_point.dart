@@ -1,3 +1,5 @@
+import '../constant/conatant.dart';
+
 var beasUrlCairoOrMa;
 class EndPoint {
 
@@ -20,6 +22,10 @@ static String getProductById ({required num productId}) => "/Product/GetProductB
 static String getProductByBrand ({required var categoryId,required var brandId}) => "/Product/GetBrandsByCatgory?categoryId=$categoryId&pageNumber=1&pageSize=10&CustomerPhone=01224739338&BrandID=$brandId";
 
 
+//Address
+
+  static  String getAllAddress= "$baseUrl/Customers/GetCustomerAddress?CustomerPhone=94440596";
+
 static String getBrandsBySubCategory ({required  subCategory}) => "/Product/GetBrandsByCatgory?categoryId=$subCategory&pageNumber=1&pageSize=100000&CustomerPhone=CustomerPhone=94440596";
 
   static const String aboutUS = "/AboutUs";
@@ -33,7 +39,8 @@ static String getBrandsBySubCategory ({required  subCategory}) => "/Product/GetB
   static String newProduct = "$baseUrl/Product/GetNewProducts?pageNumber=1&pageSize=100&CustomerPhone=01224739338";
   /// auth
 
-  static String login ({required String customerPhone,required String password}) => "$baseUrl/Customer/Login?CustomerPhone=$customerPhone&passWord=$password&Token=1111'";
+  static String login ({required String customerPhone,required String password}) => "$baseUrl/Customer/Login?CustomerPhone=$customerPhone&passWord=$password&Token=1111";
+  static String register = "$baseUrl/Customer/AddCustomer";
   static String forgetpassw = "$baseUrl/Member/forgotpassword";
   static String changePassconfirm = "$baseUrl/Member/resetpassword";
   static String logout = "$baseUrl/Member/logout";
