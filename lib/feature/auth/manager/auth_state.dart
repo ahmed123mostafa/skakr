@@ -1,3 +1,5 @@
+import '../../main/list/saved_address/model/area_model.dart';
+import '../../main/list/saved_address/model/governorate_model.dart';
 import '../model/customer_model.dart';
 
 abstract class AuthState {}
@@ -33,3 +35,13 @@ class RegisterViewStateError extends AuthState{
   RegisterViewStateError(this.error);
 }
 
+class GovernorateSelected extends AuthState{
+  final GovernorateModel selectedGovernorate;
+
+  GovernorateSelected(this.selectedGovernorate);
+}
+class AreaSelected extends AuthState {
+  final AreaModel areaModel;
+
+  AreaSelected(this.areaModel);
+}

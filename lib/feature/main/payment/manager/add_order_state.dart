@@ -1,3 +1,5 @@
+import '../model/order_summry_model.dart';
+
 abstract class AddOrderState{}
 class InitializeAddOrder extends AddOrderState{}
 
@@ -29,5 +31,25 @@ class ChangeDeliveryTimeSelected extends AddOrderState{}
 
 class ChangeSelectedDayState extends AddOrderState{}
 class ChangeVisibilityState extends AddOrderState{}
+
+class DeliveryTimeChanged extends AddOrderState {
+  final String selectedOption;
+  DeliveryTimeChanged(this.selectedOption);
+}
+
+class AddOrderLoading extends AddOrderState{}
+class AddOrderSuccess extends AddOrderState{
+
+  OrderSummryModel? orderSummryModel;
+  dynamic invoiceNumber;
+  AddOrderSuccess(this.orderSummryModel,{required this.invoiceNumber});
+}
+class AddOrderError extends AddOrderState{
+  final String error;
+  AddOrderError(this.error);
+}
+
+
+
 
 

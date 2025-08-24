@@ -9,34 +9,11 @@ class MyPreviousEmptyOrders extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: const Color(0xffF1F1F1),
-        appBar: AppBar(
-          backgroundColor: const Color(0xffF1F1F1),
-          elevation: 5,
-          shadowColor: Colors.black.withOpacity(0.5),
-          centerTitle: true,
-          title: Text(
-            "my_previous_orders".tr(),
-            style: TextStyle(
-              color: AppColors.mainAppColor,
-              fontWeight: FontWeight.w500,
-              fontSize: 16.sp,
-            ),
-          ),
-          leading: Icon(
-            Icons.arrow_back,
-            color: AppColors.mainAppColor,
-          ),
-        ),
-        body: Column(
-          children: [
-            SizedBox(height: 30.h),
-            const Expanded(child: OrdersScreen()),
-          ],
-        ),
-      ),
+    return Column(
+      children: [
+        SizedBox(height: 30.h),
+        const Expanded(child: OrdersScreen()),
+      ],
     );
   }
 }
@@ -55,75 +32,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10.w),
-          child: Row(
-            children: [
-              Expanded(
-                child: GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      selectedIndex = 1;
-                    });
-                  },
-                  child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 10.h),
-                    decoration: BoxDecoration(
-                      color: selectedIndex == 1
-                          ? const Color(0xffBA0B74)
-                          : Colors.white,
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: Colors.grey.shade300),
-                    ),
-                    child: Center(
-                      child: Text(
-                        "my_previous_orders".tr(),
-                        style: TextStyle(
-                            color: selectedIndex == 1
-                                ? Colors.white
-                                : Colors.black,
-                            fontWeight: FontWeight.w400,
-                            fontSize: 14.sp),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(width: 10.w),
-              Expanded(
-                child: GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      selectedIndex = 0;
-                    });
-                  },
-                  child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 10.h),
-                    decoration: BoxDecoration(
-                      color: selectedIndex == 0
-                          ? AppColors.mainAppColor
-                          : Colors.white,
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: Colors.grey.shade300),
-                    ),
-                    child: Center(
-                      child: Text(
-                        "my_current_orders".tr(),
-                        style: TextStyle(
-                          color: selectedIndex == 0
-                              ? Colors.white
-                              : AppColors.mainAppColor,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
+
         SizedBox(height: 50.h),
         Expanded(
             child: selectedIndex == 0

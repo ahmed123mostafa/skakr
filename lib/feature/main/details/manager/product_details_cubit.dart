@@ -45,10 +45,13 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
     });
   }
 
-  int selectedUnit=0;
+  int selectedUnit=1;
   void changeSelectedUnit({required int index}) {
     selectedUnit=index;
     emit(ChangeSelectedUnit());
   }
+
+
+
 
 }

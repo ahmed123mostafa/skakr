@@ -13,6 +13,8 @@ import 'package:settings_app/feature/auth/presentation/widget/wave_background_pa
 
 import '../../../../core/constant/custom_dialog.dart';
 import '../../../main/home/presentation/home_view.dart';
+import '../../../main/list/saved_address/manager/saved_address_state.dart';
+import '../../../main/list/saved_address/manager/saved_sddress_cubit.dart';
 import '../../manager/auth_cubit.dart';
 import '../../manager/auth_state.dart';
 import '../widget/show_account_exists_warning.dart';
@@ -735,7 +737,7 @@ class RegisterScreen extends StatelessWidget {
                   textColor: Colors.white,
                   fontSize: 16.0,
                 );
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginScreen()));
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>const LoginScreen()));
 
               }
 
@@ -1008,149 +1010,143 @@ class RegisterScreen extends StatelessWidget {
                                     ),
                                     SizedBox(height: 20.h),
                                     Padding(
-                                      padding: const EdgeInsets.only(right: 16, left: 16),
-                                      child: Container(
-                                        width: double.infinity,
-                                        height: 50,
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 6, vertical: 5),
-                                        decoration: BoxDecoration(
-                                          color: const Color(0xffEEEEEE),
-                                          borderRadius: BorderRadius.circular(4),
-                                        ),
-                                        child: Row(
-                                          children: [
-                                            Expanded(
-                                              child: Text(
-                                                governoratecontrrler.text.isEmpty
-                                                    ? "governorate".tr()
-                                                    : governoratecontrrler.text,
-                                                style: TextStyle(
-                                                  fontSize: 10.sp,
-                                                  color: const Color(0xff231F20),
+                                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                                      child: BlocBuilder<SavedAddressCubit, SavedAddressState>(
+                                        builder: (context, state) {
+
+
+                                          return GestureDetector(
+                                            onTap: (){
+                                              showDialog(
+                                                context: context,
+                                                builder: (_) => AlertDialog(
+                                                  content: SingleChildScrollView(
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.min,
+                                                      children: BlocProvider.of<SavedAddressCubit>(context).governoratesList
+                                                          .map(
+                                                            (governorate) => ListTile(
+                                                          title: Center(
+                                                            child: Text(
+                                                              context.locale.languageCode == 'ar'
+                                                                  ? governorate.governorateName
+                                                                  : governorate.governorateEName,
+                                                            ),
+                                                          ),
+                                                          onTap: () {
+                                                            BlocProvider.of<SavedAddressCubit>(context).updateSelectedGovernorate(governorate);
+
+                                                            Navigator.pop(context);
+                                                          },
+                                                        ),
+                                                      )
+                                                          .toList(),
+                                                    ),
+                                                  ),
                                                 ),
+                                              );
+                                            },
+                                            child: Container(
+                                              width: double.infinity,
+                                              height: 50,
+                                              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 5),
+                                              decoration: BoxDecoration(
+                                                color: const Color(0xffEEEEEE),
+                                                borderRadius: BorderRadius.circular(4),
+                                              ),
+                                              child: Row(
+                                                children: [
+                                                  Expanded(
+                                                    child: Text(
+                                                      BlocProvider.of<SavedAddressCubit>(context).selectedGovernorate == null
+                                                          ? "governorate".tr()
+                                                          : (context.locale.languageCode == 'ar'
+                                                          ? BlocProvider.of<SavedAddressCubit>(context).selectedGovernorate!.governorateName
+                                                          : BlocProvider.of<SavedAddressCubit>(context).selectedGovernorate!.governorateEName),
+                                                      style: TextStyle(
+                                                        fontSize: 10.sp,
+                                                        color: const Color(0xff231F20),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Image.asset("assets/images/Polygon 11.png"),
+                                                ],
                                               ),
                                             ),
-                                            IconButton(
-                                              onPressed: () {
-                                                showDialog(
-                                                  context: context,
-                                                  builder: (BuildContext context) {
-                                                    return AlertDialog(
-                                                      content: Column(
-                                                        mainAxisSize: MainAxisSize.min,
-                                                        children: [
-                                                          ListTile(
-                                                            title: Center(
-                                                                child:
-                                                                Text("cairo".tr())),
-                                                            onTap: () {
-                                                              // setState(() {
-                                                              //   governoratecontrrler
-                                                              //       .text = "cairo".tr();
-                                                              // });
-                                                              Navigator.of(context).pop();
-                                                            },
-                                                          ),
-                                                          ListTile(
-                                                            title: Center(
-                                                                child: Text(
-                                                                    "mansoura".tr())),
-                                                            onTap: () {
-                                                              // setState(() {
-                                                              //   governoratecontrrler
-                                                              //       .text =
-                                                              //       "mansoura".tr();
-                                                              // });
-                                                              Navigator.of(context).pop();
-                                                            },
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    );
-                                                  },
-                                                );
-                                              },
-                                              icon: Image.asset(
-                                                  "assets/images/Polygon 11.png"),
-                                            ),
-                                          ],
-                                        ),
+                                          );
+                                        },
                                       ),
                                     ),
-                                    SizedBox(height: 15.h),
+
+                                    SizedBox(height: 10.h),
                                     Padding(
-                                      padding: const EdgeInsets.only(right: 16, left: 16),
-                                      child: Container(
-                                        width: double.infinity,
-                                        height: 50,
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 6, vertical: 5),
-                                        decoration: BoxDecoration(
-                                          color: const Color(0xffEEEEEE),
-                                          borderRadius: BorderRadius.circular(4),
-                                        ),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Expanded(
-                                              child: Text(
-                                                regioncontrrler.text.isEmpty
-                                                    ? "region".tr()
-                                                    : regioncontrrler.text,
-                                                style: TextStyle(
-                                                  fontSize: 10.sp,
-                                                  color: const Color(0xff231F20),
+                                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                                      child: BlocBuilder<SavedAddressCubit, SavedAddressState>(
+                                        builder: (context, state) {
+
+
+
+                                          return GestureDetector(
+                                            onTap: (){
+                                              showDialog(
+                                                context: context,
+                                                builder: (_) => AlertDialog(
+                                                  content: SingleChildScrollView(
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.min,
+                                                      children: BlocProvider.of<SavedAddressCubit>(context).areaModelList
+                                                          .toSet()
+                                                          .map(
+                                                            (area) => ListTile(
+                                                          title: Center(
+                                                            child: Text(
+                                                              context.locale.languageCode == 'ar'
+                                                                  ? area.districtName ?? ""
+                                                                  : area.districtEName ?? "",
+                                                            ),
+                                                          ),
+                                                          onTap: () {
+                                                            BlocProvider.of<SavedAddressCubit>(context).updateSelectedArea(area);
+                                                            Navigator.pop(context);
+                                                          },
+                                                        ),
+                                                      )
+                                                          .toList(),
+                                                    ),
+                                                  ),
                                                 ),
+                                              );
+                                            },
+                                            child: Container(
+                                              width: double.infinity,
+                                              height: 50,
+                                              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 5),
+                                              decoration: BoxDecoration(
+                                                color: const Color(0xffEEEEEE),
+                                                borderRadius: BorderRadius.circular(4),
+                                              ),
+                                              child: Row(
+                                                children: [
+                                                  Expanded(
+                                                    child: Text(
+                                                      BlocProvider.of<SavedAddressCubit>(context).areaModel == null
+                                                          ? "select_area".tr()
+                                                          : (context.locale.languageCode == 'ar'
+                                                          ? BlocProvider.of<SavedAddressCubit>(context).areaModel!.districtName ?? ""
+                                                          : BlocProvider.of<SavedAddressCubit>(context).areaModel!.districtEName ?? ""),
+                                                      style: TextStyle(
+                                                        fontSize: 10.sp,
+                                                        color: const Color(0xff231F20),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Image.asset("assets/images/Polygon 11.png"),
+
+                                                ],
                                               ),
                                             ),
-                                            IconButton(
-                                              onPressed: () {
-                                                showDialog(
-                                                  context: context,
-                                                  builder: (BuildContext context) {
-                                                    return AlertDialog(
-                                                      content: Column(
-                                                        mainAxisSize: MainAxisSize.min,
-                                                        mainAxisAlignment:
-                                                        MainAxisAlignment.center,
-                                                        children: [
-                                                          ListTile(
-                                                            title: Center(
-                                                                child:
-                                                                Text("cairo".tr())),
-                                                            onTap: () {
-                                                              // setState(() {
-                                                              //   regioncontrrler.text =
-                                                              //       "cairo".tr();
-                                                              // });
-                                                              Navigator.of(context).pop();
-                                                            },
-                                                          ),
-                                                          ListTile(
-                                                            title: Center(
-                                                                child: Text(
-                                                                    "mansoura".tr())),
-                                                            onTap: () {
-                                                              // setState(() {
-                                                              //   regioncontrrler.text =
-                                                              //       "mansoura".tr();
-                                                              // });
-                                                              Navigator.of(context).pop();
-                                                            },
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    );
-                                                  },
-                                                );
-                                              },
-                                              icon: Image.asset(
-                                                  "assets/images/Polygon 11.png"),
-                                            ),
-                                          ],
-                                        ),
+                                          );
+                                        },
                                       ),
                                     ),
                                     Padding(
@@ -1279,14 +1275,20 @@ class RegisterScreen extends StatelessWidget {
 
                                                   BlocProvider.of<AuthCubit>(context).registerUser(
                                                     firstName:firstnamecontrroler.text,
-                                                    nameAddress: addressdetailscontrroler.text,
-                                                    detailsAddress: 'detailsAddress',
-                                                    districtName:' districtNam',
-                                                    regionName: 'regionName',
                                                     lastName: lastnamecontrroler.text,
+                                                    phone: phonenumbercontrroler.text,
+                                                    nameAddress: addressdetailscontrroler.text,
+                                                    detailsAddress:addressdetailscontrroler.text ,
+                                                    email: emailcontrroler.text,
+                                                    districtName: BlocProvider.of<SavedAddressCubit>(context).areaModel!.districtName,
+                                                    regionName:  BlocProvider
+                                                        .of<SavedAddressCubit>(context)
+                                                        .selectedGovernorate!
+                                                        .governorateName,
+
                                                     companyName: 'companyName',
                                                     password: passwordcontrroler.text,
-                                                    phone: phonenumbercontrroler.text,);
+                                                  );
 
                                                 }
                                               },

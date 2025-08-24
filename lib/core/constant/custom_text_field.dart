@@ -19,7 +19,7 @@ class CustomTextFormField extends StatefulWidget {
   final TextInputAction? textInputAction;
   final ValueChanged<String>? onFieldSubmitted;
   final FocusNode? focusNode;
-
+  final Function(String)? onChanged;
   const CustomTextFormField({
     super.key,
     this.controller,
@@ -38,6 +38,7 @@ class CustomTextFormField extends StatefulWidget {
     this.textInputAction,
     this.onFieldSubmitted,
     this.focusNode,
+    this.onChanged
   });
 
   @override
@@ -52,6 +53,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: widget.paddingN),
       child: TextFormField(
+        onChanged: widget.onChanged,
         controller: widget.controller,
         focusNode: widget.focusNode, 
         maxLines: lines,

@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:settings_app/core/constant/app_assets.dart';
 import 'package:settings_app/core/constant/app_colors.dart';
 import 'package:settings_app/core/constant/custom_bottom.dart';
+import 'package:settings_app/feature/main/list/PreviousOrders/screen/previous_orders.dart' show MyPreviousOrders;
 import 'package:settings_app/feature/main/list/presentation/screens/frequently_question.dart';
 
 import '../../Privacy_Policy/screen/privacy_policy_screen.dart';
@@ -38,7 +39,10 @@ class _ListScreenState extends State<ListScreen> {
                   fontSize: 12,
                   textColor: Colors.white,
                   text: "login".tr(),
-                  onPressed: () {},
+                  onPressed: () {
+
+
+                  },
                 ),
                 SizedBox(
                   width: 20.w,
@@ -143,7 +147,7 @@ class _ListScreenState extends State<ListScreen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => PrivacyPolicyScreen()));
+                            builder: (context) => MyPreviousOrders()));
                   },
                   child: Container(
                     padding: const EdgeInsets.all(10),

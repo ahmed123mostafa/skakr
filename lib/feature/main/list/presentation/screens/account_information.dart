@@ -5,12 +5,14 @@ import 'package:settings_app/core/constant/app_assets.dart';
 import 'package:settings_app/core/constant/app_colors.dart';
 import 'package:settings_app/feature/auth/presentation/screens/login_screen.dart';
 import 'package:settings_app/feature/main/favourite/presentation/screens/favourites_card.dart';
+import 'package:settings_app/feature/main/list/PreviousOrders/screen/previous_orders.dart' show MyPreviousOrders;
 import 'package:settings_app/feature/main/list/presentation/screens/frequently_question.dart';
 
 import 'package:settings_app/feature/main/list/presentation/screens/prevuis_order/screen/previous_order.dart';
 import 'package:settings_app/feature/main/list/presentation/screens/profile_screen.dart';
 import 'package:settings_app/feature/main/list/saved_address/screen/saved_address.dart';
 
+import '../../../../../core/constant/conatant.dart';
 import '../../Privacy_Policy/screen/privacy_policy_screen.dart';
 import '../../about_us/screen/about_us_screen.dart';
 
@@ -45,7 +47,7 @@ class _AccountInformationState extends State<AccountInformation> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "hello,mohamed".tr(),
+                              '${'welcome_message'.tr()}${customerName??''}',
                               style: TextStyle(
                                 fontFamily: "Alexandria",
                                 fontSize: 16.sp,

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
@@ -15,6 +16,7 @@ import '../../../../../core/api/end_point.dart';
 import '../../../catagory/model/product_model.dart';
 import '../../model/banar_model.dart';
 import '../../model/news_marquee_model.dart';
+import '../../model/offer_model.dart';
 
 part 'home_state.dart';
 
@@ -36,7 +38,8 @@ class HomeCubit extends Cubit<HomeState> {
     emit(ChangeIndexBottom());
   }
 
-  List<NewsMarqueeModel> newsMarqueeList=[];
+  List<NewsMarqueeModel> newsMarqueeList = [];
+
   Future<void> getNewsMarquee() async {
     emit(GetNewsMarqueeLoading());
     await DioConsumer(dio: Dio()).get(
@@ -44,23 +47,24 @@ class HomeCubit extends Cubit<HomeState> {
       useCache: true,
       cacheDuration: const Duration(minutes: 10),
     ).then((value) {
-
-
       final decryptedText = decrypt(value, privateKey, publicKey);
 
 
       List<dynamic> jsonList = jsonDecode(decryptedText);
-      newsMarqueeList = jsonList.map((json) => NewsMarqueeModel.fromJson(json)).toList();
+      newsMarqueeList =
+          jsonList.map((json) => NewsMarqueeModel.fromJson(json)).toList();
 
       emit(GetNewsMarqueeSuccess());
     }).catchError((error) {
-      print('Error In Function Get News Marquee This Error ${error.toString()}');
+      print(
+          'Error In Function Get News Marquee This Error ${error.toString()}');
       emit(GetNewsMarqueeError());
     });
   }
 
 
-  List<BannerModel> bannerOneImageList=[];
+  List<BannerModel> bannerOneImageList = [];
+
   Future<void> getBannerOneImage() async {
     emit(GetBannerOneImageLoading());
     await DioConsumer(dio: Dio()).get(
@@ -68,21 +72,23 @@ class HomeCubit extends Cubit<HomeState> {
       useCache: true,
       cacheDuration: const Duration(minutes: 10),
     ).then((value) {
-
       final decryptedText = decrypt(value, privateKey, publicKey);
 
       print(decryptedText);
       List<dynamic> jsonList = jsonDecode(decryptedText);
-      bannerOneImageList = jsonList.map((json) => BannerModel.fromJson(json)).toList();
+      bannerOneImageList =
+          jsonList.map((json) => BannerModel.fromJson(json)).toList();
       print(bannerOneImageList.length);
       emit(GetBannerOneImageSuccess());
     }).catchError((error) {
-      print('Error In Function Get Banner One Image This Error ${error.toString()}');
+      print('Error In Function Get Banner One Image This Error ${error
+          .toString()}');
       emit(GetBannerOneImageError());
     });
   }
 
-  List<BannerModel> bannerTwoImageList=[];
+  List<BannerModel> bannerTwoImageList = [];
+
   Future<void> getBannerTwoImage() async {
     emit(GetBannerTwoImageLoading());
     await DioConsumer(dio: Dio()).get(
@@ -90,19 +96,20 @@ class HomeCubit extends Cubit<HomeState> {
       useCache: true,
       cacheDuration: const Duration(minutes: 10),
     ).then((value) {
-
       print('الداتا بعد فك التشفير');
 
       final decryptedText = decrypt(value, privateKey, publicKey);
 
       print(decryptedText);
       List<dynamic> jsonList = jsonDecode(decryptedText);
-      bannerTwoImageList = jsonList.map((json) => BannerModel.fromJson(json)).toList();
+      bannerTwoImageList =
+          jsonList.map((json) => BannerModel.fromJson(json)).toList();
 
       emit(GetBannerTwoImageSuccess());
     }).catchError((error) {
       print(
-          'Error In Function Get Banner  Two Image This Error ${error.toString()}');
+          'Error In Function Get Banner  Two Image This Error ${error
+              .toString()}');
       emit(GetBannerTwoImageError());
     });
   }
@@ -114,7 +121,7 @@ class HomeCubit extends Cubit<HomeState> {
     emit(GetBiggestDiscountLoading());
 
     await DioConsumer(dio: Dio()).get(
-      EndPoint.getMainCategory,
+      EndPoint.biggestDiscount,
       useCache: true,
       cacheDuration: const Duration(minutes: 10),
     ).then((value) {
@@ -125,16 +132,16 @@ class HomeCubit extends Cubit<HomeState> {
       print(decryptedText);
 
       List<dynamic> jsonList = jsonDecode(decryptedText);
-        biggestDiscountList = jsonList.map((json) => ProductModel.fromJson(json)).toList();
+      biggestDiscountList =
+          jsonList.map((json) => ProductModel.fromJson(json)).toList();
 
-        for (var element in biggestDiscountList) {
-          itemsBiggestDiscountFavorite.addAll({
-            element.barCode: element.isFavorite,
-          });
-        }
+      for (var element in biggestDiscountList) {
+        itemsBiggestDiscountFavorite.addAll({
+          element.barCode: element.isFavorite,
+        });
+      }
 
-        emit(GetBiggestDiscountSuccess());
-
+      emit(GetBiggestDiscountSuccess());
     }).catchError((error) {
       print('Error in getBiggestDiscountProducts: ${error.toString()}');
       emit(GetBiggestDiscountError());
@@ -143,7 +150,8 @@ class HomeCubit extends Cubit<HomeState> {
 
 
   Map<String, bool> itemsBestSellerFavorite = {};
-  List<ProductModel> bestSellerList=[];
+  List<ProductModel> bestSellerList = [];
+
   Future<void> getBestSellers() async {
     emit(GetBestSellerLoading());
 
@@ -160,23 +168,25 @@ class HomeCubit extends Cubit<HomeState> {
 
       List<dynamic> jsonList = jsonDecode(decryptedText);
 
-      bestSellerList = jsonList.map((json) => ProductModel.fromJson(json)).toList();
+      bestSellerList =
+          jsonList.map((json) => ProductModel.fromJson(json)).toList();
 
       for (var element in bestSellerList) {
         itemsBestSellerFavorite[element.barCode] = element.isFavorite;
       }
 
       emit(GetBestSellerSuccess());
-
     }).catchError((error) {
-      print('Error In Function get Get Best Seller This Error ${error.toString()}');
+      print('Error In Function get Get Best Seller This Error ${error
+          .toString()}');
       emit(GetBestSellerError());
     });
   }
 
 
   Map<String, bool> itemsNewProductFavorite = {};
-  List<ProductModel> newProductList=[];
+  List<ProductModel> newProductList = [];
+
   Future<void> getNewProduct() async {
     emit(GetNewProductLoading());
     await DioConsumer(dio: Dio()).get(
@@ -184,7 +194,6 @@ class HomeCubit extends Cubit<HomeState> {
       useCache: true,
       cacheDuration: const Duration(minutes: 10),
     ).then((value) {
-
       print(value);
 
       final decryptedText = decrypt(value, privateKey, publicKey);
@@ -194,23 +203,245 @@ class HomeCubit extends Cubit<HomeState> {
       List<dynamic> jsonList = jsonDecode(decryptedText);
 
 
-        newProductList = jsonList.map((json) => ProductModel.fromJson(json)).toList();
+      newProductList =
+          jsonList.map((json) => ProductModel.fromJson(json)).toList();
 
 
-        for (var element in  newProductList) {
-          itemsNewProductFavorite.addAll({
-            element.barCode: element.isFavorite,
-          });
-        }
+      for (var element in newProductList) {
+        itemsNewProductFavorite.addAll({
+          element.barCode: element.isFavorite,
+        });
+      }
 
-        emit(GetNewProductSuccess());
-
-
-
+      emit(GetNewProductSuccess());
     }).catchError((error) {
       print(
-          'Error In Function get Get New Product This Error ${error.toString()}');
+          'Error In Function get Get New Product This Error ${error
+              .toString()}');
       emit(GetNewProductError());
+    });
+  }
+
+
+  Map<String, bool> itemsOfferOneFavorite = {};
+  List<OfferModel> offerOneList = [];
+
+  Map<String, bool> itemsOfferTwoFavorite = {};
+  List<OfferModel> offerTwoList = [];
+
+  Map<String, bool> itemsOfferThreeFavorite = {};
+  List<OfferModel> offerThreeList = [];
+
+  Map<String, bool> itemsOfferFourFavorite = {};
+  List<OfferModel> offerFourList = [];
+
+  Map<String, bool> itemsOfferFiveFavorite = {};
+  List<OfferModel> offerFiveList = [];
+
+
+  Future<void> getOfferOne() async {
+    emit(OfferOneLoading());
+    await DioConsumer(dio: Dio()).get(
+      EndPoint.offers,
+      useCache: false,
+      cacheDuration: const Duration(minutes: 10),
+    ).then((value) {
+      print(value);
+      final decryptedText = decrypt(value, privateKey, publicKey);
+      print(decryptedText);
+
+      List<dynamic> jsonList = jsonDecode(decryptedText);
+
+
+      offerOneList = jsonList.map((json) => OfferModel.fromJson(json)).toList();
+
+
+      final firstOffer = offerOneList.isNotEmpty ? offerOneList[0] : null;
+
+
+      final products = firstOffer != null
+          ? firstOffer.offerItems.map((item) => item.toProductModel()).toList()
+          : <ProductModel>[];
+      for (var offerTwo in offerOneList) {
+        for (var item in offerTwo.offerItems) {
+          itemsOfferOneFavorite.addAll({
+            item.barCode!: item.isFavorite,
+          });
+        }
+      }
+
+      emit(OfferOneSuccess());
+    }).catchError((error) {
+      print('Error in getOfferOne: ${error.toString()}');
+      emit(OfferOneError());
+    });
+  }
+
+  Future<void> getOfferTwo() async {
+    emit(OfferTwoLoading());
+    await DioConsumer(dio: Dio()).get(
+      EndPoint.offerTwo,
+      useCache: false,
+      cacheDuration: const Duration(minutes: 10),
+    ).then((value) {
+      print(value);
+      final decryptedText = decrypt(value, privateKey, publicKey);
+      print(decryptedText);
+
+      List<dynamic> jsonList = jsonDecode(decryptedText);
+
+
+      offerTwoList = jsonList.map((json) => OfferModel.fromJson(json)).toList();
+
+
+      final firstOffer = offerTwoList.isNotEmpty ? offerTwoList[0] : null;
+
+      final products = firstOffer != null
+          ? firstOffer.offerItems.map((item) => item.toProductModel()).toList()
+          : <ProductModel>[];
+      for (var offerTwo in offerTwoList) {
+        for (var item in offerTwo.offerItems) {
+          itemsOfferTwoFavorite.addAll({
+            item.barCode!: item.isFavorite,
+          });
+        }
+      }
+      
+      
+      
+      
+      
+      
+      
+
+      emit(OfferTwoSuccess());
+    }).catchError((error) {
+      print('Error in getOfferTwo: ${error.toString()}');
+      emit(OfferTwoError());
+    });
+  }
+
+  Future<void> getOfferThree() async {
+    emit(OfferThreeLoading());
+    await DioConsumer(dio: Dio()).get(
+      EndPoint.offerThree,
+      useCache: false,
+      cacheDuration: const Duration(minutes: 10),
+    ).then((value) {
+      print(value);
+      final decryptedText = decrypt(value, privateKey, publicKey);
+      print(decryptedText);
+
+    
+
+
+      List<dynamic> jsonList = jsonDecode(decryptedText);
+
+
+      offerThreeList = jsonList.map((json) => OfferModel.fromJson(json)).toList();
+
+
+      final firstOffer = offerThreeList.isNotEmpty ? offerThreeList[0] : null;
+
+      final products = firstOffer != null
+          ? firstOffer.offerItems.map((item) => item.toProductModel()).toList()
+          : <ProductModel>[];
+      for (var offerThree in offerThreeList) {
+        for (var item in offerThree.offerItems) {
+          itemsOfferThreeFavorite.addAll({
+            item.barCode!: item.isFavorite,
+          });
+        }
+      }
+      
+      
+      // offerThreeList = jsonList.map((json) => ProductModel.fromJson(json)).toList();
+      //
+      // for (var element in offerThreeList) {
+      //   itemsOfferThreeFavorite.addAll({
+      //     element.barCode: element.isFavorite,
+      //   });
+      // }
+
+      emit(OfferThreeSuccess());
+    }).catchError((error) {
+      print('Error in getOfferThree: ${error.toString()}');
+      emit(OfferThreeError());
+    });
+  }
+
+  Future<void> getOfferFour() async {
+    emit(OfferFourLoading());
+    await DioConsumer(dio: Dio()).get(
+      EndPoint.offerFour,
+        useCache: false,
+      cacheDuration: const Duration(minutes: 10),
+    ).then((value) {
+      print(value);
+      final decryptedText = decrypt(value, privateKey, publicKey);
+      print(decryptedText);
+      List<dynamic> jsonList = jsonDecode(decryptedText);
+
+
+      offerFourList = jsonList.map((json) => OfferModel.fromJson(json)).toList();
+
+
+      final firstOffer = offerFourList.isNotEmpty ? offerFourList[0] : null;
+
+      final products = firstOffer != null
+          ? firstOffer.offerItems.map((item) => item.toProductModel()).toList()
+          : <ProductModel>[];
+      for (var offerFour in offerFourList) {
+        for (var item in offerFour.offerItems) {
+          itemsOfferFourFavorite.addAll({
+            item.barCode!: item.isFavorite,
+          });
+        }
+      }
+
+
+      emit(OfferFourSuccess());
+    }).catchError((error) {
+      print('Error in getOfferFour: ${error.toString()}');
+      emit(OfferFourError());
+    });
+  }
+
+  Future<void> getOfferFive() async {
+    emit(OfferFiveLoading());
+    await DioConsumer(dio: Dio()).get(
+      EndPoint.offerFive,
+      useCache: false,
+      cacheDuration: const Duration(minutes: 10),
+    ).then((value) {
+      print(value);
+      final decryptedText = decrypt(value, privateKey, publicKey);
+      print(decryptedText);
+
+      List<dynamic> jsonList = jsonDecode(decryptedText);
+
+
+      offerFiveList = jsonList.map((json) => OfferModel.fromJson(json)).toList();
+
+
+      final firstOffer = offerFiveList.isNotEmpty ? offerFiveList[0] : null;
+
+      final products = firstOffer != null
+          ? firstOffer.offerItems.map((item) => item.toProductModel()).toList()
+          : <ProductModel>[];
+      for (var offerFive in offerFiveList) {
+        for (var item in offerFive.offerItems) {
+          itemsOfferFiveFavorite.addAll({
+            item.barCode!: item.isFavorite,
+          });
+        }
+      }
+
+
+      emit(OfferFiveSuccess());
+    }).catchError((error) {
+      print('Error in getOfferFive: ${error.toString()}');
+      emit(OfferFiveError());
     });
   }
 

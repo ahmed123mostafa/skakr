@@ -57,6 +57,7 @@ class _MenueCartState extends State<MenueCart> {
               SizedBox(height: 20.h),
               InkWell(
                 onTap: () {
+                  context.read<SavedAddressCubit>().getAllAddress();
                   showModalBottomSheet(
                     context: context,
                     isScrollControlled: true,
@@ -101,7 +102,7 @@ class _MenueCartState extends State<MenueCart> {
                                                 MaterialPageRoute(
                                                     builder:
                                                         (context) =>
-                                                    const NewAddAddress()));
+                                                NewAddAddress()));
                                           },
                                           child: Text(
                                             'add new address'.tr(),
@@ -167,7 +168,7 @@ class _MenueCartState extends State<MenueCart> {
                                                         },
                                                         child: AddressCard(
                                                           isSelected:context.read<SavedAddressCubit>().selectAddress==index? true:false,
-                                                          title:address.addressNotes!=null?address.addressNotes.toString():'',
+                                                          title:address.addressNotes!=null?address.gada.toString():'',
                                                           subtitle:address.mainAddress==1?'(main_title)'.tr():'',
                                                           customerName:'${address.arabicName??''} ${address.lastName??''}',
                                                           customerPhone:  address.customerPhone??'',
@@ -230,7 +231,9 @@ class _MenueCartState extends State<MenueCart> {
                               child: BlocBuilder<SavedAddressCubit,SavedAddressState>(
                                   builder: (context,state) {
                                     return Text(
-                                      'delivery_to:${ (context.read<SavedAddressCubit>().addressSelect?.addressNotes??'').tr()}'.tr(),
+                                      '${'delivery_to:'.tr()}${ (context.read<SavedAddressCubit>().addressSelect?.gada??'')}'
+                                     ,
+
                                       style: TextStyle(
                                         color: AppColors.mainAppColor,
                                         fontSize: 10.sp,
@@ -344,7 +347,7 @@ class _MenueCartState extends State<MenueCart> {
                                         SizedBox(width: 8.w),
                                         Text(
 
-                                          '${cartItems[index].priceAfterDiscount.toStringAsFixed(2)} ${"pounds".tr()}'
+                                          '${cartItems[index].Price.toStringAsFixed(2)} ${"pounds".tr()}'
                                            ,
                                           style: TextStyle(
                                             fontSize: 15.sp,
@@ -378,9 +381,9 @@ class _MenueCartState extends State<MenueCart> {
                                               barcode: cartItems[index].barcode,
                                               image: cartItems[index].image,
                                               price: cartItems[index].priceBeforeDiscount,
-                                              priceAfterDiscount: cartItems[index].priceAfterDiscount,
+                                              priceAfterDiscount: cartItems[index].Price,
                                             );
-                                            return Text( '${(itemCount*cartItems[index].priceAfterDiscount).toStringAsFixed(2)} ${"pounds".tr()}'??'' ,
+                                            return Text( '${(itemCount*cartItems[index].Price).toStringAsFixed(2)} ${"pounds".tr()}'??'' ,
                                               style: TextStyle(
                                                 fontSize: 15.sp,
                                                 fontWeight: FontWeight.w400,
@@ -403,7 +406,7 @@ class _MenueCartState extends State<MenueCart> {
                                               barcode: cartItems[index].barcode,
                                               image: cartItems[index].image,
                                               price: cartItems[index].priceBeforeDiscount,
-                                              priceAfterDiscount: cartItems[index].priceAfterDiscount,
+                                              priceAfterDiscount: cartItems[index].Price,
                                             );
 
                                             return Row(
@@ -447,7 +450,7 @@ class _MenueCartState extends State<MenueCart> {
                                                           nameEn: cartItems[index].nameEn,
                                                           barcode: cartItems[index].barcode,
                                                           priceBeforeDiscount: cartItems[index].priceBeforeDiscount,
-                                                          priceAfterDiscount: cartItems[index].priceAfterDiscount,
+                                                          Price: cartItems[index].Price,
                                                           image: cartItems[index].image,
                                                           stockQuantity: cartItems[index].stockQuantity,
                                                           customerQuantity: cartItems[index].customerQuantity,
@@ -485,7 +488,9 @@ class _MenueCartState extends State<MenueCart> {
                 }
               ),
               SizedBox(height: 30.h),
-              const OrderMinimumWidget(),
+              InkWell(onTap: (){
+
+              },child:  OrderMinimumWidget( selectAddress: context.read<SavedAddressCubit>()?.addressSelect,)),
               SizedBox(height: 20.h),
               Align(
                 alignment: Alignment.bottomRight,
@@ -528,7 +533,7 @@ class _MenueCartState extends State<MenueCart> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                       DeliveryTimeScreen()));
+                                       DeliveryTimeScreen(selectAddress: context.read<SavedAddressCubit>().addressSelect,cartItems: context.read<CartCubit>(),)));
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.mainAppColor,
@@ -562,15 +567,19 @@ class _MenueCartState extends State<MenueCart> {
 }
 
 class OrderMinimumWidget extends StatelessWidget {
-  const OrderMinimumWidget({super.key});
+  AllAddressModel? selectAddress;
 
+   OrderMinimumWidget({
+    super.key,
+    required this.selectAddress,
+  });
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Container(
         width: 233.w,
-        height: 125.h,
+
         padding: const EdgeInsets.only(right: 8, left: 8),
         decoration: BoxDecoration(
           color: Colors.white,
@@ -578,10 +587,11 @@ class OrderMinimumWidget extends StatelessWidget {
           border: Border.all(color: AppColors.mainAppColor),
         ),
         child: Padding(
-          padding: const EdgeInsets.only(right: 5, top: 10, left: 5),
+          padding: const EdgeInsets.only(right: 5, top: 10, left: 5,bottom: 5),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              if(selectAddress?.billValue!=null)
               Row(
                 children: [
                   Text(
@@ -594,7 +604,8 @@ class OrderMinimumWidget extends StatelessWidget {
                   ),
                   const Spacer(),
                   Text(
-                    "2000 pounds".tr(),
+                    '${selectAddress?.billValue??0.toStringAsFixed(2)} ${"pounds".tr()}',
+
                     style: TextStyle(
                       fontSize: 12.sp,
                       color: AppColors.mainAppColor,
@@ -631,7 +642,8 @@ class OrderMinimumWidget extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 20.h),
-              Text(
+  ((int.parse(selectAddress?.billValue??'0') )> context.read<CartCubit>().calculateTotalPrice())
+                  ? Text(
                 "less than the minimum required to complete the purchase. Remaining to complete the purchase is 1700 pounds."
                     .tr(),
                 style: TextStyle(
@@ -639,7 +651,10 @@ class OrderMinimumWidget extends StatelessWidget {
                   color: Colors.black,
                   fontWeight: FontWeight.w700,
                 ),
-              ),
+              )
+                  : const SizedBox.shrink(),
+
+
             ],
           ),
         ),

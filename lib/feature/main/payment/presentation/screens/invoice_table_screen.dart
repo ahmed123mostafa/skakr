@@ -3,11 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:settings_app/core/constant/app_colors.dart';
 import 'package:settings_app/core/constant/custom_bottom.dart';
+import 'package:settings_app/feature/main/home/presentation/home_view.dart';
 import 'package:settings_app/feature/main/home/presentation/screens/home_screen.dart';
+import 'package:settings_app/feature/main/list/PreviousOrders/screen/previous_orders.dart' show MyPreviousOrders;
 import 'package:settings_app/feature/main/list/presentation/screens/prevuis_order/screen/previous_order.dart';
 
+import '../../model/order_summry_model.dart';
+
 class InvoiceScreen extends StatelessWidget {
-  const InvoiceScreen({super.key});
+  OrderSummryModel? orderSummryModel;
+  dynamic invoiceNumber;
+InvoiceScreen({super.key,required this.orderSummryModel,required this.invoiceNumber});
+
 
   @override
   Widget build(BuildContext context) {
@@ -30,25 +37,25 @@ class InvoiceScreen extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      infoRow("invoice number".tr(), "114521", sized: 5),
+                      infoRow("invoice number".tr(), "${invoiceNumber??''}", sized: 5),
                       const Spacer(),
-                      infoRow("invoice date".tr(), "2025/4/25", sized: 5),
+                      infoRow("invoice date".tr(), "${orderSummryModel?.orderDate}", sized: 5),
                     ],
                   ),
                   infoRow("payment method".tr(), "cash on delivery".tr(),
                       sized: 5),
                   Row(
                     children: [
-                      infoRow("total quantity".tr(), "1", sized: 5),
+                      infoRow("total quantity".tr(),"${orderSummryModel?.orderItems.length}", sized: 5),
                       const Spacer(),
-                      infoRow("total invoice".tr(), "105.00", sized: 5),
+                      infoRow("total invoice".tr(), "${orderSummryModel?.totalValue}", sized: 5),
                     ],
                   ),
                   Row(
                     children: [
-                      infoRow("deduction / addition".tr(), "0.000", sized: 5),
+                      infoRow("deduction / addition".tr(), "${orderSummryModel?.additions}", sized: 5),
                       const Spacer(),
-                      infoRow("the final price".tr(), "105.00", sized: 5),
+                      infoRow("the final price".tr(), "${orderSummryModel?.finalValue}", sized: 5),
                     ],
                   )
                 ],
@@ -84,18 +91,23 @@ class InvoiceScreen extends StatelessWidget {
                   defaultVerticalAlignment: TableCellVerticalAlignment.middle,
                   children: [
                     _tableHeaderRow(),
-                    _tableDataRow("1", "pepsi 1.5 liters carton".tr(), "2",
-                        "30.00", "60.00"),
-                    _tableDataRow("2", "pepsi 1.5 liters carton".tr(), "2",
-                        "65.00", "130.00"),
-                    _tableDataRow("3", "pepsi 1.5 liters carton".tr(), "2",
-                        "130.00", "260.0"),
-                    _tableDataRow("4", "pepsi 1.5 liters carton".tr(), "2",
-                        "150.00", "300.0"),
-                    _tableDataRow("5", "pepsi 1.5 liters carton".tr(), "2",
-                        "150.00", "300.0"),
-                    _tableDataRow("6", "pepsi 1.5 liters carton".tr(), "1",
-                        "20.00", "20.00"),
+                    ...List.generate(orderSummryModel!.orderItems.length, (index) {
+                      final item = orderSummryModel!.orderItems[index];
+                      return _tableDataRow(
+                        id:
+                        "${index + 1}",
+name:
+                        item.nameAr,
+                        qty:
+
+                        item.quantity.toString(),
+                        price:
+                        item.priceBeforeDiscount.toStringAsFixed(2),
+                       total:  (item.priceBeforeDiscount * item.quantity).toStringAsFixed(2),
+                        imageItem:
+                        item.image,
+                      );
+                    }),
                   ],
                 ),
               ),
@@ -119,7 +131,7 @@ class InvoiceScreen extends StatelessWidget {
                   text: "home page".tr(),
                   onPressed: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => const HomeScreen()));
+                        MaterialPageRoute(builder: (context) => const HomeView()));
                   }),
               const SizedBox(height: 24),
               Center(
@@ -143,12 +155,17 @@ class InvoiceScreen extends StatelessWidget {
   }
 
   TableRow _tableDataRow(
-      String id, String name, String qty, String price, String total) {
+      {required String id,
+      required String name,
+      required String qty,
+      required String price,
+      required String total,
+      required String imageItem}) {
     return TableRow(children: [
       _TableCell(text: id),
       _TableCell(
         text: name,
-        imagePath: "assets/images/image (5).png",
+        imagePath: imageItem,
       ),
       _TableCell(text: qty),
       _TableCell(text: price),
@@ -232,10 +249,31 @@ class _TableCell extends StatelessWidget {
             if (imagePath != null)
               Padding(
                 padding: const EdgeInsets.only(right: 6),
-                child: Image.asset(
-                  imagePath!,
-                  width: 24,
-                  height: 24,
+                child: InkWell(
+                  onTap: (){
+                    print(imagePath);
+                  },
+                  child: SizedBox(
+                    width: 24,
+                    height: 24,
+                    child: Image.network(
+                      imagePath!,
+
+                      errorBuilder: (context, error, stackTrace) =>
+                          const Icon(Icons.error, size: 24),
+                      loadingBuilder: (context, child, loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return const Center(
+                          child: SizedBox(
+                            width: 12,
+                            height: 12,
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          ),
+                        );
+                      },
+                    ),
+                  )
+
                 ),
               ),
           ],

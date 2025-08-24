@@ -75,16 +75,16 @@ class ProductModel {
   factory ProductModel.fromJson(Map<String, dynamic> json) {
     return ProductModel(
       productCode: json['ProductCode'] ?? '',
-      productId: json["ProductID"],
+      productId: json["ProductID"]??0,
       barCode: json['BarCode'] ?? '',
       colorArName: json['ColorArName'],
       colorEnName: json['ColorEnName'],
       sizeName: json['SizeName'],
       categoryId:json['CategoryId'] ,
       sizeEName: json['SizeEName'],
-      productArName: '${json['ProductArName'] ?? ''}${(json['DefaultUnitArName'] ?? json['UnitArName'])?.toString().isNotEmpty == true ? ' (${json['DefaultUnitArName'] ?? json['UnitArName']})' : ''}',
+      productArName: '${json['ProductArName'] ?? json["ProductName"]}${(json['DefaultUnitArName'] ?? json['UnitArName'])?.toString().isNotEmpty == true ? ' (${json['DefaultUnitArName'] ?? json['UnitArName']})' : ''}',
       discountPercent: json['DiscountPercent'],
-      productEnName: '${json['ProductEnName'] ?? ''}${(json['DefaultUnitEnName'] ?? json['UnitEnName'])?.toString().isNotEmpty == true ? ' (${json['DefaultUnitEnName'] ?? json['UnitEnName']})' : ''}',
+      productEnName: '${json['ProductEnName'] ?? json['ProductEnName']}${(json['DefaultUnitEnName'] ?? json['UnitEnName'])?.toString().isNotEmpty == true ? ' (${json['DefaultUnitEnName'] ?? json['UnitEnName']})' : ''}',
 
 
       unitArName: json['UnitArName'] ?? '',
@@ -95,7 +95,7 @@ class ProductModel {
 
       categoryArName: json['CategoryArName'] ?? '',
       categoryEnName: json['CategoryEnName'] ?? '',
-      productImage: json['ProductcImage'],
+      productImage: json['ProductcImage']??json['ProductcImage'],
       isFavorite: json['IsFavorite'] == 1,
       stockQuantity: json['StockQuantity'] ?? 0.0,
       price: json['Price'] ?? 0.0,

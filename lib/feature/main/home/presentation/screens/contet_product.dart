@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,6 +8,9 @@ import 'package:settings_app/core/constant/app_colors.dart';
 import 'package:settings_app/feature/main/catagory/manager/category_cubit.dart';
 import 'package:settings_app/feature/main/catagory/manager/category_state.dart';
 import 'package:settings_app/feature/main/home/presentation/widget/custom_grid_views.dart';
+
+import '../../../menu/manager/cart_cubit.dart';
+import '../../../menu/manager/chat_state.dart';
 
 class ContentProduct extends StatelessWidget {
   final num categoryId;
@@ -105,14 +109,22 @@ class ContentProduct extends StatelessWidget {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text(
-                                    "4",
-                                    style: TextStyle(
-                                      fontFamily: "Alexandria",
-                                      fontSize: 22.sp,
-                                      fontWeight: FontWeight.w700,
-                                      color: AppColors.mainAppColor,
-                                    ),
+                                  BlocBuilder<CartCubit, CartState>(
+                                    builder: (context, state) {
+                                      final cubit= context.watch<CartCubit>();
+                                      return
+
+                                        Text(
+                                          '${cubit.cartItems.isNotEmpty ?cubit.cartItems.length: 0}',
+                                          style: TextStyle(
+                                            fontFamily: "Alexandria",
+                                            fontSize: 22.sp,
+                                            fontWeight: FontWeight.w700,
+                                            color: AppColors.mainAppColor,
+                                          ),
+                                        );
+
+                                    },
                                   ),
                                   const SizedBox(width: 5),
                                   Image.asset(AppAssets.menuuu),
@@ -136,10 +148,25 @@ class ContentProduct extends StatelessWidget {
                     SizedBox(
                       height: 20.h,
                     ),
-                    DrinkSelector(categoryCubit:categoryCubit ,
-                        categoryId: categoryId,
-                        selectedIndex: categoryCubit.brandSelect,
-                     ),
+                    BlocBuilder<CategoryCubit,CategoryState>(
+                      bloc:categoryCubit ,
+                      builder: (context,state) {
+
+                        return ConditionalBuilder(
+                          condition: categoryCubit.subCategoryList.isEmpty ||
+                              categoryCubit.subCategorySelect >= categoryCubit.subCategoryList.length,
+                          builder: (context) {
+                            return DrinkSelector(
+                              categoryCubit: categoryCubit,
+                              categoryId: categoryCubit.subCategoryList[categoryCubit.subCategorySelect].categoryId,
+                              selectedIndex: categoryCubit.brandSelect,
+                            );
+                          },
+                          fallback: (context) => const SizedBox.shrink(),
+                        );
+
+                      }
+                    ),
                     Customgridview(categoryCubit:categoryCubit ,)
                   ],
                 );
@@ -255,10 +282,12 @@ required this.categoryId
           return GestureDetector(
             onTap: () {
 
-              categoryCubit.changeSelectedBrand(index: index);
-              categoryCubit.brandSelect=-1;
-              categoryCubit.getItemsForBrandCategory(categoryId: categoryId,brandId: categoryCubit.brandList[0].brands[index].fabricID);
 
+
+              categoryCubit.getItemsForBrandCategory(categoryId:  categoryId,brandId: categoryCubit.brandList[0].brands[index].fabricID);
+              categoryCubit.changeSelectedBrand(index: index);
+
+              print(categoryCubit.brandSelect);
 
             },
             child: Container(
@@ -267,7 +296,7 @@ required this.categoryId
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(
-                  color: selectedIndex == index
+                  color: categoryCubit.brandSelect == index
                       ? AppColors.mainAppColor
                       : Colors.transparent,
                   width: 3,

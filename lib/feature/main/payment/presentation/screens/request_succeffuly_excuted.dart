@@ -4,8 +4,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:settings_app/core/constant/app_colors.dart';
 import 'package:settings_app/feature/main/payment/presentation/screens/invoice_table_screen.dart';
 
+import '../../model/order_summry_model.dart';
+
 class RequestSuccessfullyExecuted extends StatefulWidget {
-  const RequestSuccessfullyExecuted({super.key});
+  OrderSummryModel? orderSummryModel;
+  dynamic invoiceNumber;
+ RequestSuccessfullyExecuted({super.key,required this.orderSummryModel,required this.invoiceNumber});
 
   @override
   State<RequestSuccessfullyExecuted> createState() =>
@@ -14,6 +18,7 @@ class RequestSuccessfullyExecuted extends StatefulWidget {
 
 class _RequestSuccessfullyExecutedState
     extends State<RequestSuccessfullyExecuted> {
+
   @override
   void initState() {
     super.initState();
@@ -22,7 +27,7 @@ class _RequestSuccessfullyExecutedState
         Navigator.pop(context);
 
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (_) => const InvoiceScreen()));
+            context, MaterialPageRoute(builder: (_) => InvoiceScreen(invoiceNumber: widget.invoiceNumber,orderSummryModel: widget.orderSummryModel,)));
       }
     });
   }

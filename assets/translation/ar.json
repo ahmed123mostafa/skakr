@@ -14,7 +14,7 @@
     "please_enter_address_type":"من فضلك ادخال نوع العنوان",
     "please_enter_delivery_instructions":"من فضلك ادخال تعليمات التوصيل",
     "enter erea":"ادخل المنطقه",
-
+  "login_error": "فشل تسجيل الدخول، من فضلك تحقق من البيانات",
   "unavailable": "غير متوفر",
 
     "cairo_branch": "فرع القاهرة",
@@ -148,10 +148,10 @@
    "it_has_been_canceled.":"تم الالغاء",
    "total_price:":"إجمالي السعر:",
    "1000.00 pounds":"1000 جنيه",
-   "delivery_to:home":"التوصيل إلي:المنزل",
+   "delivery_to:":"التوصيل إلي:",
    "azzhar_street 2,hawalli,nasr city":"ا شارع الازهر 2 ,حولي , مدينة نصر",
    "price:":"السعر",
-   "pounds":" جنيه",
+   "pounds":" جنيه", "welcome_message": "اهلا ",
    "total:":"الإجمالي",
    "the_minimum_order":"الحد الأدني للطلب",
    "2000 pounds":"2000 جنيه",

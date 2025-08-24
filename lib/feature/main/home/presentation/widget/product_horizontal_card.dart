@@ -10,13 +10,18 @@ import 'package:skeletonizer/skeletonizer.dart';
 import '../../../../../core/constant/app_assets.dart';
 import '../../../../../core/constant/app_colors.dart';
 import '../../../catagory/model/product_model.dart';
+import '../../../details/presentation/screens/details_screen.dart';
+import '../../../favourite/manager/favorite_cubit.dart';
+import '../../../favourite/manager/favorite_state.dart';
 import '../../../menu/model/cart_item_model.dart';
+import '../../manager/cubit/home_cubit.dart';
 import '../screens/order_again.dart';
 
 class ProductHorizontalCard extends StatelessWidget {
   final     List<ProductModel> product;
+  Map<String, bool> itemsFavorite ;
   final String categoryName;
-  const ProductHorizontalCard({super.key,  required this.product,required this.categoryName});
+ ProductHorizontalCard({super.key, required this.itemsFavorite ,required this.product,required this.categoryName});
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +57,7 @@ class ProductHorizontalCard extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(width: 3.w),
+              SizedBox(width: 5.w),
               Image.asset(AppAssets.line),
               SizedBox(width: 5.w),
               Expanded(
@@ -61,7 +66,7 @@ class ProductHorizontalCard extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const OrderAgain()));
+                            builder: (context) =>  ItemsCategoryOffer(isFavoriteMap: itemsFavorite, product: product, categoryName: categoryName,)));
                   },
                   child: Text(
                     "view_all".tr(),
@@ -92,121 +97,187 @@ class ProductHorizontalCard extends StatelessWidget {
                     Stack(
                       clipBehavior: Clip.none,
                       children: [
-                        Container(
-                          width: containerWidth,
-                          height: containerHeight,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(color: Colors.grey.shade300, blurRadius: 6),
-                            ],
-                          ),
-                          child: Stack(
-                            children: [
-                              Positioned(
-                                top: containerHeight * 0.16,
-                                left: 0,
-                                right: 0,
-                                child: Center(
-                                  child:
-                                  CachedNetworkImage(
-                                    imageUrl: product[index].productImage.toString()??'',
-                                    placeholder: (context, url) => Skeletonizer(
-                                      enabled: true,
-                                      child: Center(
-                                        child: Icon(Icons.image, size:  imageWidth,
-                                           weight:imageWidth ,
+                        GestureDetector(
+                          onTap: (){
+
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => DetailsScreen(productId:product[index].productId ,),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            width: containerWidth,
+                            height: containerHeight,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(color: Colors.grey.shade300, blurRadius: 6),
+                              ],
+                            ),
+                            child: Stack(
+                              children: [
+                                Positioned(
+                                  top: containerHeight * 0.16,
+                                  left: 0,
+                                  right: 0,
+                                  child: Center(
+                                    child:
+                                    CachedNetworkImage(
+                                      imageUrl: product[index].productImage.toString()??'',
+                                      placeholder: (context, url) => Skeletonizer(
+                                        enabled: true,
+                                        child: Center(
+                                          child: Icon(Icons.image, size:  imageWidth,
+                                             weight:imageWidth ,
 
 
 
-                                          ),
+                                            ),
+                                        ),
                                       ),
+                                      errorWidget: (context, url, error) => const Icon(Icons.error),
+                                      width: imageWidth,
+                                      height: imageHeight,
+
                                     ),
-                                    errorWidget: (context, url, error) => const Icon(Icons.error),
-                                    width: imageWidth,
-                                    height: imageHeight,
+
 
                                   ),
-
-
                                 ),
-                              ),
-                              if(product[index].discountPercent!>0)
-                              Positioned(
-                                top: 0,
-                                right: 0,
-                                child: Stack(
-                                  alignment: Alignment.center,
-                                  children: [
+                                if((product[index].discountPercent??0.0)>0)
+                                Positioned(
+                                  top: 0,
+                                  right: 0,
+                                  child: Stack(
+                                    alignment: Alignment.center,
+                                    children: [
 
-                                    Image.asset("assets/images/Vector 356.png"),
+                                      Image.asset("assets/images/Vector 356.png"),
 
-                                    Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Center(
-                                          child: Text(
-                                            '${ '${product[index].discountPercent} '}%',
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: fontSizePrice * 0.8,
-                                              fontWeight: FontWeight.w700,
+                                      Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Center(
+                                            child: Text(
+                                              '${ '${product[index].discountPercent} '}%',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: fontSizePrice * 0.8,
+                                                fontWeight: FontWeight.w700,
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        Center(
-                                          child: Text(
-                                            "offers".tr(),
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: fontSizePrice * 0.7,
-                                              fontWeight: FontWeight.w700,
+                                          Center(
+                                            child: Text(
+                                              "offers".tr(),
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: fontSizePrice * 0.7,
+                                                fontWeight: FontWeight.w700,
+                                              ),
                                             ),
                                           ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                BlocBuilder<FavoriteCubit,FavoriteState>(
+                                builder: (context,state)
+                                {
+                                return Positioned(
+                                top:5,
+                                left: 5,
+                                child: IconButton(
+                                icon: Icon(
+                                  itemsFavorite[product[index].barCode] ?? false
+                                ? Icons.favorite
+                                    : Icons.favorite_border,
+                                color:itemsFavorite[product[index].barCode] ?? false
+                                ? Colors.red
+                                    : Colors.grey,
+                                ),
+
+                                onPressed: (){
+                                BlocProvider.of<FavoriteCubit>(
+                                context)
+                                    .addFavorite(
+                                barcode:product[index].barCode ,
+                                favorite: itemsFavorite
+                                ,
+                                productId: product[index].productId,
+                                );
+
+                                },  ),
+                                );
+                                },
+
+                                ),
+
+
+
+                                Positioned(
+                                  top: containerHeight * 0.5,
+                                  right: 12,
+                                  left: 12,
+                                  child:   (product[index].discountPercent??0.0)>0
+                                      ? Row(
+                                    children: [
+                                      Text(
+                                        '${product[index].price.toStringAsFixed(2)} ${"pounds".tr()}',
+                                        style: TextStyle(
+                                          fontSize: fontSizePrice * 0.8,
+                                          color: Colors.grey,
+                                          fontWeight: FontWeight.w400,
+                                          fontFamily: "Alexandria",
+                                          decoration: TextDecoration.lineThrough,
                                         ),
-                                      ],
+                                      ),
+                                      const SizedBox(width: 8),
+                                      Text(
+                                        '${product[index].priceAfterDiscount.toStringAsFixed(2)} ${"pounds".tr()}',
+                                        style: TextStyle(
+                                          fontSize: fontSizePrice,
+                                          color: AppColors.mainAppColor,
+                                          fontWeight: FontWeight.w700,
+                                          fontFamily: "Alexandria",
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                      : Text(
+                                    '${product[index].price.toStringAsFixed(2)} ${"pounds".tr()}',
+                                    style: TextStyle(
+                                      fontSize: fontSizePrice,
+                                      color: AppColors.mainAppColor,
+                                      fontWeight: FontWeight.w700,
+                                      fontFamily: "Alexandria",
                                     ),
-                                  ],
-                                ),
-                              ),
-                              const Positioned(
-                                top: 0,
-                                left: 0,
-                                child:
-                                Icon(Icons.favorite_border, color: Colors.grey),
-                              ),
-                              Positioned(
-                                top: containerHeight * 0.5,
-                                right: 12,
-                                left: 12,
-                                child: Text(
-                                  '${product[index].price}',
-                                  style: TextStyle(
-                                    fontSize: fontSizePrice,
-                                    color: AppColors.mainAppColor,
-                                    fontWeight: FontWeight.w700,
-                                    fontFamily: "Alexandria",
                                   ),
                                 ),
-                              ),
-                              Positioned(
-                                top: containerHeight * 0.63,
-                                right: 12,
-                                left: 12,
-                                child: Text(
-                                  isArabic
-                                      ? product[index].productArName ?? ''
-                                      : product[index].productEnName ?? '',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontFamily: "Alexandria",
-                                    fontSize: fontSizeTitle,
-                                    color: const Color(0xff231F20),
+
+
+                                Positioned(
+                                  top: containerHeight * 0.63,
+                                  right: 12,
+                                  left: 12,
+                                  child: Text(
+                                    isArabic
+                                        ? product[index].productArName ?? ''
+                                        : product[index].productEnName ?? '',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontFamily: "Alexandria",
+                                      fontSize: fontSizeTitle,
+                                      color: const Color(0xff231F20),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                         BlocBuilder<CartCubit, CartState>(
@@ -262,19 +333,7 @@ class ProductHorizontalCard extends StatelessWidget {
                                     ),
                                     IconButton(
                                       onPressed: () {
-                                        final canAdd = (
-                                            (productItem.stockQuantity > 0 &&
-                                                productItem.stockQuantity <= 0 &&
-                                                itemCount < productItem.stockQuantity) ||
-                                                ( productItem.stockQuantity > 0 &&
-                                                    itemCount <  productItem.stockQuantity) ||
-                                                (productItem.stockQuantity <= 0 &&
-                                                    productItem.stockQuantity > 0 &&
-                                                    itemCount <  productItem.stockQuantity) ||
-                                                (productItem.stockQuantity <= 0 &&
-                                                    itemCount <  productItem.stockQuantity) ||
-                                                ( productItem.stockQuantity == 0)
-                                        );
+                                        final canAdd = itemCount < productItem.stockQuantity;
 
                                         if (canAdd) {
                                           cartCubit.addItem(
@@ -284,7 +343,7 @@ class ProductHorizontalCard extends StatelessWidget {
                                               nameEn: productItem.productEnName,
                                               barcode: productItem.barCode,
                                               priceBeforeDiscount: productItem.priceAfterDiscount,
-                                              priceAfterDiscount: productItem.priceAfterDiscount,
+                                              Price: productItem.priceAfterDiscount,
                                               image: productItem.productImage ?? '',
                                               stockQuantity: productItem.stockQuantity,
                                               customerQuantity: productItem.stockQuantity,
@@ -306,21 +365,26 @@ class ProductHorizontalCard extends StatelessWidget {
                                   ],
                                 )
                                     : ElevatedButton(
-                                  onPressed: () {
-                                    cartCubit.addItem(
-                                      CartItem(
-                                        productId: productItem.productId,
-                                        nameAr: productItem.productArName,
-                                        nameEn: productItem.productEnName,
-                                        barcode: productItem.barCode,
-                                        priceBeforeDiscount: productItem.priceAfterDiscount,
-                                        priceAfterDiscount: productItem.priceAfterDiscount,
-                                        image: productItem.productImage ?? '',
-                                        stockQuantity: productItem.stockQuantity,
-                                        customerQuantity: productItem.stockQuantity,
-                                        quantity: productItem.stockQuantity.toInt(),
-                                      ),
-                                    );
+                                        onPressed: () {
+                                          final canAdd = itemCount < productItem.stockQuantity;
+
+                                          if (canAdd) {
+      cartCubit.addItem(
+        CartItem(
+          productId: productItem.productId,
+          nameAr: productItem.productArName,
+          nameEn: productItem.productEnName,
+          barcode: productItem.barCode,
+          priceBeforeDiscount: productItem.priceAfterDiscount,
+          Price: productItem.priceAfterDiscount,
+          image: productItem.productImage ?? '',
+          stockQuantity: productItem.stockQuantity,
+          customerQuantity: productItem.stockQuantity,
+          quantity: productItem.stockQuantity.toInt(),
+        ),
+      );
+    }
+
                                   },
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: AppColors.mainAppColor,

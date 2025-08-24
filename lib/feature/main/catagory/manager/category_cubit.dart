@@ -136,8 +136,11 @@ print('********************');
       print('********************');
 
       List<dynamic> jsonList = jsonDecode(decryptedText);
-    brandList = jsonList.map((json) => BrandResponseModel.fromJson(json)).toList();
-log(decryptedText);
+
+log(jsonList.length);
+
+   brandList = jsonList.map((json) => BrandResponseModel.fromJson(json)).toList();
+
       emit(GetBrandsSuccess());
     }).catchError((error) {
       print('Error In Function Get Brands By SubCategory: ${error.toString()}');
@@ -155,10 +158,13 @@ log(decryptedText);
       useCache: true,
       cacheDuration: const Duration(minutes: 10),
     ).then((value) {
+      final decryptedText = decrypt(value, privateKey, publicKey);
+    print(decryptedText);
+    print('********************');
 print('--------------------------*******************---------');
 print(value);
       itemsSubCategoryList.clear();
-      final decryptedText = decrypt(value, privateKey, publicKey);
+
 print('--------------------------***********888888********---------');
       print(decryptedText);
 

@@ -4,9 +4,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:settings_app/core/constant/app_colors.dart';
 import 'package:settings_app/feature/main/payment/presentation/screens/invoice_table_screen.dart';
 
-class StepperPageView extends StatelessWidget {
-  const StepperPageView({super.key});
+import '../../../../../PreviousOrders/manager/previous_order_cubit.dart';
 
+class StepperPageView extends StatelessWidget {
+   StepperPageView({super.key,required this.orderTrackingCubit});
+  final PreviousOrderCubit orderTrackingCubit;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +34,7 @@ class StepperPageView extends StatelessWidget {
                     width: 20.w,
                   ),
                   Text(
-                    "2000 pounds".tr(),
+                    "${orderTrackingCubit.orderTrackingDetails[orderTrackingCubit.orderTrackingDetails.length - 1].finalValue} pounds".tr(),
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 12.sp,
@@ -54,11 +56,11 @@ class StepperPageView extends StatelessWidget {
                     ),
                     child: InkWell(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const InvoiceScreen()),
-                        );
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //       builder: (context) => const InvoiceScreen()),
+                        // );
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -87,7 +89,12 @@ class StepperPageView extends StatelessWidget {
                 ],
               ),
             ),
-            const Expanded(child: StepperPage())
+            Expanded(
+              child: StepperPage(
+                currentStep: orderTrackingCubit.getCurrentStep(orderTrackingCubit.orderTrackingDetails.last),
+                onStepTap: (index) {},
+              )
+            )
           ],
         ),
       ),
@@ -95,58 +102,48 @@ class StepperPageView extends StatelessWidget {
   }
 }
 
-class StepperPage extends StatefulWidget {
-  const StepperPage({super.key});
-  @override
-  _StepperPageState createState() => _StepperPageState();
-}
+class StepperPage extends StatelessWidget {
+  final int currentStep;
+  final Function(int) onStepTap;
 
-class _StepperPageState extends State<StepperPage> {
-  int _currentStep = 0;
+  const StepperPage({
+    super.key,
+    required this.currentStep,
+    required this.onStepTap,
+  });
 
-  final List<Map<String, dynamic>> _steps = [
+  final List<Map<String, dynamic>> _steps = const [
     {
-      'title': 'the order has been received'.tr(),
+      'title': 'the order has been received',
       'image': "assets/images/Group 224.png",
       'description':
-          'your order has been successfully received and will be processed soon. Thank you for choosing us'
-              .tr(),
+      'your order has been successfully received and will be processed soon. Thank you for choosing us',
     },
     {
-      'title': 'the order has been confirmed'.tr(),
+      'title': 'the order has been confirmed',
       'image': "assets/images/Group 223.png",
       'description':
-          'your order has been confirmed successfully and we are now in the process of preparing it for shipment to you'
-              .tr()
+      'your order has been confirmed successfully and we are now in the process of preparing it for shipment to you'
     },
     {
-      'title': 'the order is in the preparation stage'.tr(),
+      'title': 'the order is in the preparation stage',
       "image": "assets/images/Group 37060.png",
       'description':
-          'the order is currently in preparation. It will be ready for shipping as soon as possible'
-              .tr(),
+      'the order is currently in preparation. It will be ready for shipping as soon as possible',
     },
     {
-      'title': 'on the way to you'.tr(),
+      'title': 'on the way to you',
       "image": "assets/images/Group 220.png",
       'description':
-          'the order is on its way to you. It will be delivered by shipping service soon'
-              .tr(),
+      'the order is on its way to you. It will be delivered by shipping service soon',
     },
     {
-      'title': 'delivered'.tr(),
+      'title': 'delivered',
       "image": "assets/images/Group 221.png",
       'description':
-          'your order has been successfully received, thank you for your purchase. We hope you are satisfied with your products'
-              .tr(),
+      'your order has been successfully received, thank you for your purchase. We hope you are satisfied with your products',
     },
   ];
-
-  void _handleStepTap(int index) {
-    setState(() {
-      _currentStep = index;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -170,15 +167,15 @@ class _StepperPageState extends State<StepperPage> {
                           child: Container(
                             width: 40,
                             height: 40,
-                            color: _currentStep >= index
+                            color: currentStep >= index
                                 ? AppColors.mainAppColor
                                 : Colors.grey.shade300,
                             child: Center(
-                              child: _currentStep > index
+                              child: currentStep > index
                                   ? const Icon(Icons.check,
-                                      color: Color(0xffAAAAAA))
+                                  color: Color(0xffAAAAAA))
                                   : const Icon(Icons.check,
-                                      color: Colors.white),
+                                  color: Colors.white),
                             ),
                           ),
                         ),
@@ -186,7 +183,7 @@ class _StepperPageState extends State<StepperPage> {
                           Container(
                             height: 120,
                             width: 2,
-                            color: _currentStep >= index
+                            color: currentStep >= index
                                 ? AppColors.mainAppColor
                                 : Colors.grey.shade300,
                           ),
@@ -197,25 +194,25 @@ class _StepperPageState extends State<StepperPage> {
                       color: Colors.white,
                       width: 250,
                       height: 150,
-                      bordercolor: _currentStep == index
+                      bordercolor: currentStep == index
                           ? AppColors.mainAppColor
                           : Colors.white,
                       isCornerRounded: true,
                       child: InkWell(
-                        onTap: () => _handleStepTap(index),
+                        onTap: () => onStepTap(index),
                         child: Padding(
                           padding: const EdgeInsets.all(16.0),
                           child: Column(
                             children: [
                               SizedBox(height: 10.h),
                               Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 10, right: 10),
+                                padding: const EdgeInsets.only(
+                                    left: 10, right: 10),
                                 child: Row(
                                   children: [
                                     ColorFiltered(
                                       colorFilter: ColorFilter.mode(
-                                        _currentStep >= index
+                                        currentStep >= index
                                             ? AppColors.mainAppColor
                                             : Colors.grey,
                                         BlendMode.srcIn,
@@ -228,11 +225,11 @@ class _StepperPageState extends State<StepperPage> {
                                     ),
                                     SizedBox(width: 5.w),
                                     Text(
-                                      step['title'],
+                                      step['title'].toString().tr(),
                                       style: TextStyle(
                                         fontSize: 8,
                                         fontWeight: FontWeight.w600,
-                                        color: _currentStep >= index
+                                        color: currentStep >= index
                                             ? AppColors.mainAppColor
                                             : Colors.grey,
                                       ),
@@ -242,14 +239,14 @@ class _StepperPageState extends State<StepperPage> {
                               ),
                               const SizedBox(height: 5),
                               Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 15, right: 15),
+                                padding: const EdgeInsets.only(
+                                    left: 15, right: 15),
                                 child: Text(
-                                  step['description'],
+                                  step['description'].toString().tr(),
                                   style: TextStyle(
                                     fontSize: 11,
                                     fontWeight: FontWeight.w400,
-                                    color: _currentStep >= index
+                                    color: currentStep >= index
                                         ? AppColors.mainAppColor
                                         : Colors.grey,
                                   ),
@@ -270,6 +267,7 @@ class _StepperPageState extends State<StepperPage> {
     );
   }
 }
+
 
 class TicketWidget extends StatefulWidget {
   const TicketWidget({

@@ -85,22 +85,22 @@ class _LoginScreenState extends State<LoginScreen> {
             textColor: Colors.white,
             fontSize: 16.0,
             );
-            Navigator.push(
+
+            Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(
-                builder: (context) => const HomeView(),
-              ),
+              MaterialPageRoute(builder: (context) => const HomeView(),),
+                  (Route<dynamic> route) => false,
             );
 
             }
 
               if (state is LoginViewStateError) {
                 Fluttertoast.showToast(
-                  msg: 'login_noooooooooooosuccess'.tr(),
+                  msg: 'login_error'.tr(),
                   toastLength: Toast.LENGTH_SHORT,
                   gravity: ToastGravity.BOTTOM,
-                  timeInSecForIosWeb: 1,
-                  backgroundColor: Colors.red,
+                  timeInSecForIosWeb: 2,
+                  backgroundColor: Colors.redAccent,
                   textColor: Colors.white,
                   fontSize: 16.0,
                 );

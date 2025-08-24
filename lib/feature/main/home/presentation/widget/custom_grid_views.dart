@@ -8,6 +8,8 @@ import 'package:settings_app/feature/main/details/presentation/screens/details_s
 import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../catagory/manager/category_cubit.dart';
+import '../../../favourite/manager/favorite_cubit.dart';
+import '../../../favourite/manager/favorite_state.dart';
 import '../../../menu/manager/cart_cubit.dart';
 import '../../../menu/manager/chat_state.dart';
 import '../../../menu/model/cart_item_model.dart';
@@ -67,47 +69,102 @@ class Customgridview extends StatelessWidget {
                       },
                       child: Padding(
                         padding: EdgeInsets.all(screenWidth * 0.04),
-                        child: InkWell(
-                          onTap: (){
-                            print(categoryCubit!.itemsSubCategoryList[index].productImage);
-                          },
-                          child:
-          CachedNetworkImage(
-          imageUrl:  categoryCubit!.itemsSubCategoryList[index].productImage.toString(),
-          placeholder: (context, url) => Skeletonizer(
-          enabled: true,
-          child: Center(
-          child: Icon(Icons.image, size:  imageWidth,
-          weight:imageWidth ,
+                        child: CachedNetworkImage(
+                        imageUrl:  categoryCubit!.itemsSubCategoryList[index].productImage.toString(),
+                        placeholder: (context, url) => Skeletonizer(
+                        enabled: true,
+                        child: Center(
+                        child: Icon(Icons.image, size:  100,
+                        weight:imageWidth ,
 
-
-
-          ),
-          ),
-          ),
-          errorWidget: (context, url, error) => const Icon(Icons.error),
-          width: imageWidth,
-          height: imageHeight,
-
-          )
 
 
                         ),
+                        ),
+                        ),
+                        errorWidget: (context, url, error) => const Icon(Icons.error),
+                        width: imageWidth,
+                        height: imageHeight,
+
+                        ),
                       ),
-                    ),
+                    ), if(( categoryCubit!.itemsSubCategoryList[index].discountPercent??0.0)>0)
+                      Positioned(
+                        top: 0,
+                        right: 0,
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+
+                            Image.asset("assets/images/Vector 356.png"),
+
+                            Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Center(
+                                  child: Text(
+                                    '${ '${ categoryCubit!.itemsSubCategoryList[index].discountPercent} '}%',
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                ),
+                                Center(
+                                  child: Text(
+                                    "offers".tr(),
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize:10,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
                     Padding(
                       padding:
                           EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
-                      child: Text(
-                        '${categoryCubit?.itemsSubCategoryList[index].price??0}',
+
+                      child:
+                          categoryCubit!.itemsSubCategoryList[index].discountPercent! > 0
+                          ? Row(
+                        children: [
+                          Text(
+                            '${categoryCubit!.itemsSubCategoryList[index].price.toStringAsFixed(2)} ${"pounds".tr()}',
+                            style: TextStyle(
+                              fontSize: screenWidth * 0.04,
+                              color: Colors.grey,
+                              fontWeight: FontWeight.w400,
+                              fontFamily: "Alexandria",
+                              decoration: TextDecoration.lineThrough,
+                            ),
+                          ),
+                          const SizedBox(width: 6),
+                          Text(
+                            '${categoryCubit!.itemsSubCategoryList[index].priceAfterDiscount.toStringAsFixed(2)} ${"pounds".tr()}',
+                            style: TextStyle(
+                              fontSize: screenWidth * 0.045,
+                              color: AppColors.mainAppColor,
+                              fontWeight: FontWeight.w700,
+                              fontFamily: "Alexandria",
+                            ),
+                          ),
+                        ],
+                      )
+                          : Text(
+                        '${categoryCubit?.itemsSubCategoryList[index].price.toStringAsFixed(2) ?? 0} ${"pounds".tr()}',
                         style: TextStyle(
                           fontSize: screenWidth * 0.045,
                           color: AppColors.mainAppColor,
                           fontWeight: FontWeight.w700,
                           fontFamily: "Alexandria",
                         ),
-                      ),
-                    ),
+                      )),
                     Padding(
                       padding: EdgeInsets.symmetric(
                           horizontal: screenWidth * 0.03,
@@ -157,7 +214,7 @@ class Customgridview extends StatelessWidget {
                         children: [
                           IconButton(
                             onPressed: () {
-                              if (itemCount > 1) {
+                              if (itemCount > 0) {
                                 cartCubit.removeItem(productItem.barCode);
                               }
                             },
@@ -180,19 +237,7 @@ class Customgridview extends StatelessWidget {
                           ),
                           IconButton(
                             onPressed: () {
-                              final canAdd = (
-                                  (productItem.stockQuantity > 0 &&
-                                      productItem.stockQuantity <= 0 &&
-                                      itemCount < productItem.stockQuantity) ||
-                                      ( productItem.stockQuantity > 0 &&
-                                          itemCount <  productItem.stockQuantity) ||
-                                      (productItem.stockQuantity <= 0 &&
-                                          productItem.stockQuantity > 0 &&
-                                          itemCount <  productItem.stockQuantity) ||
-                                      (productItem.stockQuantity <= 0 &&
-                                          itemCount <  productItem.stockQuantity) ||
-                                      ( productItem.stockQuantity == 0)
-                              );
+                              final canAdd = itemCount < productItem.stockQuantity;
 
                               if (canAdd) {
                                 cartCubit.addItem(
@@ -202,7 +247,7 @@ class Customgridview extends StatelessWidget {
                                     nameEn: productItem.productEnName,
                                     barcode: productItem.barCode,
                                     priceBeforeDiscount: productItem.priceAfterDiscount,
-                                    priceAfterDiscount: productItem.priceAfterDiscount,
+                                    Price: productItem.priceAfterDiscount,
                                     image: productItem.productImage ?? '',
                                     stockQuantity: productItem.stockQuantity,
                                     customerQuantity: productItem.stockQuantity,
@@ -225,20 +270,24 @@ class Customgridview extends StatelessWidget {
                       )
                           : ElevatedButton(
                         onPressed: () {
-                          cartCubit.addItem(
-                            CartItem(
-                              productId: productItem.productId,
-                              nameAr: productItem.productArName,
-                              nameEn: productItem.productEnName,
-                              barcode: productItem.barCode,
-                              priceBeforeDiscount: productItem.priceAfterDiscount,
-                              priceAfterDiscount: productItem.priceAfterDiscount,
-                              image: productItem.productImage ?? '',
-                              stockQuantity: productItem.stockQuantity,
-                              customerQuantity: productItem.stockQuantity,
-                              quantity: productItem.stockQuantity.toInt(),
-                            ),
-                          );
+                          final canAdd = itemCount < productItem.stockQuantity;
+    if (canAdd) {
+      cartCubit.addItem(
+        CartItem(
+          productId: productItem.productId,
+          nameAr: productItem.productArName,
+          nameEn: productItem.productEnName,
+          barcode: productItem.barCode,
+          priceBeforeDiscount: productItem.priceAfterDiscount,
+          Price: productItem.priceAfterDiscount,
+          image: productItem.productImage ?? '',
+          stockQuantity: productItem.stockQuantity,
+          customerQuantity: productItem.stockQuantity,
+          quantity: productItem.stockQuantity.toInt(),
+        ),
+      );
+    }
+
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.mainAppColor,
@@ -261,7 +310,39 @@ class Customgridview extends StatelessWidget {
                     ),
                   );
                 },
-              )
+              ),
+
+              BlocBuilder<FavoriteCubit,FavoriteState>(
+                builder: (context,state)
+                {
+                  return Positioned(
+                    top:5,
+                    left: 5,
+                    child: IconButton(
+                      icon: Icon(
+                        categoryCubit?.itemsForSubCategoryFavorite[categoryCubit?.itemsSubCategoryList[index].barCode] ?? false
+                            ? Icons.favorite
+                            : Icons.favorite_border,
+                        color:categoryCubit?.itemsForSubCategoryFavorite[categoryCubit?.itemsSubCategoryList[index].barCode] ?? false
+                            ? Colors.red
+                            : Colors.grey,
+                      ),
+
+                      onPressed: (){
+                        BlocProvider.of<FavoriteCubit>(
+                            context)
+                            .addFavorite(
+                          barcode:categoryCubit!.itemsSubCategoryList[index].barCode ,
+                          favorite: categoryCubit!.itemsForSubCategoryFavorite
+                          ,
+                          productId: categoryCubit!.itemsSubCategoryList[index].productId,
+                        );
+
+                      },  ),
+                  );
+                },
+
+              ),
             ],
           );
         },
@@ -269,3 +350,7 @@ class Customgridview extends StatelessWidget {
     );
   }
 }
+
+
+
+

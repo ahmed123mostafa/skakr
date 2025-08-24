@@ -9,6 +9,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/api/dio_concumer.dart';
 import '../../../core/api/encrupt.dart';
 import '../../../core/api/end_point.dart';
+import '../../main/list/saved_address/model/area_model.dart';
+import '../../main/list/saved_address/model/governorate_model.dart';
 import '../model/customer_model.dart';
 import 'auth_state.dart';
 
@@ -56,7 +58,7 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> registerUser({
     required String firstName,
     required String nameAddress,
-
+    required String email,
     required String detailsAddress,
 
     required dynamic districtName,
@@ -71,16 +73,17 @@ class AuthCubit extends Cubit<AuthState> {
         {
           "ArabicName":firstName,
           "CustomerLastName":lastName,
-          // "MobilePhone":phone,
-          "email":companyName,  // backend
-          "PassWord":password,
-          "Token" :'token',
           "customerphone":phone,
+          "email":email,
+          "PassWord":password,
           "DistrictName":"$districtName",
           "RegionName":"$regionName",
+          "Token" :'token',
+
+
           "AddressNotes":detailsAddress,
           "Gada":nameAddress  ,
-          //backend
+
 
         },
         privateKey, publicKey);
@@ -133,5 +136,20 @@ class AuthCubit extends Cubit<AuthState> {
     isPasswordConfirm=!isPasswordConfirm;
     subfixConfirm=isPasswordConfirm?Icons.visibility_off:Icons.visibility;
     emit(ChangeIconPasswordSuccess());
+  }
+
+
+
+  GovernorateModel? selectedGovernorate;
+  void updateSelectedGovernorate(GovernorateModel governorate) {
+    selectedGovernorate = governorate;
+
+    emit(GovernorateSelected(selectedGovernorate!));
+  }
+
+  AreaModel? areaModel;
+  void updateSelectedArea(AreaModel area) {
+    areaModel = area;
+    emit(AreaSelected(areaModel!));
   }
 }

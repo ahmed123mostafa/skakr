@@ -62,287 +62,287 @@ class SavedAddress extends StatelessWidget {
             ),
             BlocBuilder<SavedAddressCubit,SavedAddressState>(
 
-              builder: (context,state) {
-                return Expanded(
-                  child:
-                  ConditionalBuilder
-                    (condition: state is GetGAllAddressSuccess,
-                      builder: (context){
+                builder: (context,state) {
+                  return Expanded(
+                      child:
+                      ConditionalBuilder
+                        (condition: state is !GetGAllAddressSuccess,
+                          builder: (context){
 
-                      return ListView.builder(
-                        itemCount: context.read<SavedAddressCubit>().allAddressList.length,
-                        itemBuilder: (context, index) {
-                          AllAddressModel address=context.read<SavedAddressCubit>().allAddressList[index];
-                          return
-                            AddressCard(
-                              title:  address.addressNotes!=null?address.addressNotes.toString():'',
-                              subtitle: address.mainAddress==1?'(main_title)'.tr():'',
-                              userName: '${address.arabicName??''} ${address.lastName??''}',
-                              phone: address.customerPhone??'',
-                              address: address.customerAddress??'',
-                              onEdit: () {
-                              //  BlocProvider.of<SavedAddressCubit>(context).getAllAddress();
+                            return ListView.builder(
+                              itemCount: context.read<SavedAddressCubit>().allAddressList.length,
+                              itemBuilder: (context, index) {
+                                AllAddressModel address=context.read<SavedAddressCubit>().allAddressList[index];
+                                return
+                                  AddressCard(
+                                    title:  address.addressNotes!=null?address.addressNotes.toString():'',
+                                    subtitle: address.mainAddress==1?'(main_title)'.tr():'',
+                                    userName: '${address.arabicName??''} ${address.lastName??''}',
+                                    phone: address.customerPhone??'',
+                                    address: address.customerAddress??'',
+                                    onEdit: () {
+                                      //  BlocProvider.of<SavedAddressCubit>(context).getAllAddress();
 
-                              Navigator.push(context, MaterialPageRoute(builder: (_) => const EditeAddress()));
-                              },
-                              onDelete: () {
-                              if(address.mainAddress!=0)
+                                      Navigator.push(context, MaterialPageRoute(builder: (_) => const EditeAddress()));
+                                    },
+                                    onDelete: () {
+                                      if(address.mainAddress!=0)
 
-                                {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text('❌ لا يمكن حذف العنوان الأساسي'),
-                                    ),
+                                      {
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          const SnackBar(
+                                            content: Text('❌ لا يمكن حذف العنوان الأساسي'),
+                                          ),
+                                        );
+                                      }
+                                    },
                                   );
-                                }
+
+                                //   Padding(
+                                //   padding:
+                                //   const EdgeInsets.only(right: 20, left: 20, bottom: 10),
+                                //   child: Container(
+                                //     height: 140.h,
+                                //     width: 393.w,
+                                //     decoration: BoxDecoration(
+                                //       borderRadius: BorderRadius.circular(10),
+                                //       color: Colors.white,
+                                //     ),
+                                //     child: Column(
+                                //       children: [
+                                //         Padding(
+                                //           padding: const EdgeInsets.only(right: 20, top: 10),
+                                //           child: Row(
+                                //             children: [
+                                //               Text(
+                                //                 "house".tr(),
+                                //                 style: TextStyle(
+                                //                   color: AppColors.mainAppColor,
+                                //                   fontWeight: FontWeight.w500,
+                                //                   fontSize: 12.sp,
+                                //                 ),
+                                //               ),
+                                //               SizedBox(width: 10.w),
+                                //               Text(
+                                //                 "(main_title)".tr(),
+                                //                 style: TextStyle(
+                                //                   color: const Color(0xff231F20),
+                                //                   fontWeight: FontWeight.w500,
+                                //                   fontSize: 6.sp,
+                                //                 ),
+                                //               )
+                                //             ],
+                                //           ),
+                                //         ),
+                                //         SizedBox(height: 8.h),
+                                //         Padding(
+                                //           padding: const EdgeInsets.only(right: 5),
+                                //           child: Row(
+                                //             children: [
+                                //               Image.asset(
+                                //                   "assets/images/Layer_2_copy_11 (1).png"),
+                                //               SizedBox(width: 5.w),
+                                //               Text(
+                                //                 "mohamed_samir".tr(),
+                                //                 style: TextStyle(
+                                //                   color: AppColors.mainAppColor,
+                                //                   fontWeight: FontWeight.w400,
+                                //                   fontSize: 12.sp,
+                                //                 ),
+                                //               ),
+                                //               const Spacer(),
+                                //               Row(
+                                //                 children: [
+                                //                   InkWell(
+                                //                       onTap: () {
+                                //                         Navigator.push(
+                                //                             context,
+                                //                             MaterialPageRoute(
+                                //                                 builder: (context) =>
+                                //                                 const EditeAddress()));
+                                //                       },
+                                //                       child: Image.asset(AppAssets.edite)),
+                                //                   GestureDetector(
+                                //                     onTap: () {
+                                //                       showDialog(
+                                //                         context: context,
+                                //                         builder: (context) {
+                                //                           return AlertDialog(
+                                //                             contentPadding:
+                                //                             const EdgeInsets.all(20),
+                                //                             shape: RoundedRectangleBorder(
+                                //                               borderRadius:
+                                //                               BorderRadius.circular(12),
+                                //                             ),
+                                //                             content: Column(
+                                //                               mainAxisSize: MainAxisSize.min,
+                                //                               children: [
+                                //                                 Image.asset(AppAssets.addres),
+                                //                                 SizedBox(height: 10.h),
+                                //                                 Text(
+                                //                                   'delete_the_address'.tr(),
+                                //                                   style: TextStyle(
+                                //                                     color: AppColors
+                                //                                         .mainAppColor,
+                                //                                     fontWeight:
+                                //                                     FontWeight.w500,
+                                //                                     fontSize: 12.sp,
+                                //                                   ),
+                                //                                 ),
+                                //                                 Text(
+                                //                                   'are_you_sure_you_want_to_delete_this_address?'
+                                //                                       .tr(),
+                                //                                   style: TextStyle(
+                                //                                     color: AppColors
+                                //                                         .mainAppColor,
+                                //                                     fontWeight:
+                                //                                     FontWeight.w500,
+                                //                                     fontSize: 10.sp,
+                                //                                   ),
+                                //                                 ),
+                                //                                 SizedBox(height: 20.h),
+                                //                                 Row(
+                                //                                   mainAxisAlignment:
+                                //                                   MainAxisAlignment
+                                //                                       .center,
+                                //                                   children: [
+                                //                                     ElevatedButton(
+                                //                                       onPressed: () {
+                                //                                         Navigator.of(context)
+                                //                                             .pop(); // Cancel
+                                //                                       },
+                                //                                       style: ElevatedButton
+                                //                                           .styleFrom(
+                                //                                           backgroundColor:
+                                //                                           AppColors
+                                //                                               .mainAppColor),
+                                //                                       child: Text(
+                                //                                         'delete'.tr(),
+                                //                                         style: TextStyle(
+                                //                                             fontSize: 15.sp,
+                                //                                             fontWeight:
+                                //                                             FontWeight
+                                //                                                 .w500,
+                                //                                             color:
+                                //                                             Colors.white),
+                                //                                       ),
+                                //                                     ),
+                                //                                     SizedBox(
+                                //                                       width: 20.w,
+                                //                                     ),
+                                //                                     ElevatedButton(
+                                //                                       onPressed: () {
+                                //                                         Navigator.of(context)
+                                //                                             .pop();
+                                //                                       },
+                                //                                       style: ElevatedButton
+                                //                                           .styleFrom(
+                                //                                           backgroundColor:
+                                //                                           Colors
+                                //                                               .white),
+                                //                                       child: Text(
+                                //                                         'cancel'.tr(),
+                                //                                         style: TextStyle(
+                                //                                             fontSize: 15.sp,
+                                //                                             fontWeight:
+                                //                                             FontWeight
+                                //                                                 .w500,
+                                //                                             color: AppColors
+                                //                                                 .mainAppColor),
+                                //                                       ),
+                                //                                     ),
+                                //                                   ],
+                                //                                 )
+                                //                               ],
+                                //                             ),
+                                //                           );
+                                //                         },
+                                //                       );
+                                //                     },
+                                //                     child: Icon(
+                                //                       Icons.delete,
+                                //                       color: AppColors.mainAppColor,
+                                //                     ),
+                                //                   ),
+                                //                 ],
+                                //               )
+                                //             ],
+                                //           ),
+                                //         ),
+                                //         SizedBox(height: 7.h),
+                                //         Padding(
+                                //           padding: const EdgeInsets.only(right: 5),
+                                //           child: Row(
+                                //             children: [
+                                //               Image.asset("assets/images/Group (8).png"),
+                                //               SizedBox(width: 5.w),
+                                //               Text(
+                                //                 "01096397289",
+                                //                 style: TextStyle(
+                                //                   color: const Color(0xff0A9223),
+                                //                   fontWeight: FontWeight.w400,
+                                //                   fontSize: 12.sp,
+                                //                 ),
+                                //               ),
+                                //             ],
+                                //           ),
+                                //         ),
+                                //         SizedBox(height: 7.h),
+                                //         Padding(
+                                //           padding: const EdgeInsets.only(right: 5),
+                                //           child: Row(
+                                //             children: [
+                                //               Icon(
+                                //                 Icons.location_on,
+                                //                 color: AppColors.mainAppColor,
+                                //               ),
+                                //               SizedBox(width: 5.w),
+                                //               Expanded(
+                                //                 child: Text(
+                                //                   "mansoura_talkha_corner_of_agriculture_street_al-Maghazi_tower"
+                                //                       .tr(),
+                                //                   style: TextStyle(
+                                //                     color: const Color(0xff231F20),
+                                //                     fontWeight: FontWeight.w400,
+                                //                     fontSize: 9.sp,
+                                //                   ),
+                                //                   maxLines: 2,
+                                //                   overflow: TextOverflow.ellipsis,
+                                //                 ),
+                                //               ),
+                                //             ],
+                                //           ),
+                                //         ),
+                                //       ],
+                                //     ),
+                                //   ),
+                                // );
                               },
                             );
-
-                          //   Padding(
-                          //   padding:
-                          //   const EdgeInsets.only(right: 20, left: 20, bottom: 10),
-                          //   child: Container(
-                          //     height: 140.h,
-                          //     width: 393.w,
-                          //     decoration: BoxDecoration(
-                          //       borderRadius: BorderRadius.circular(10),
-                          //       color: Colors.white,
-                          //     ),
-                          //     child: Column(
-                          //       children: [
-                          //         Padding(
-                          //           padding: const EdgeInsets.only(right: 20, top: 10),
-                          //           child: Row(
-                          //             children: [
-                          //               Text(
-                          //                 "house".tr(),
-                          //                 style: TextStyle(
-                          //                   color: AppColors.mainAppColor,
-                          //                   fontWeight: FontWeight.w500,
-                          //                   fontSize: 12.sp,
-                          //                 ),
-                          //               ),
-                          //               SizedBox(width: 10.w),
-                          //               Text(
-                          //                 "(main_title)".tr(),
-                          //                 style: TextStyle(
-                          //                   color: const Color(0xff231F20),
-                          //                   fontWeight: FontWeight.w500,
-                          //                   fontSize: 6.sp,
-                          //                 ),
-                          //               )
-                          //             ],
-                          //           ),
-                          //         ),
-                          //         SizedBox(height: 8.h),
-                          //         Padding(
-                          //           padding: const EdgeInsets.only(right: 5),
-                          //           child: Row(
-                          //             children: [
-                          //               Image.asset(
-                          //                   "assets/images/Layer_2_copy_11 (1).png"),
-                          //               SizedBox(width: 5.w),
-                          //               Text(
-                          //                 "mohamed_samir".tr(),
-                          //                 style: TextStyle(
-                          //                   color: AppColors.mainAppColor,
-                          //                   fontWeight: FontWeight.w400,
-                          //                   fontSize: 12.sp,
-                          //                 ),
-                          //               ),
-                          //               const Spacer(),
-                          //               Row(
-                          //                 children: [
-                          //                   InkWell(
-                          //                       onTap: () {
-                          //                         Navigator.push(
-                          //                             context,
-                          //                             MaterialPageRoute(
-                          //                                 builder: (context) =>
-                          //                                 const EditeAddress()));
-                          //                       },
-                          //                       child: Image.asset(AppAssets.edite)),
-                          //                   GestureDetector(
-                          //                     onTap: () {
-                          //                       showDialog(
-                          //                         context: context,
-                          //                         builder: (context) {
-                          //                           return AlertDialog(
-                          //                             contentPadding:
-                          //                             const EdgeInsets.all(20),
-                          //                             shape: RoundedRectangleBorder(
-                          //                               borderRadius:
-                          //                               BorderRadius.circular(12),
-                          //                             ),
-                          //                             content: Column(
-                          //                               mainAxisSize: MainAxisSize.min,
-                          //                               children: [
-                          //                                 Image.asset(AppAssets.addres),
-                          //                                 SizedBox(height: 10.h),
-                          //                                 Text(
-                          //                                   'delete_the_address'.tr(),
-                          //                                   style: TextStyle(
-                          //                                     color: AppColors
-                          //                                         .mainAppColor,
-                          //                                     fontWeight:
-                          //                                     FontWeight.w500,
-                          //                                     fontSize: 12.sp,
-                          //                                   ),
-                          //                                 ),
-                          //                                 Text(
-                          //                                   'are_you_sure_you_want_to_delete_this_address?'
-                          //                                       .tr(),
-                          //                                   style: TextStyle(
-                          //                                     color: AppColors
-                          //                                         .mainAppColor,
-                          //                                     fontWeight:
-                          //                                     FontWeight.w500,
-                          //                                     fontSize: 10.sp,
-                          //                                   ),
-                          //                                 ),
-                          //                                 SizedBox(height: 20.h),
-                          //                                 Row(
-                          //                                   mainAxisAlignment:
-                          //                                   MainAxisAlignment
-                          //                                       .center,
-                          //                                   children: [
-                          //                                     ElevatedButton(
-                          //                                       onPressed: () {
-                          //                                         Navigator.of(context)
-                          //                                             .pop(); // Cancel
-                          //                                       },
-                          //                                       style: ElevatedButton
-                          //                                           .styleFrom(
-                          //                                           backgroundColor:
-                          //                                           AppColors
-                          //                                               .mainAppColor),
-                          //                                       child: Text(
-                          //                                         'delete'.tr(),
-                          //                                         style: TextStyle(
-                          //                                             fontSize: 15.sp,
-                          //                                             fontWeight:
-                          //                                             FontWeight
-                          //                                                 .w500,
-                          //                                             color:
-                          //                                             Colors.white),
-                          //                                       ),
-                          //                                     ),
-                          //                                     SizedBox(
-                          //                                       width: 20.w,
-                          //                                     ),
-                          //                                     ElevatedButton(
-                          //                                       onPressed: () {
-                          //                                         Navigator.of(context)
-                          //                                             .pop();
-                          //                                       },
-                          //                                       style: ElevatedButton
-                          //                                           .styleFrom(
-                          //                                           backgroundColor:
-                          //                                           Colors
-                          //                                               .white),
-                          //                                       child: Text(
-                          //                                         'cancel'.tr(),
-                          //                                         style: TextStyle(
-                          //                                             fontSize: 15.sp,
-                          //                                             fontWeight:
-                          //                                             FontWeight
-                          //                                                 .w500,
-                          //                                             color: AppColors
-                          //                                                 .mainAppColor),
-                          //                                       ),
-                          //                                     ),
-                          //                                   ],
-                          //                                 )
-                          //                               ],
-                          //                             ),
-                          //                           );
-                          //                         },
-                          //                       );
-                          //                     },
-                          //                     child: Icon(
-                          //                       Icons.delete,
-                          //                       color: AppColors.mainAppColor,
-                          //                     ),
-                          //                   ),
-                          //                 ],
-                          //               )
-                          //             ],
-                          //           ),
-                          //         ),
-                          //         SizedBox(height: 7.h),
-                          //         Padding(
-                          //           padding: const EdgeInsets.only(right: 5),
-                          //           child: Row(
-                          //             children: [
-                          //               Image.asset("assets/images/Group (8).png"),
-                          //               SizedBox(width: 5.w),
-                          //               Text(
-                          //                 "01096397289",
-                          //                 style: TextStyle(
-                          //                   color: const Color(0xff0A9223),
-                          //                   fontWeight: FontWeight.w400,
-                          //                   fontSize: 12.sp,
-                          //                 ),
-                          //               ),
-                          //             ],
-                          //           ),
-                          //         ),
-                          //         SizedBox(height: 7.h),
-                          //         Padding(
-                          //           padding: const EdgeInsets.only(right: 5),
-                          //           child: Row(
-                          //             children: [
-                          //               Icon(
-                          //                 Icons.location_on,
-                          //                 color: AppColors.mainAppColor,
-                          //               ),
-                          //               SizedBox(width: 5.w),
-                          //               Expanded(
-                          //                 child: Text(
-                          //                   "mansoura_talkha_corner_of_agriculture_street_al-Maghazi_tower"
-                          //                       .tr(),
-                          //                   style: TextStyle(
-                          //                     color: const Color(0xff231F20),
-                          //                     fontWeight: FontWeight.w400,
-                          //                     fontSize: 9.sp,
-                          //                   ),
-                          //                   maxLines: 2,
-                          //                   overflow: TextOverflow.ellipsis,
-                          //                 ),
-                          //               ),
-                          //             ],
-                          //           ),
-                          //         ),
-                          //       ],
-                          //     ),
-                          //   ),
-                          // );
-                        },
-                      );
-                      },
-                      fallback:(context){
-                      return Skeletonizer(
-                        enabled: true,
-                        child: AddressCard(
-                          title: 'house'.tr(),
-                          subtitle: '(main_title)'.tr(),
-                          userName: 'mohamed_samir'.tr(),
-                          phone: '01096397289',
-                          address: 'mansoura_talkha_corner_of_agriculture_street_al-Maghazi_tower'.tr(),
-                          onEdit: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (_) => const EditeAddress()));
                           },
-                          onDelete: () {
+                          fallback:(context){
+                            return Skeletonizer(
+                              enabled: true,
+                              child: AddressCard(
+                                title: 'house'.tr(),
+                                subtitle: '(main_title)'.tr(),
+                                userName: 'mohamed_samir'.tr(),
+                                phone: '01096397289',
+                                address: 'mansoura_talkha_corner_of_agriculture_street_al-Maghazi_tower'.tr(),
+                                onEdit: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (_) => const EditeAddress()));
+                                },
+                                onDelete: () {
 
-                          },
-                        ),
-                      );
+                                },
+                              ),
+                            );
 
-                      })
+                          })
 
-                );
-              }
-            )
+                  );
+                }
+            ),
           ],
         ),
       ),

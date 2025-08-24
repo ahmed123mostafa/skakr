@@ -1,3 +1,4 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,18 +6,24 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:settings_app/core/constant/app_colors.dart';
 import 'package:settings_app/feature/main/payment/manager/add_order_cubit.dart';
 import 'package:settings_app/feature/main/payment/manager/add_order_state.dart';
+import 'package:settings_app/feature/main/payment/presentation/screens/request_faluire.dart';
 import 'package:settings_app/feature/main/payment/presentation/screens/request_succeffuly_excuted.dart';
 
+import '../../../list/saved_address/model/all_address_model.dart';
 import '../../../menu/manager/cart_cubit.dart';
 import '../../../menu/manager/chat_state.dart';
 
 class DeliveryTimeScreen extends StatelessWidget {
-  DeliveryTimeScreen({super.key});
+  DeliveryTimeScreen({super.key,required this.selectAddress,required this.cartItems});
+  AllAddressModel? selectAddress;
+  CartCubit? cartItems;
 
   final String deliveryTimeOption = "now";
   final bool isCashOnDelivery = true;
   final String selectedDay = "today";
-
+   int deliveryId=100;
+  var deliveryDate = DateTime.now();
+  var deliveryTime = TimeOfDay.fromDateTime(DateTime.now());
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -33,12 +40,17 @@ class DeliveryTimeScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset("assets/images/Group (9).png"),
-                  Text(
-                    "choose delivery time".tr(),
-                    style: TextStyle(
-                      color: AppColors.mainAppColor,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16.sp,
+                  InkWell(
+                    onTap: (){
+                      print(cartItems!.cartItems.length);
+                    },
+                    child: Text(
+                      "choose delivery time".tr(),
+                      style: TextStyle(
+                        color: AppColors.mainAppColor,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16.sp,
+                      ),
                     ),
                   ),
                 ],
@@ -64,70 +76,101 @@ class DeliveryTimeScreen extends StatelessWidget {
                           fontWeight: FontWeight.w400,
                           color: const Color(0xff231F20))),
                   SizedBox(height: 10.h),
-                  buildRadioOption(
-                      "delivery now".tr(), "now", deliveryTimeOption),
-                  SizedBox(height: 5.w),
-                  buildRadioOption(
-                      "delivery later".tr(), "later", deliveryTimeOption),
+                  BlocBuilder< AddOrderCubit,  AddOrderState>(
+                    builder: (context, state) {
+                      final deliveryTimeOption = context.read<AddOrderCubit>().deliveryTimeOption;
+
+                      return Column(
+                        children: [
+                          InkWell(
+
+                          onTap: (){
+                            deliveryId=100;
+                            deliveryDate=DateFormat('yyyy-MM-dd','en').format(DateTime.now()) as DateTime;
+                            deliveryTime= DateFormat('HH:mm:ss').format(DateTime.now()) as TimeOfDay;
+                          }
+                          ,child: buildRadioOption("delivery now".tr(), "now", deliveryTimeOption, context)),
+                          SizedBox(height: 5.w),
+                          buildRadioOption("delivery later".tr(), "later", deliveryTimeOption, context),
+                        ],
+                      );
+                    },
+                  ),
 
 
 
 
-                  Visibility(
-                    replacement: const SizedBox(),
-                    child: Column(
-                      children: [
-                    SizedBox(height: 20.h),
-                        BlocBuilder<AddOrderCubit, AddOrderState>(
-                          builder: (context, state) {
-                            final deliveryCubit = context.read<AddOrderCubit>();
 
-                            return Row(
-                              children: [
-                                DayLabel(
-                                  label: "today".tr(),
-                                  value: "today",
-                                  selectedDay:deliveryCubit.selectedDay=="today"?true:false ,
-                                  onTap: () => deliveryCubit.toggleSelectedDay(dayName: "today"),
-                                ),
-                                const Spacer(),
-                                DayLabel(
-                                  label: "tomorrow".tr(),
-                                  value: "tomorrow",
-                                  selectedDay: deliveryCubit.selectedDay=="tomorrow"?true:false,
-                                  onTap: () => deliveryCubit.toggleSelectedDay(dayName: "tomorrow"),
-                                ),
-                              ],
-                            );
-                          },
-                        ),
-                        SizedBox(height: 10.h),
-                        BlocBuilder<AddOrderCubit, AddOrderState>(
-                            builder: (context, state) {
-                              return GridView.builder(
-                                shrinkWrap: true,
-                                physics: const NeverScrollableScrollPhysics(),
-                                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 3,
-                                  mainAxisSpacing: 8.h,
-                                  crossAxisSpacing: 8.w,
-                                  childAspectRatio: 2.5,
-                                ),
-                                itemCount: BlocProvider.of<AddOrderCubit>(context)
-                                    .deliveryTimesList
-                                    .length ??
-                                    0,
-                                itemBuilder: (context, index) {
-                                  return TimeSlotComponent(
-                                    index: index,
-                                    addOrderCubit:
-                                    BlocProvider.of<AddOrderCubit>(context),
+                  BlocBuilder<AddOrderCubit,AddOrderState>(
+                    builder: (context,state) {
+                      return Visibility(
+                        visible:(context.read<AddOrderCubit>().deliveryTimeOption != "now")?true:false ,
+                        replacement: const SizedBox(),
+                        child: Column(
+                          children: [
+                        SizedBox(height: 20.h),
+                            BlocBuilder<AddOrderCubit, AddOrderState>(
+                              builder: (context, state) {
+                                final deliveryCubit = context.read<AddOrderCubit>();
+
+                                return Row(
+                                  children: [
+                                    DayLabel(
+                                      label: "today".tr(),
+                                      value: "today",
+                                      selectedDay:deliveryCubit.selectedDay=="today"?true:false ,
+                                      onTap: () => deliveryCubit.toggleSelectedDay(dayName: "today"),
+                                    ),
+                                    const Spacer(),
+                                    DayLabel(
+                                      label: "tomorrow".tr(),
+                                      value: "tomorrow",
+                                      selectedDay: deliveryCubit.selectedDay=="tomorrow"?true:false,
+                                      onTap: () => deliveryCubit.toggleSelectedDay(dayName: "tomorrow"),
+                                    ),
+                                  ],
+                                );
+                              },
+                            ),
+                            SizedBox(height: 10.h),
+                            BlocBuilder<AddOrderCubit, AddOrderState>(
+                                builder: (context, state) {
+                                  return GridView.builder(
+                                    shrinkWrap: true,
+                                    physics: const NeverScrollableScrollPhysics(),
+                                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 3,
+                                      mainAxisSpacing: 8.h,
+                                      crossAxisSpacing: 8.w,
+                                      childAspectRatio: 2.5,
+                                    ),
+                                    itemCount: BlocProvider.of<AddOrderCubit>(context)
+                                        .deliveryTimesList
+                                        .length ??
+                                        0,
+                                    itemBuilder: (context, index) {
+                                      return InkWell(
+                                        onTap: (){
+
+                                          deliveryId= BlocProvider.of<AddOrderCubit>(context).deliveryTimesList[index].id;
+                                          deliveryDate= DateFormat('yyyy-MM-dd', 'en').format(BlocProvider.of<AddOrderCubit>(context).selectedDay == "today"
+                                              ? DateTime.now()
+                                              : DateTime.now().add(const Duration(days: 1))) as DateTime;
+                                          deliveryTime= DateFormat('HH:mm:ss').format(BlocProvider.of<AddOrderCubit>(context).deliveryTimesList[index].startTime) as TimeOfDay;
+                                        },
+                                        child: TimeSlotComponent(
+                                          index: index,
+                                          addOrderCubit:
+                                          BlocProvider.of<AddOrderCubit>(context),
+                                        ),
+                                      );
+                                    },
                                   );
-                                },
-                              );
-                            }),
-                      ],
-                    ),
+                                }),
+                          ],
+                        ),
+                      );
+                    }
                   ),
 
                   Padding(
@@ -182,33 +225,102 @@ class DeliveryTimeScreen extends StatelessWidget {
                       return SummaryRowComponent(label: "the subtotal".tr(), value: BlocProvider.of<CartCubit>(context).calculateTotalPrice().toStringAsFixed(2),);
                     }
                   ),
-                  SummaryRowComponent(label: "delivery fees".tr(), value: "10"),
+
+                  SummaryRowComponent(label: "delivery fees".tr(), value: "${selectAddress?.deliveryValue??0}"),
                   SummaryRowComponent(label: "discount rate".tr(), value: "0"),
-                  SummaryRowComponent(label: "discount rate".tr(), value: "0"),
+
                   SizedBox(height: 10.h),
-                  SummaryRowComponent(
-                      label: "total".tr(), value: "110.00", isTotal: true),
+                  InkWell(
+                    onTap: (){
+                      print((double.tryParse(selectAddress?.deliveryValue.toString() ?? "0")));
+                      print(BlocProvider.of<CartCubit>(context).calculateTotalPrice());
+                    },
+                    child: SummaryRowComponent(
+                      label: "total".tr(),
+                      value: (
+                          (double.tryParse(selectAddress?.deliveryValue.toString() ?? "0") ?? 0) +
+                              BlocProvider.of<CartCubit>(context).calculateTotalPrice()
+                      ).toStringAsFixed(2),
+                      isTotal: true,
+                    ),
+                  ),
+
+
                   SizedBox(height: 20.h),
                   SizedBox(
                     width: double.infinity,
                     height: 50.h,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.mainAppColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25.r),
-                        ),
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    const RequestSuccessfullyExecuted()));
+                    child: BlocConsumer<AddOrderCubit,AddOrderState>(
+                      listener: (context,state){
+                        if(state is AddOrderError)
+                          {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(builder: (context) => RequestFailure()),
+                            );
+
+                          }
+                        if(state is AddOrderSuccess)
+                          {
+
+                            context.read<CartCubit>().clearCart();
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                     RequestSuccessfullyExecuted(invoiceNumber: state.invoiceNumber,orderSummryModel:state.orderSummryModel ,)));
+                          }
+
                       },
-                      child: Text("payment".tr(),
-                          style:
-                              TextStyle(fontSize: 16.sp, color: Colors.white)),
+                      builder: (context,state) {
+                        return ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColors.mainAppColor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(25.r),
+                            ),
+                          ),
+                          onPressed: () {
+
+                            BlocProvider.of<AddOrderCubit>(context).addOrder
+                              (
+                                discountCode: 'discountCodeController.text',
+                                regionName:selectAddress?.regionName??'',
+                                customerAddress:selectAddress?.addressNotes3??'' ,
+                                customName:selectAddress?.arabicName??'' ,
+                                districtName:selectAddress?.districtName2??'' ,
+                                email:selectAddress?.email??'' ,
+                                listItem:cartItems?.cartItems ,
+                                total: cartItems?.calculateTotalPrice()??0,
+                                addition:0,
+                                discount:0.0
+                            ,
+                              deliveryDate: deliveryDate,
+                              deliveryId: deliveryId,
+                              deliveryTime: deliveryTime
+
+                            );
+                            
+                          },
+                          child: ConditionalBuilder(
+
+                            condition: state is !AddOrderLoading,
+                            builder:
+                            (context)
+                              {
+                                return   Text("payment".tr(),
+                                    style:
+                                    TextStyle(fontSize: 16.sp, color: Colors.white));
+                              },
+
+                              fallback: (context)
+                            {
+                            return const Center(child: CircularProgressIndicator(color: Colors.white,));
+                            }
+
+                          ),
+                        );
+                      }
                     ),
                   ),
                 ],
@@ -218,20 +330,29 @@ class DeliveryTimeScreen extends StatelessWidget {
         ));
   }
 
-  Widget buildRadioOption(String label, String value, String selectedValue) {
-    bool selected = selectedValue == value;
+  Widget buildRadioOption(
+      String label,
+      String value,
+      String selectedValue,
+      BuildContext context,
+      ) {
     return Row(
       children: [
-        Radio(
+        Radio<String>(
           value: value,
           groupValue: selectedValue,
-          onChanged: (_) {}, // ثابت مؤقتًا
+          onChanged: (val) {
+            if (val != null) {
+              context.read<AddOrderCubit>().changeDeliveryTime(val);
+            }
+          },
           activeColor: AppColors.mainAppColor,
         ),
         Text(label, style: TextStyle(fontSize: 14.sp)),
       ],
     );
   }
+
 
 
 }

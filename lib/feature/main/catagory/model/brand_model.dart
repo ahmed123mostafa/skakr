@@ -1,5 +1,5 @@
 class BrandModel {
-  final String fabricID;
+  final int fabricID; // بدل String
   final String fabricName;
   final String fabricEName;
   final String fabricImage;
@@ -13,7 +13,7 @@ class BrandModel {
 
   factory BrandModel.fromJson(Map<String, dynamic> json) {
     return BrandModel(
-      fabricID: json['FabricID'] ?? '',
+      fabricID: int.tryParse(json['FabricID'].toString()) ?? 0,
       fabricName: json['FabricName'] ?? '',
       fabricEName: json['FabricEName'] ?? '',
       fabricImage: json['FabricImage'] ?? '',
@@ -29,6 +29,7 @@ class BrandModel {
     };
   }
 }
+
 class BrandResponseModel {
   final List<BrandModel> brands;
 

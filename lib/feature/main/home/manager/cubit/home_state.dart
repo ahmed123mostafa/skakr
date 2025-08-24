@@ -32,3 +32,23 @@ class GetBiggestDiscountError extends HomeState {}
 class GetNewProductLoading extends HomeState {}
 class GetNewProductSuccess extends HomeState {}
 class GetNewProductError extends HomeState {}
+
+class OfferOneLoading extends HomeState {}
+class OfferOneSuccess extends HomeState {}
+class OfferOneError extends HomeState {}
+
+class OfferTwoLoading extends HomeState {}
+class OfferTwoSuccess extends HomeState {}
+class OfferTwoError extends HomeState {}
+
+class OfferThreeLoading extends HomeState {}
+class OfferThreeSuccess extends HomeState {}
+class OfferThreeError extends HomeState {}
+
+class OfferFourLoading extends HomeState {}
+class OfferFourSuccess extends HomeState {}
+class OfferFourError extends HomeState {}
+
+class OfferFiveLoading extends HomeState {}
+class OfferFiveSuccess extends HomeState {}
+class OfferFiveError extends HomeState {}

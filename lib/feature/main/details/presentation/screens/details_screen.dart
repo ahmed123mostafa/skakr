@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -10,9 +11,12 @@ import 'package:settings_app/feature/main/catagory/manager/category_cubit.dart';
 import 'package:settings_app/feature/main/catagory/manager/category_state.dart';
 import 'package:settings_app/feature/main/details/presentation/widget/custom_similair_product.dart';
 import 'package:settings_app/feature/main/details/presentation/widget/offer_toogel_slider.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../home/presentation/widget/product_horizontal_card.dart';
+import '../../../menu/manager/cart_cubit.dart';
+import '../../../menu/manager/chat_state.dart';
 import '../../manager/product_details_cubit.dart';
 import '../../manager/product_details_state.dart';
 
@@ -106,14 +110,22 @@ class DetailsScreen extends StatelessWidget {
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
-                                        Text(
-                                          "2",
-                                          style: TextStyle(
-                                            fontFamily: "Alexandria",
-                                            fontSize: 22.sp,
-                                            fontWeight: FontWeight.w700,
-                                            color: AppColors.mainAppColor,
-                                          ),
+                                        BlocBuilder<CartCubit, CartState>(
+                                          builder: (context, state) {
+                                            final cubit= context.watch<CartCubit>();
+                                            return
+
+                                              Text(
+                                                '${cubit.cartItems.isNotEmpty ?cubit.cartItems.length: 0}',
+                                                style: TextStyle(
+                                                  fontFamily: "Alexandria",
+                                                  fontSize: 22.sp,
+                                                  fontWeight: FontWeight.w700,
+                                                  color: AppColors.mainAppColor,
+                                                ),
+                                              );
+
+                                          },
                                         ),
                                         SizedBox(width: w(5)),
                                         Image.asset(AppAssets.menuuu),
@@ -159,20 +171,37 @@ class DetailsScreen extends StatelessWidget {
                                   child: PageView.builder(
                                       controller: pageController,
                                       physics: const BouncingScrollPhysics(),
-                                      itemCount:  detailsCubit.productDetailsList[0].productUnitImages?.length??0,
+                                      itemCount:   detailsCubit.productDetailsList[0].productUnitImages?.length??0,
+
+
+
                                       itemBuilder: (context, index) {
                                         return
 
-                                          Image.network(
-                                            detailsCubit.productDetailsList[0].productUnitImages?[index].imagePath??'',
-                                            fit: BoxFit.fill,
+                                          CachedNetworkImage(
+                                            imageUrl: detailsCubit.productDetailsList[0].productUnitImages?[index].imagePath ?? '',
+
+                                            placeholder: (context, url) => const Skeletonizer(
+                                              enabled: true,
+                                              effect: ShimmerEffect(),
+                                              child: Icon(
+                                                Icons.image,
+                                                size: 200,
+                                                color: Colors.grey,
+                                              ),
+                                            ),
+                                            errorWidget: (context, url, error) =>  Icon(
+                                              Icons.error_outline_outlined,
+                                              size: 100,
+                                              color: AppColors.mainAppColor,
+                                            ),
                                           );
                                       }),
                                 ),
                                 Center(
                                   child: SmoothPageIndicator(
                                     controller: pageController,
-                                    count: 2,
+                                    count: detailsCubit.productDetailsList[0].productUnitImages?.length??0,
                                     axisDirection: Axis.horizontal,
                                     effect: SlideEffect(
                                         spacing: 8.0,
@@ -193,9 +222,25 @@ class DetailsScreen extends StatelessWidget {
                                         ? Alignment.topRight
                                         : Alignment.topLeft,
                                     child: Text(
-                                      isArabic?
-                                      detailsCubit.productDetailsList[0].productArName??'':
-                                     detailsCubit.productDetailsList[0].productEnName??'',
+
+
+
+      isArabic?
+                                           '${detailsCubit.productDetailsList[0].productArName}'
+                                          '${(
+                                          //productDetailsCubit.selectedUnit == 0 &&
+                                               detailsCubit.productDetailsList[0].productUnitImages?[detailsCubit.selectedUnit].unitValue == 1)
+                                          ? ''
+                                          : ' * ${detailsCubit.productDetailsList[0].productUnitImages![detailsCubit.selectedUnit].unitValue}'}'
+                                          : '${detailsCubit.productDetailsList[0].productEnName}'
+                                          '${(
+                                          //productDetailsCubit.selectedUnit == 0 &&
+          detailsCubit.productDetailsList[0].productUnitImages![0].unitValue == 1)
+                                          ? ''
+                                          : ' * ${detailsCubit.productDetailsList[0].productUnitImages![detailsCubit.selectedUnit].unitValue}'}',
+
+
+                                      maxLines: 2,
                                       style: TextStyle(
                                         fontFamily: "Alexandria",
                                         fontSize: 16.sp,
@@ -209,27 +254,71 @@ class DetailsScreen extends StatelessWidget {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Align(
-                                      alignment: Alignment.topRight,
-                                      child: Text(
-                                        '${detailsCubit.productDetailsList[0].priceAfterDiscount}'??'',
-                                        style: TextStyle(
-                                          fontFamily: "Alexandria",
-                                          fontSize: 24.sp,
-                                          fontWeight: FontWeight.w700,
-                                          color: const Color(0xff231F20),
+                                    Column(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Align(
+                                              alignment: Alignment.topRight,
+                                              child: Text(
+
+                                                '${(detailsCubit.productDetailsList[0].productUnitImages![detailsCubit.selectedUnit].priceAfterDiscount ?? 0.0).toStringAsFixed(2)}  '??'',
+                                                style: TextStyle(
+                                                  fontFamily: "Alexandria",
+                                                  fontSize: 24.sp,
+                                                  fontWeight: FontWeight.w700,
+                                                  color: const Color(0xff231F20),
+                                                ),
+                                              ),
+                                            ),
+
+                                            Text(
+                                              "pound".tr(),
+                                              style: TextStyle(
+                                                fontFamily: "Alexandria",
+                                                fontSize: 16.sp,
+                                                fontWeight: FontWeight.w400,
+                                                color: const Color(0xff231F20).withOpacity(0.7),
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      ),
+                                        if(detailsCubit.productDetailsList[0].productUnitImages![detailsCubit.selectedUnit].price!=detailsCubit.productDetailsList[0].productUnitImages![detailsCubit.selectedUnit].priceAfterDiscount)
+                                        Row(
+                                          children: [
+                                            Align(
+                                              alignment: Alignment.topRight,
+                                              child: Text(
+
+                                                '${(detailsCubit.productDetailsList[0].productUnitImages![detailsCubit.selectedUnit].price ?? 0.0).toStringAsFixed(2)}  '??'',
+                                                style: TextStyle(
+                                                  fontFamily: "Alexandria",
+                                                  fontSize: 20.sp,
+                                                  fontWeight: FontWeight.w500,
+                                                  color: const Color(0xff231F20),
+                                                  decoration: TextDecoration.underline,
+                                                  decorationColor: Colors.red,
+                                                  decorationThickness: 1,
+                                                ),
+                                              ),
+                                            ),
+
+                                            Text(
+                                              "pound".tr(),
+                                              style: TextStyle(
+                                                fontFamily: "Alexandria",
+                                                fontSize: 16.sp,
+                                                fontWeight: FontWeight.w400,
+                                                color: const Color(0xff231F20).withOpacity(0.7),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+
+
+                                      ],
                                     ),
-                                    Text(
-                                      "pound".tr(),
-                                      style: TextStyle(
-                                        fontFamily: "Alexandria",
-                                        fontSize: 16.sp,
-                                        fontWeight: FontWeight.w400,
-                                        color: const Color(0xff231F20).withOpacity(0.7),
-                                      ),
-                                    ),
+
                                     SizedBox(width: w(25)),
                                     Row(
                                       children: [
@@ -248,7 +337,7 @@ class DetailsScreen extends StatelessWidget {
                                             ],
                                           ),
                                           child: Text(
-      (detailsCubit.productDetailsList[0].stockQuantity!>0)?
+      (detailsCubit.productDetailsList[0].productUnitImages![detailsCubit.selectedUnit].stockQty>0)?
                                             "available".tr(): "unavailable".tr(),
                                             style: TextStyle(
                                               fontSize: 14.sp,
@@ -260,7 +349,7 @@ class DetailsScreen extends StatelessWidget {
                                         ),
                                         SizedBox(width: w(10)),
                                         Text(
-                                          'SN : ${detailsCubit.productDetailsList[0].productID}',
+                                          'SN : ${detailsCubit.productDetailsList[0].categoryId}',
                                           style: TextStyle(
                                             fontSize: 16.sp,
                                             fontWeight: FontWeight.w500,
@@ -277,7 +366,16 @@ class DetailsScreen extends StatelessWidget {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    const OfferToggleSlider(),
+                                    OfferToggleSlider(
+                                      items: detailsCubit.productDetailsList[0].productUnitImages
+                                          ?.map((e) => e.unitArName ?? '')
+                                          .toList() ?? [],
+                                      selectedIndex: detailsCubit.selectedUnit,
+                                      onChanged: (index) {
+                                        detailsCubit.changeSelectedUnit(index: index);
+                                      },
+                                    ),
+
                                     SizedBox(width: w(20)),
                                     InkWell(
                                       onTap: () async {
@@ -388,7 +486,7 @@ class DetailsScreen extends StatelessWidget {
                             child: BlocBuilder<CategoryCubit, CategoryState>(
                               builder: (context, state) {
                                 CategoryCubit cubit = BlocProvider.of<CategoryCubit>(context);
-                                return ProductHorizontalCard(categoryName:  "similar_products".tr() ,product:cubit.itemsSubCategoryList ,);
+                                return ProductHorizontalCard(itemsFavorite: cubit.itemsForSubCategoryFavorite,categoryName:  "similar_products".tr() ,product:cubit.itemsSubCategoryList ,);
                               },
                             ),
                           ),

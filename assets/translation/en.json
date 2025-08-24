@@ -7,7 +7,7 @@
   "please_enter_your_password":"Enter Your Password",
   "please_confirm_your_password":"Confirm Your Password",
   "enter erea":"Enter erea",
-  "unavailable": "غير متوفر",
+  "unavailable": "غير متوفر","welcome_message": "Welcome, ",
   "please_enter_your_city":"Enter Your City",
   "please_enter_your_street":"Enter Your Street",
   "please_enter_building_name_or_number":"Enter Building Name or Number",
@@ -16,7 +16,7 @@
   "please_enter_address_type":"Enter Address Type",
   "please_enter_delivery_instructions":"Enter Delivery Iinstructions",
 
-
+  "login_error": "Login failed, please check your credentials",
 
   
   
@@ -153,7 +153,7 @@
   "it_has_been_canceled.": "It has been cancelled.",
   "total_price:": "Total Price:",
   "1000.00 pounds": "1000 EGP",
-  "delivery_to:home": "Delivery To: Home",
+  "delivery_to:": "Delivery To: Home",
   "azzhar_street 2,hawalli,nasr city": "2 Azzhar St, Hawalli, Nasr City",
   "price:": "Price:",
   "pounds": " EGP",

@@ -55,7 +55,7 @@ print(loadedList);
         nameEn: nameEn,
         barcode: barcode,
         priceBeforeDiscount: price,
-        priceAfterDiscount: priceAfterDiscount,
+        Price: priceAfterDiscount,
         image: image,
         stockQuantity: stockQuantity,
         customerQuantity: customerQuantity,
@@ -69,7 +69,7 @@ print(loadedList);
   double calculateTotalPrice() {
     return _cartItems.fold(
       0.0,
-          (total, item) => total + item.quantity * item.priceAfterDiscount,
+          (total, item) => total + item.quantity * item.Price
     );
   }
 
@@ -102,8 +102,7 @@ print(loadedList);
       final index = _cartItems.indexWhere((item) => item.barcode == barcode);
       if (index != -1) {
         if (_cartItems[index].quantity > 1) {
-          print(cartItems[index].quantity);
-          print(cartItems[index].customerQuantity);
+
 
           _cartItems[index] = _cartItems[index].copyWith(
             quantity: _cartItems[index].quantity - 1,
@@ -112,7 +111,7 @@ print(loadedList);
           _cartItems.removeAt(index);
         }
 
-        // حفظ كـ JSON
+
         await HiveCrudManager.saveList(
           cartBox,
           cartKey,

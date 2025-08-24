@@ -47,16 +47,17 @@ class MainCategoryCard extends StatelessWidget {
               height: imageSize,
               fit: BoxFit.contain,
               imageUrl: item.categoryImage!,
-              placeholder: (context, url) => Skeletonizer(
-                enabled: true,
-                child: Center(
-                  child: Icon(Icons.image, size: imageSize),
-                ),
-              ),
+              placeholder: (context, url) => const Center(
+                child: Skeletonizer(
 
+
+                  enabled: true,child:  Icon(Icons.image,size: 50,)),
+              ),
+              errorWidget: (context, url, error) =>  const Icon(Icons.error),
             ),),
 
-          Container(
+
+            Container(
             width: imageSize,
             height: containerHeight,
             decoration: BoxDecoration(

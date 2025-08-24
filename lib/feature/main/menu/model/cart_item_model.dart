@@ -5,7 +5,7 @@ class CartItem {
   final String nameEn;
   final String barcode;
   final double priceBeforeDiscount;
-  final double priceAfterDiscount;
+  final double Price;
   final String image;
   final num stockQuantity;
   final num customerQuantity;
@@ -17,7 +17,7 @@ class CartItem {
     required this.nameEn,
     required this.barcode,
     required this.priceBeforeDiscount,
-    required this.priceAfterDiscount,
+    required this.Price,
     required this.image,
     required this.stockQuantity,
     required this.customerQuantity,
@@ -42,7 +42,7 @@ class CartItem {
       nameEn: nameEn ?? this.nameEn,
       barcode: barcode ?? this.barcode,
       priceBeforeDiscount: priceBeforeDiscount ?? this.priceBeforeDiscount,
-      priceAfterDiscount: priceAfterDiscount ?? this.priceAfterDiscount,
+      Price: priceAfterDiscount ?? this.Price,
       image: image ?? this.image,
       stockQuantity: stockQuantity ?? this.stockQuantity,
       customerQuantity: customerQuantity ?? this.customerQuantity,
@@ -57,7 +57,7 @@ class CartItem {
       nameEn: json['nameEn'],
       barcode: json['barcode'],
       priceBeforeDiscount: (json['priceBeforeDiscount'] as num).toDouble(),
-      priceAfterDiscount: (json['priceAfterDiscount'] as num).toDouble(),
+      Price: (json['priceAfterDiscount'] as num).toDouble(),
       image: json['image'],
       stockQuantity: json['stockQuantity'],
       customerQuantity: json['BillCustomerQty'],
@@ -67,12 +67,12 @@ class CartItem {
 
   Map<String, dynamic> toJson() {
     return {
-      'productId': productId,
-      'nameAr': nameAr,
-      'nameEn': nameEn,
+      'ItemID': productId,
+      'ItemArMame': nameAr,
+      'ItemEnMame': nameEn,
       'barcode': barcode,
       'priceBeforeDiscount': priceBeforeDiscount,
-      'priceAfterDiscount': priceAfterDiscount,
+      'Price': Price,
       'image': image,
       'stockQuantity': stockQuantity,
       'BillCustomerQty': customerQuantity,
@@ -89,7 +89,7 @@ class CartItem {
       nameEn: '',
       barcode: '',
       priceBeforeDiscount: 0,
-      priceAfterDiscount: 0,
+      Price: 0,
       image: '',
       stockQuantity: 0,
       customerQuantity: 0,
